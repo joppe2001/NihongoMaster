@@ -1,6 +1,6 @@
 [package]
 name = "nihongo-master"
-version = "0.1.0"
+version = "0.1.1"
 description = "The ultimate macOS Japanese learning application"
 authors = ["NihongoMaster Team"]
 edition = "2021"
