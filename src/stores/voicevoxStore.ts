@@ -98,29 +98,7 @@ export const useVoicevoxStore = create<VoicevoxStore>((set, get) => ({
 
   // ── install ───────────────────────────────────────────────────
   install: async () => {
-    set({ error: null, phase: 'downloading', progress: { percentage: 0, label: 'Starting download…' } });
-
-    // ── Download ──
-    const unlistenDownload = await onDownloadProgress((p) => {
-      set({
-        progress: {
-          percentage: p.percentage,
-          label: `Downloading… ${formatBytes(p.downloaded_bytes)} / ${formatBytes(p.total_bytes)}`,
-        },
-      });
-    });
-
-    try {
-      await downloadVoicevox();
-    } catch (e) {
-      unlistenDownload();
-      set({ phase: 'error', error: `Download failed: ${e}`, progress: null });
-      return;
-    }
-
-    unlistenDownload();
-
-    // ── Derive VVM files from selected characters ──
+    // Derive VVM files from selected characters FIRST (needed for download)
     let vvmFiles: string[] = [];
     try {
       const catalogRes = await fetch('/voicevox-samples/catalog.json');
@@ -134,13 +112,40 @@ export const useVoicevoxStore = create<VoicevoxStore>((set, get) => ({
       }
       vvmFiles = [...neededFiles];
     } catch {
-      // If catalog can't be loaded, extract everything
+      // If catalog can't be loaded, can't proceed
+      set({ phase: 'error', error: 'Failed to load voice catalog', progress: null });
+      return;
     }
 
-    const keptLabel = vvmFiles.length > 0
-      ? `Extracting (keeping ${vvmFiles.length} voice model${vvmFiles.length > 1 ? 's' : ''})…`
-      : 'Extracting all voices…';
-    set({ phase: 'extracting', progress: { percentage: -1, label: keptLabel } });
+    if (vvmFiles.length === 0) {
+      set({ phase: 'error', error: 'No voices selected', progress: null });
+      return;
+    }
+
+    set({ error: null, phase: 'downloading', progress: { percentage: 0, label: 'Starting download…' } });
+
+    // ── Download engine core + selected VVMs ──
+    const unlistenDownload = await onDownloadProgress((p) => {
+      set({
+        progress: {
+          percentage: p.percentage,
+          label: `${p.label}… ${formatBytes(p.downloaded_bytes)} / ${formatBytes(p.total_bytes)}`,
+        },
+      });
+    });
+
+    try {
+      await downloadVoicevox(vvmFiles);
+    } catch (e) {
+      unlistenDownload();
+      set({ phase: 'error', error: `Download failed: ${e}`, progress: null });
+      return;
+    }
+
+    unlistenDownload();
+
+    // ── Extract core + install VVMs ──
+    set({ phase: 'extracting', progress: { percentage: -1, label: `Installing engine + ${vvmFiles.length} voice model(s)…` } });
 
     try {
       await extractVoicevox(vvmFiles);

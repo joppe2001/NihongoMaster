@@ -38,7 +38,8 @@ pub fn process_review(
     let result: SchedulingResult = fsrs.schedule(&card, Rating::from_i32(rating));
 
     let now = Utc::now().naive_utc();
-    let due = now + chrono::Duration::days(result.scheduled_days as i64);
+    let fuzzed_days = apply_fuzz(result.scheduled_days);
+    let due = now + chrono::Duration::days(fuzzed_days as i64);
 
     ReviewResult {
         new_state: result.state.as_str().to_string(),
@@ -60,7 +61,6 @@ pub fn get_retrievability(stability: f64, elapsed_days: u32) -> f64 {
 }
 
 /// Add a fuzz factor to intervals to prevent clustering of reviews
-#[allow(dead_code)]
 pub fn apply_fuzz(interval: u32) -> u32 {
     if interval < 3 {
         return interval;

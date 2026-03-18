@@ -26,8 +26,8 @@ export async function getUserStats(userId: number): Promise<UserStats> {
       `SELECT COALESCE(SUM(cards_reviewed), 0) as total FROM user_progress WHERE user_id = $1`,
       [userId]
     ),
-    query<{ current_streak: number; longest_streak: number }>(
-      `SELECT current_streak, longest_streak FROM users WHERE id = $1`,
+    query<{ streak_days: number }>(
+      `SELECT streak_days FROM users WHERE id = $1`,
       [userId]
     ),
     query<{ content_type: string; total: number; learned: number; learning: number; mature: number }>(
@@ -41,8 +41,8 @@ export async function getUserStats(userId: number): Promise<UserStats> {
       [userId]
     ),
     query<{ avg_accuracy: number }>(
-      `SELECT COALESCE(AVG(accuracy), 0) as avg_accuracy
-       FROM user_progress WHERE user_id = $1 AND accuracy > 0`,
+      `SELECT COALESCE(AVG(accuracy_percent), 0) as avg_accuracy
+       FROM user_progress WHERE user_id = $1 AND accuracy_percent > 0`,
       [userId]
     ),
   ]);
@@ -62,8 +62,8 @@ export async function getUserStats(userId: number): Promise<UserStats> {
   return {
     totalCardsLearned: Object.values(breakdown).reduce((s, b) => s + b.learned, 0),
     totalReviews: reviewResult[0]?.total ?? 0,
-    currentStreak: streakResult[0]?.current_streak ?? 0,
-    longestStreak: streakResult[0]?.longest_streak ?? 0,
+    currentStreak: streakResult[0]?.streak_days ?? 0,
+    longestStreak: streakResult[0]?.streak_days ?? 0, // longest not tracked separately yet
     totalStudyTimeMinutes: 0, // Not tracked yet
     averageAccuracy: Math.round(accuracyResult[0]?.avg_accuracy ?? 0),
     kanaProgress: breakdown['kana'] ?? emptyBreakdown,

@@ -36,34 +36,22 @@ fn platform_key() -> &'static str {
     }
 }
 
-fn download_url() -> String {
+const GITHUB_RELEASE_BASE: &str =
+    "https://github.com/joppe2001/NihongoMaster/releases/download/voicevox-engine-v0.25.1";
+
+fn engine_core_url() -> String {
     let key = platform_key();
-    format!(
-        "https://github.com/VOICEVOX/voicevox_engine/releases/download/{version}/voicevox_engine-{key}-{version}.vvpp",
-        version = VOICEVOX_VERSION,
-        key = key,
-    )
+    format!("{}/engine-core-{}.zip", GITHUB_RELEASE_BASE, key)
 }
 
-/// Approximate download size in bytes per platform (~1.7-1.85 GB).
-fn download_size_bytes() -> u64 {
-    match platform_key() {
-        "macos-arm64" => 1_823_105_551,
-        "macos-x64" => 1_826_321_992,
-        "windows-cpu" => 1_793_000_000,
-        "linux-cpu-arm64" => 1_843_343_711,
-        _ => 1_847_590_025,
-    }
+fn vvm_url(filename: &str) -> String {
+    format!("{}/{}", GITHUB_RELEASE_BASE, filename)
 }
 
 // ── Paths ─────────────────────────────────────────────────────
 
 fn app_data(app: &AppHandle) -> PathBuf {
     app.path().app_data_dir().expect("app data dir")
-}
-
-fn archive_path(app: &AppHandle) -> PathBuf {
-    app_data(app).join("voicevox_engine.vvpp")
 }
 
 fn engine_dir(app: &AppHandle) -> PathBuf {
@@ -110,8 +98,6 @@ pub struct VoicevoxStatus {
     pub pid: Option<u32>,
     pub version: &'static str,
     pub platform: &'static str,
-    pub download_url: String,
-    pub download_size_bytes: u64,
 }
 
 #[tauri::command]
@@ -140,8 +126,6 @@ pub fn voicevox_get_status(app: AppHandle) -> VoicevoxStatus {
         pid: *ENGINE_PID.lock().unwrap(),
         version: VOICEVOX_VERSION,
         platform: platform_key(),
-        download_url: download_url(),
-        download_size_bytes: download_size_bytes(),
     }
 }
 
@@ -171,128 +155,143 @@ struct DownloadProgress {
     downloaded_bytes: u64,
     total_bytes: u64,
     percentage: f32,
+    label: String,
 }
 
-/// Download the VOICEVOX Engine archive.
-/// Emits `voicevox://download-progress` events to the window during download.
-#[tauri::command]
-pub async fn voicevox_download(app: AppHandle) -> Result<(), String> {
-    let url = download_url();
-    let dest = archive_path(&app);
-
-    // Ensure app data dir exists
-    if let Some(parent) = dest.parent() {
-        std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
-    }
-
-    // If a partial download exists from a previous attempt, remove it
+/// Helper: stream-download a single file from a URL to a local path.
+async fn download_file(
+    client: &reqwest::Client,
+    url: &str,
+    dest: &std::path::Path,
+    app: &AppHandle,
+    label: &str,
+    global_downloaded: &mut u64,
+    global_total: u64,
+) -> Result<(), String> {
     if dest.exists() {
-        std::fs::remove_file(&dest).map_err(|e| e.to_string())?;
+        // Skip re-downloading files that already exist
+        let size = std::fs::metadata(dest).map(|m| m.len()).unwrap_or(0);
+        *global_downloaded += size;
+        return Ok(());
     }
-
-    let client = reqwest::Client::builder()
-        .connection_verbose(true)
-        // No global timeout — large file download can take many minutes
-        // Individual read chunks will still time out if the connection stalls
-        .read_timeout(std::time::Duration::from_secs(120))
-        .build()
-        .map_err(|e| format!("Failed to build HTTP client: {}", e))?;
 
     let response = client
-        .get(&url)
+        .get(url)
         .header("User-Agent", "NihongoMaster/1.0")
         .send()
         .await
-        .map_err(|e| {
-            // Give a human-readable error — the raw reqwest message is often opaque
-            let msg = e.to_string();
-            if msg.contains("certificate") || msg.contains("tls") || msg.contains("ssl") {
-                format!("TLS/certificate error connecting to GitHub: {}", msg)
-            } else if msg.contains("dns") || msg.contains("resolve") {
-                format!("DNS error — check your internet connection: {}", msg)
-            } else if msg.contains("connect") || msg.contains("refused") {
-                format!("Connection refused — check your internet connection: {}", msg)
-            } else {
-                format!("Network error: {}", msg)
-            }
-        })?;
+        .map_err(|e| format!("Download failed for {}: {}", label, e))?;
 
     if !response.status().is_success() {
-        return Err(format!("HTTP {}", response.status()));
+        return Err(format!("HTTP {} for {}", response.status(), label));
     }
 
-    let total = response.content_length().unwrap_or(download_size_bytes());
-    let mut downloaded = 0u64;
-
-    let mut file = std::fs::File::create(&dest).map_err(|e| e.to_string())?;
+    let mut file = std::fs::File::create(dest).map_err(|e| e.to_string())?;
     let mut stream = response.bytes_stream();
 
     while let Some(chunk_result) = stream.next().await {
         let chunk = chunk_result.map_err(|e| format!("Stream error: {}", e))?;
         file.write_all(&chunk).map_err(|e| e.to_string())?;
-        downloaded += chunk.len() as u64;
+        *global_downloaded += chunk.len() as u64;
 
-        // Emit progress every ~5MB to avoid flooding the frontend
-        if downloaded % (5 * 1024 * 1024) < chunk.len() as u64 {
+        if *global_downloaded % (2 * 1024 * 1024) < chunk.len() as u64 {
             let _ = app.emit(
                 "voicevox://download-progress",
                 DownloadProgress {
-                    downloaded_bytes: downloaded,
-                    total_bytes: total,
-                    percentage: (downloaded as f32 / total as f32) * 100.0,
+                    downloaded_bytes: *global_downloaded,
+                    total_bytes: global_total,
+                    percentage: (*global_downloaded as f32 / global_total as f32) * 100.0,
+                    label: label.to_string(),
                 },
             );
         }
     }
 
-    // Flush and close the file before size check
     file.flush().map_err(|e| e.to_string())?;
-    drop(file);
+    Ok(())
+}
 
-    // Verify the downloaded file is plausibly complete.
-    // Minimum threshold: 90% of expected size (handles servers that report wrong Content-Length).
-    let expected = download_size_bytes();
-    let minimum = expected * 9 / 10;
-    if downloaded < minimum {
-        // Delete the truncated file so the next attempt starts fresh
-        let _ = std::fs::remove_file(&dest);
-        return Err(format!(
-            "Download appears incomplete: got {} bytes, expected ~{}. \
-             Please check your internet connection and try again.",
-            downloaded, expected
-        ));
+/// Download the VOICEVOX Engine core + selected voice models.
+///
+/// Downloads from self-hosted split files on GitHub:
+///   - engine-core-{platform}.zip (~270 MB)
+///   - {name}.vvm for each selected voice (~55 MB each)
+///
+/// Emits `voicevox://download-progress` events with global progress across all files.
+#[tauri::command]
+pub async fn voicevox_download(app: AppHandle, selected_vvm_files: Vec<String>) -> Result<(), String> {
+    let data_dir = app_data(&app);
+    let downloads_dir = data_dir.join("voicevox_downloads");
+    std::fs::create_dir_all(&downloads_dir).map_err(|e| e.to_string())?;
+
+    let client = reqwest::Client::builder()
+        .read_timeout(std::time::Duration::from_secs(120))
+        .build()
+        .map_err(|e| format!("Failed to build HTTP client: {}", e))?;
+
+    // Estimate total download size: core (~270MB) + ~57MB per VVM
+    let estimated_total = 270_000_000u64 + (selected_vvm_files.len() as u64 * 57_000_000);
+    let mut global_downloaded = 0u64;
+
+    // 1. Download engine core
+    let core_dest = downloads_dir.join("engine-core.zip");
+    download_file(
+        &client,
+        &engine_core_url(),
+        &core_dest,
+        &app,
+        "Engine core",
+        &mut global_downloaded,
+        estimated_total,
+    )
+    .await?;
+
+    // 2. Download selected VVM files
+    for (i, vvm_name) in selected_vvm_files.iter().enumerate() {
+        let vvm_dest = downloads_dir.join(vvm_name);
+        let label = format!("Voice model {}/{}", i + 1, selected_vvm_files.len());
+        download_file(
+            &client,
+            &vvm_url(vvm_name),
+            &vvm_dest,
+            &app,
+            &label,
+            &mut global_downloaded,
+            estimated_total,
+        )
+        .await?;
     }
 
-    // Final progress event
+    // Final progress
     let _ = app.emit(
         "voicevox://download-progress",
         DownloadProgress {
-            downloaded_bytes: downloaded,
-            total_bytes: downloaded,
+            downloaded_bytes: global_downloaded,
+            total_bytes: global_downloaded,
             percentage: 100.0,
+            label: "Complete".to_string(),
         },
     );
 
     Ok(())
 }
 
-// ── Extract ───────────────────────────────────────────────────
+// ── Install (extract core + copy VVMs) ────────────────────────
 
-/// Extract the downloaded .vvpp (ZIP) archive into the engine directory.
+/// Install the engine from previously downloaded split files.
 ///
-/// `selected_vvm_files`: list of .vvm filenames to keep (e.g. ["0.vvm", "3.vvm"]).
-/// If empty, ALL models are extracted (legacy behaviour).
-/// Engine core files (everything outside model/) are always extracted.
-///
-/// Uses OS-native ZIP tools (ditto on macOS) which correctly handle
-/// fat Mach-O binaries.
+/// 1. Extracts engine-core.zip using OS-native tools (ditto on macOS)
+/// 2. Creates model/ directory and copies selected .vvm files into it
+/// 3. Cleans up the downloads directory
 #[tauri::command]
 pub fn voicevox_extract(app: AppHandle, selected_vvm_files: Vec<String>) -> Result<(), String> {
-    let archive = archive_path(&app);
+    let data_dir = app_data(&app);
+    let downloads_dir = data_dir.join("voicevox_downloads");
     let out_dir = engine_dir(&app);
+    let core_zip = downloads_dir.join("engine-core.zip");
 
-    if !archive.exists() {
-        return Err("Archive not downloaded yet".to_string());
+    if !core_zip.exists() {
+        return Err("Engine core not downloaded yet".to_string());
     }
 
     // Clean any previous engine directory
@@ -301,18 +300,18 @@ pub fn voicevox_extract(app: AppHandle, selected_vvm_files: Vec<String>) -> Resu
     }
     std::fs::create_dir_all(&out_dir).map_err(|e| e.to_string())?;
 
-    let archive_str = archive.to_str().ok_or("Invalid archive path")?;
-    let out_str = out_dir.to_str().ok_or("Invalid output path")?;
+    let core_str = core_zip.to_str().ok_or("Invalid path")?;
+    let out_str = out_dir.to_str().ok_or("Invalid path")?;
 
-    // Step 1: Full extraction with OS tools (handles Mach-O correctly)
+    // Step 1: Extract engine core ZIP
     #[cfg(target_os = "macos")]
     {
         let output = std::process::Command::new("ditto")
-            .args(["-x", "-k", "--sequesterRsrc", archive_str, out_str])
+            .args(["-x", "-k", "--sequesterRsrc", core_str, out_str])
             .output()
             .map_err(|e| format!("Failed to run ditto: {}", e))?;
         if !output.status.success() {
-            return Err(format!("ditto extraction failed: {}", String::from_utf8_lossy(&output.stderr)));
+            return Err(format!("ditto failed: {}", String::from_utf8_lossy(&output.stderr)));
         }
         std::process::Command::new("xattr")
             .args(["-rd", "com.apple.quarantine", out_str])
@@ -323,7 +322,7 @@ pub fn voicevox_extract(app: AppHandle, selected_vvm_files: Vec<String>) -> Resu
     #[cfg(target_os = "linux")]
     {
         let output = std::process::Command::new("unzip")
-            .args(["-o", archive_str, "-d", out_str])
+            .args(["-o", core_str, "-d", out_str])
             .output()
             .map_err(|e| format!("Failed to run unzip: {}", e))?;
         if !output.status.success() {
@@ -339,7 +338,7 @@ pub fn voicevox_extract(app: AppHandle, selected_vvm_files: Vec<String>) -> Resu
     {
         let output = std::process::Command::new("powershell")
             .args(["-NoProfile", "-Command",
-                &format!("Expand-Archive -LiteralPath '{}' -DestinationPath '{}' -Force", archive_str, out_str)])
+                &format!("Expand-Archive -LiteralPath '{}' -DestinationPath '{}' -Force", core_str, out_str)])
             .output()
             .map_err(|e| format!("Failed to run PowerShell: {}", e))?;
         if !output.status.success() {
@@ -347,40 +346,27 @@ pub fn voicevox_extract(app: AppHandle, selected_vvm_files: Vec<String>) -> Resu
         }
     }
 
-    // Step 2: If selected_vvm_files is provided, delete unwanted models to save disk space.
-    // The singing model (s0.vvm) is also removed unless explicitly requested.
-    if !selected_vvm_files.is_empty() {
-        let model_dir = out_dir.join("model");
-        if model_dir.exists() {
-            let mut removed_count = 0u32;
-            let mut saved_bytes = 0u64;
-            if let Ok(entries) = std::fs::read_dir(&model_dir) {
-                for entry in entries.flatten() {
-                    let fname = entry.file_name().to_string_lossy().to_string();
-                    if fname.ends_with(".vvm") && !selected_vvm_files.contains(&fname) {
-                        if let Ok(meta) = entry.metadata() {
-                            saved_bytes += meta.len();
-                        }
-                        let _ = std::fs::remove_file(entry.path());
-                        removed_count += 1;
-                    }
-                }
-            }
-            eprintln!(
-                "VOICEVOX: kept {} model files, removed {} (saved {:.0} MB)",
-                selected_vvm_files.len(),
-                removed_count,
-                saved_bytes as f64 / 1024.0 / 1024.0
-            );
-        }
+    // Step 2: Create model/ and copy selected VVM files
+    let model_dir = out_dir.join("model");
+    std::fs::create_dir_all(&model_dir).map_err(|e| e.to_string())?;
 
-        // Also remove character_info for speakers we don't need
-        // (portraits/art — saves ~300MB but requires knowing UUID mapping,
-        //  so we skip this for now and just remove unneeded models)
+    for vvm_name in &selected_vvm_files {
+        let src = downloads_dir.join(vvm_name);
+        let dest = model_dir.join(vvm_name);
+        if src.exists() {
+            std::fs::rename(&src, &dest)
+                .or_else(|_| std::fs::copy(&src, &dest).map(|_| ()))
+                .map_err(|e| format!("Failed to install {}: {}", vvm_name, e))?;
+        }
     }
 
-    // Delete archive to free ~1.7 GB
-    let _ = std::fs::remove_file(&archive);
+    // Step 3: Clean up downloads directory
+    let _ = std::fs::remove_dir_all(&downloads_dir);
+
+    eprintln!(
+        "VOICEVOX: installed engine core + {} voice model(s)",
+        selected_vvm_files.len()
+    );
 
     Ok(())
 }
@@ -463,34 +449,33 @@ pub fn voicevox_uninstall(app: AppHandle) -> Result<(), String> {
     std::thread::sleep(std::time::Duration::from_millis(500));
 
     let dir = engine_dir(&app);
-    let archive = archive_path(&app);
+    let downloads_dir = app_data(&app).join("voicevox_downloads");
 
-    // Delete engine directory — use `rm -rf` on Unix for robustness
-    // (handles locked files, special chars, etc. better than Rust's remove_dir_all)
-    if dir.exists() {
-        #[cfg(target_family = "unix")]
-        {
-            let output = std::process::Command::new("rm")
-                .args(["-rf", dir.to_str().unwrap_or("")])
-                .output()
-                .map_err(|e| format!("Failed to run rm: {}", e))?;
-
-            if !output.status.success() {
-                let stderr = String::from_utf8_lossy(&output.stderr);
-                return Err(format!("Failed to delete engine files: {}", stderr));
+    // Delete engine directory
+    for d in [&dir, &downloads_dir] {
+        if d.exists() {
+            #[cfg(target_family = "unix")]
+            {
+                let output = std::process::Command::new("rm")
+                    .args(["-rf", d.to_str().unwrap_or("")])
+                    .output()
+                    .map_err(|e| format!("Failed to run rm: {}", e))?;
+                if !output.status.success() {
+                    return Err(format!("Failed to delete: {}", String::from_utf8_lossy(&output.stderr)));
+                }
             }
-        }
-
-        #[cfg(target_os = "windows")]
-        {
-            std::fs::remove_dir_all(&dir)
-                .map_err(|e| format!("Failed to delete engine files: {}", e))?;
+            #[cfg(target_os = "windows")]
+            {
+                std::fs::remove_dir_all(d)
+                    .map_err(|e| format!("Failed to delete: {}", e))?;
+            }
         }
     }
 
-    // Also clean up any leftover archive
-    if archive.exists() {
-        let _ = std::fs::remove_file(&archive);
+    // Also remove any leftover .vvpp from old download system
+    let old_archive = app_data(&app).join("voicevox_engine.vvpp");
+    if old_archive.exists() {
+        let _ = std::fs::remove_file(&old_archive);
     }
 
     Ok(())

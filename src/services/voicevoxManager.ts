@@ -11,14 +11,13 @@ export interface VoicevoxStatus {
   pid: number | null;
   version: string;
   platform: string;
-  download_url: string;
-  download_size_bytes: number;
 }
 
 export interface DownloadProgress {
   downloaded_bytes: number;
   total_bytes: number;
   percentage: number;
+  label: string;
 }
 
 export interface ExtractProgress {
@@ -34,11 +33,11 @@ export async function getVoicevoxStatus(): Promise<VoicevoxStatus> {
 }
 
 /**
- * Start the download. Listen to progress via onDownloadProgress().
- * This is a long-running async command (~1.7 GB download).
+ * Download engine core + selected VVM voice models.
+ * Emits progress events via onDownloadProgress().
  */
-export async function downloadVoicevox(): Promise<void> {
-  return invoke('voicevox_download');
+export async function downloadVoicevox(selectedVvmFiles: string[]): Promise<void> {
+  return invoke('voicevox_download', { selectedVvmFiles });
 }
 
 /**

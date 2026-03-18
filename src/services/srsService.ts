@@ -275,7 +275,7 @@ export async function submitReview(
       result.due_date,
       newReps,
       newLapses,
-      result.scheduled_days,
+      card.scheduledDays, // actual elapsed days = previous scheduled interval
       card.id,
     ]
   );

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { AudioButton } from '@/hooks/useAudio';
+import { HighlightableText } from '@/components/shared/HighlightableText';
 import type { ErrorCorrectionExercise } from '@/services/exerciseGenerator';
 
 interface ErrorCorrectionProps {
@@ -51,8 +52,8 @@ export function ErrorCorrection({ exercise, onAnswer }: ErrorCorrectionProps) {
 
       <div className="bg-bg-primary rounded-xl border border-border p-6 mb-6 max-w-lg mx-auto">
         <div className="flex items-start gap-2">
-          <p className="text-xl text-text-primary jp-text font-medium flex-1">{exercise.incorrectSentence}</p>
-          <AudioButton text={exercise.incorrectSentence} showSlow />
+          <HighlightableText text={exercise.incorrectSentence} highlightId={`errcor-${exercise.incorrectSentence}`} className="text-xl text-text-primary font-medium flex-1" />
+          <AudioButton text={exercise.incorrectSentence} showSlow highlightId={`errcor-${exercise.incorrectSentence}`} />
         </div>
       </div>
 

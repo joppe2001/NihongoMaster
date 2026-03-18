@@ -130,7 +130,7 @@ export function TranslationChallenge({ exercises, onComplete }: TranslationChall
                     className="text-2xl font-bold text-text-primary"
                   />
                 </div>
-                <AudioButton text={current.japanese} showSlow />
+                <AudioButton text={current.japanese} showSlow highlightId={`trans-${current.japanese}`} />
               </div>
             ) : (
               <p className="text-2xl font-bold text-text-primary">{current.english}</p>

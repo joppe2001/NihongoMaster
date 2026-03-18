@@ -208,16 +208,12 @@ impl FSRS {
     }
 
     /// Calculate the next difficulty after a review
+    /// Official FSRS-5 formula: D'(D,G) = w7 * D0(4) + (1 - w7) * (D - w6*(G-3))
     fn next_difficulty(&self, d: f64, rating: Rating) -> f64 {
         let delta = -(self.weights[6] * (rating as i32 as f64 - 3.0));
-        let new_d = d + delta * self.mean_reversion(d);
+        let d0_easy = self.init_difficulty(Rating::Easy); // D0(4)
+        let new_d = self.weights[7] * d0_easy + (1.0 - self.weights[7]) * (d + delta);
         self.constrain_difficulty(new_d)
-    }
-
-    /// Mean reversion factor to prevent difficulty from drifting too far
-    fn mean_reversion(&self, d: f64) -> f64 {
-        let init_d = self.weights[4];
-        self.weights[7] * init_d + (1.0 - self.weights[7]) * d
     }
 
     /// Keep difficulty in [1, 10] range

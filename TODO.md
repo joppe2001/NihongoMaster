@@ -246,6 +246,7 @@ Active task tracking for NihongoMaster development.
 - [x] `[P1]` Distractor generation for conjugation drills
 
 ### Remaining
+- [ ] `[p1]` Flag questions done wrong so that student can see when they encounter something they got wrong before or multiple times
 - [ ] `[P1]` Listening Comprehension — TTS audio + choose correct meaning from 4 options
 - [ ] `[P1]` Translation Challenge — See English, type Japanese (multi-answer validation)
 - [ ] `[P1]` Picture Description — Emoji scenes + positional vocabulary

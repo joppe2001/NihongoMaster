@@ -8,28 +8,37 @@ interface ExportPayload {
   progress: Record<string, unknown>[];
   achievements: Record<string, unknown>[];
   kanaMastery: Record<string, unknown>[];
+  kanjiMastery?: Record<string, unknown>[];
+  vocabMastery?: Record<string, unknown>[];
+  grammarMastery?: Record<string, unknown>[];
 }
 
 /**
  * Export all user data as a JSON-serializable object.
  */
 export async function exportAllData(userId: number): Promise<ExportPayload> {
-  const [userRows, srsCards, progress, achievements, kanaMastery] = await Promise.all([
+  const [userRows, srsCards, progress, achievements, kanaMastery, kanjiMastery, vocabMastery, grammarMastery] = await Promise.all([
     query<Record<string, unknown>>('SELECT * FROM users WHERE id = $1', [userId]),
     query<Record<string, unknown>>('SELECT * FROM srs_cards WHERE user_id = $1', [userId]),
     query<Record<string, unknown>>('SELECT * FROM user_progress WHERE user_id = $1', [userId]),
     query<Record<string, unknown>>('SELECT * FROM achievements WHERE user_id = $1', [userId]),
     query<Record<string, unknown>>('SELECT * FROM kana_mastery WHERE user_id = $1', [userId]),
+    query<Record<string, unknown>>('SELECT * FROM kanji_mastery WHERE user_id = $1', [userId]),
+    query<Record<string, unknown>>('SELECT * FROM vocab_mastery WHERE user_id = $1', [userId]),
+    query<Record<string, unknown>>('SELECT * FROM grammar_mastery WHERE user_id = $1', [userId]),
   ]);
 
   return {
-    version: 1,
+    version: 2,
     exportedAt: new Date().toISOString(),
     user: userRows[0] ?? {},
     srsCards,
     progress,
     achievements,
     kanaMastery,
+    kanjiMastery,
+    vocabMastery,
+    grammarMastery,
   };
 }
 
@@ -38,12 +47,15 @@ export async function exportAllData(userId: number): Promise<ExportPayload> {
  * Clears existing user data and replaces with imported data.
  */
 export async function importData(userId: number, payload: ExportPayload): Promise<void> {
-  if (!payload.version || payload.version !== 1) {
+  if (!payload.version || (payload.version !== 1 && payload.version !== 2)) {
     throw new Error('Unsupported backup version');
   }
 
-  // Clear existing user data
+  // Clear existing user data (all mastery tables + core tables)
   await execute('DELETE FROM kana_mastery WHERE user_id = $1', [userId]);
+  try { await execute('DELETE FROM kanji_mastery WHERE user_id = $1', [userId]); } catch { /* table may not exist */ }
+  try { await execute('DELETE FROM vocab_mastery WHERE user_id = $1', [userId]); } catch { /* table may not exist */ }
+  try { await execute('DELETE FROM grammar_mastery WHERE user_id = $1', [userId]); } catch { /* table may not exist */ }
   await execute('DELETE FROM achievements WHERE user_id = $1', [userId]);
   await execute('DELETE FROM user_progress WHERE user_id = $1', [userId]);
   await execute('DELETE FROM srs_cards WHERE user_id = $1', [userId]);
@@ -63,11 +75,13 @@ export async function importData(userId: number, payload: ExportPayload): Promis
 
   // Import progress
   for (const p of payload.progress) {
+    // Support both old column name (accuracy) and new (accuracy_percent)
+    const accuracy = p.accuracy_percent ?? p.accuracy ?? 0;
     await execute(
       `INSERT OR IGNORE INTO user_progress
-        (user_id, date, cards_reviewed, cards_learned, time_spent_seconds, accuracy, xp_earned)
+        (user_id, date, cards_reviewed, cards_learned, time_spent_seconds, accuracy_percent, xp_earned)
        VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-      [userId, p.date, p.cards_reviewed, p.cards_learned, p.time_spent_seconds, p.accuracy, p.xp_earned]
+      [userId, p.date, p.cards_reviewed, p.cards_learned, p.time_spent_seconds, accuracy, p.xp_earned]
     );
   }
 
@@ -87,6 +101,42 @@ export async function importData(userId: number, payload: ExportPayload): Promis
        VALUES ($1, $2, $3, $4, $5, $6)`,
       [userId, m.kana_id, m.correct_count, m.incorrect_count, m.last_correct_at, m.last_incorrect_at]
     );
+  }
+
+  // Import kanji mastery (v2+)
+  if (payload.kanjiMastery) {
+    for (const m of payload.kanjiMastery) {
+      await execute(
+        `INSERT OR REPLACE INTO kanji_mastery
+          (user_id, kanji_id, correct_count, incorrect_count, last_correct_at, last_incorrect_at)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [userId, m.kanji_id, m.correct_count, m.incorrect_count, m.last_correct_at, m.last_incorrect_at]
+      );
+    }
+  }
+
+  // Import vocab mastery (v2+)
+  if (payload.vocabMastery) {
+    for (const m of payload.vocabMastery) {
+      await execute(
+        `INSERT OR REPLACE INTO vocab_mastery
+          (user_id, vocab_id, correct_count, incorrect_count, last_correct_at, last_incorrect_at)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [userId, m.vocab_id, m.correct_count, m.incorrect_count, m.last_correct_at, m.last_incorrect_at]
+      );
+    }
+  }
+
+  // Import grammar mastery (v2+)
+  if (payload.grammarMastery) {
+    for (const m of payload.grammarMastery) {
+      await execute(
+        `INSERT OR REPLACE INTO grammar_mastery
+          (user_id, grammar_id, correct_count, incorrect_count, last_correct_at, last_incorrect_at)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [userId, m.grammar_id, m.correct_count, m.incorrect_count, m.last_correct_at, m.last_incorrect_at]
+      );
+    }
   }
 
   // Update user XP and streak from imported data
@@ -143,12 +193,11 @@ export async function resetProgress(userId: number): Promise<void> {
     [userId]
   );
   await execute('DELETE FROM srs_cards WHERE user_id = $1', [userId]);
-  // kana_mastery may or may not exist depending on migration state
-  try {
-    await execute('DELETE FROM kana_mastery WHERE user_id = $1', [userId]);
-  } catch {
-    // Table may not exist yet
-  }
+  // Mastery tables may or may not exist depending on migration state
+  try { await execute('DELETE FROM kana_mastery WHERE user_id = $1', [userId]); } catch { /* table may not exist */ }
+  try { await execute('DELETE FROM kanji_mastery WHERE user_id = $1', [userId]); } catch { /* table may not exist */ }
+  try { await execute('DELETE FROM vocab_mastery WHERE user_id = $1', [userId]); } catch { /* table may not exist */ }
+  try { await execute('DELETE FROM grammar_mastery WHERE user_id = $1', [userId]); } catch { /* table may not exist */ }
   await execute('DELETE FROM achievements WHERE user_id = $1', [userId]);
   await execute('DELETE FROM user_progress WHERE user_id = $1', [userId]);
   await execute('DELETE FROM typing_sessions WHERE user_id = $1', [userId]);

@@ -297,7 +297,7 @@ export function ReadingPage() {
                       <p className="text-sm text-text-secondary mt-1">{s.english}</p>
                     )}
                   </div>
-                  <AudioButton text={stripFurigana(s.japanese)} />
+                  <AudioButton text={stripFurigana(s.japanese)} highlightId={`read-${i}`} />
                 </div>
               </motion.div>
             ))}

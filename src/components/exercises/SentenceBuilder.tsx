@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { ResultIcon } from '@/components/shared/ResultIcon';
 import { QuizFeedback } from '@/components/kana/QuizFeedback';
 import { AudioButton } from '@/hooks/useAudio';
+import { HighlightableText } from '@/components/shared/HighlightableText';
 import { useUserStore } from '@/stores/userStore';
 import { awardXp, recordReviewSession } from '@/services/progressService';
 import type { SentenceExercise } from '@/data/sentenceExercises';
@@ -460,8 +461,8 @@ export function SentenceBuilder({ exercises, onComplete }: SentenceBuilderProps)
               className="text-center text-sm text-text-secondary mt-3"
             >
               <div className="flex items-center justify-center gap-2">
-                <span>Correct: <strong className="text-text-primary jp-text">{current.japanese}</strong></span>
-                <AudioButton text={current.japanese} showSlow />
+                <span>Correct: <HighlightableText text={current.japanese} highlightId={`sb-${current.japanese}`} className="font-bold text-text-primary" /></span>
+                <AudioButton text={current.japanese} showSlow highlightId={`sb-${current.japanese}`} />
               </div>
               <span className="block text-xs text-text-secondary/60 mt-0.5 jp-text">
                 {current.reading}

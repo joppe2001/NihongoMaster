@@ -1,10 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ClickableWord } from './ClickableWord';
 import { ResultIcon } from '@/components/shared/ResultIcon';
 import { ChevronRight } from '@/lib/icons';
-import { AudioButton } from '@/hooks/useAudio';
+import { AudioButton, generateHighlightId } from '@/hooks/useAudio';
 import { useUserStore } from '@/stores/userStore';
 import { awardXp, recordReviewSession } from '@/services/progressService';
 import type { InteractiveStory, StorySentence } from '@/data/interactiveStories';
@@ -325,6 +325,7 @@ function SentenceRow({ sentence, index, isCurrent, onWordReveal }: {
 }) {
   const dialogue = isDialogue(sentence);
   const fullText = sentence.words.map((w) => w.text).join('');
+  const hlId = useMemo(() => generateHighlightId(), []);
 
   return (
     <div className={cn('py-1.5', !isCurrent && 'opacity-60')}>
@@ -337,12 +338,13 @@ function SentenceRow({ sentence, index, isCurrent, onWordReveal }: {
           )}>
             <div className="flex items-start gap-1.5">
               <p className="text-lg leading-[2.2] jp-text">
-                {sentence.words.map((word, wi) => (
-                  <ClickableWord key={`${index}-${wi}`} word={word} onReveal={onWordReveal} />
-                ))}
+                {(() => { let offset = 0; return sentence.words.map((word, wi) => {
+                  const co = offset; offset += word.text.length;
+                  return <ClickableWord key={`${index}-${wi}`} word={word} onReveal={onWordReveal} charOffset={co} highlightId={hlId} />;
+                }); })()}
               </p>
               <span className="mt-1 shrink-0">
-                <AudioButton text={fullText} showSlow />
+                <AudioButton text={fullText} showSlow highlightId={hlId} />
               </span>
             </div>
           </div>
@@ -353,12 +355,13 @@ function SentenceRow({ sentence, index, isCurrent, onWordReveal }: {
             'text-lg leading-[2.2] jp-text flex-1',
             isCurrent ? 'text-text-primary' : 'text-text-secondary'
           )}>
-            {sentence.words.map((word, wi) => (
-              <ClickableWord key={`${index}-${wi}`} word={word} onReveal={onWordReveal} />
-            ))}
+            {(() => { let offset = 0; return sentence.words.map((word, wi) => {
+              const co = offset; offset += word.text.length;
+              return <ClickableWord key={`${index}-${wi}`} word={word} onReveal={onWordReveal} charOffset={co} highlightId={hlId} />;
+            }); })()}
           </p>
           <span className="mt-1 shrink-0">
-            <AudioButton text={fullText} showSlow />
+            <AudioButton text={fullText} showSlow highlightId={hlId} />
           </span>
         </div>
       )}

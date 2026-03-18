@@ -1,4 +1,12 @@
 import type { OpenAiTtsVoice } from '@/lib/types';
+import type { WordTiming } from '@/services/wordTimingService';
+import { timingsFromVoicevoxQuery, estimateTimings, getAudioDurationMs } from '@/services/wordTimingService';
+
+/** Synthesis result: audio URL + optional timing data for highlighting. */
+export interface SynthResult {
+  url: string;
+  timings?: WordTiming[];
+}
 
 /**
  * TTS Service — handles OpenAI gpt-4o-mini-tts API calls with in-memory caching.
@@ -7,8 +15,8 @@ import type { OpenAiTtsVoice } from '@/lib/types';
  * don't hit the API again. Cache is session-scoped (cleared on app restart).
  */
 
-// ── In-memory audio blob cache ──
-const audioCache = new Map<string, string>(); // key → object URL
+// ── In-memory cache: stores full SynthResult (URL + timings) ──
+const audioCache = new Map<string, SynthResult>();
 
 function cacheKey(text: string, voice: string): string {
   return `${voice}::${text}`;
@@ -23,10 +31,10 @@ export async function synthesizeOpenAI(
   apiKey: string,
   voice: OpenAiTtsVoice = 'nova',
   slow = false,
-): Promise<string> {
+): Promise<SynthResult> {
   const key = cacheKey(text, `${voice}${slow ? '_slow' : ''}`);
 
-  // Return cached audio if available
+  // Return cached result if available (includes timings)
   const cached = audioCache.get(key);
   if (cached) return cached;
 
@@ -57,18 +65,23 @@ export async function synthesizeOpenAI(
   const blob = await response.blob();
   const objectUrl = URL.createObjectURL(blob);
 
-  // Cache the result
-  audioCache.set(key, objectUrl);
+  // Estimate timings from audio duration
+  const durationMs = await getAudioDurationMs(objectUrl).catch(() => 0);
+  const timings = durationMs > 0 ? estimateTimings(text, durationMs) : undefined;
 
-  return objectUrl;
+  // Cache the full result (URL + timings)
+  const result: SynthResult = { url: objectUrl, timings };
+  audioCache.set(key, result);
+
+  return result;
 }
 
 /**
  * Clear the entire audio cache (e.g., when user changes voice).
  */
 export function clearAudioCache(): void {
-  for (const url of audioCache.values()) {
-    URL.revokeObjectURL(url);
+  for (const result of audioCache.values()) {
+    URL.revokeObjectURL(result.url);
   }
   audioCache.clear();
 }
@@ -190,7 +203,7 @@ export async function synthesizeVoicevox(
   baseUrl: string,
   speakerId: number,
   slow = false,
-): Promise<string> {
+): Promise<SynthResult> {
   const key = cacheKey(text, `voicevox:${speakerId}${slow ? '_slow' : ''}`);
 
   const cached = audioCache.get(key);
@@ -231,7 +244,12 @@ export async function synthesizeVoicevox(
   const blob = await synthRes.blob();
   const objectUrl = URL.createObjectURL(blob);
 
-  audioCache.set(key, objectUrl);
+  // Extract precise timings from the VOICEVOX query data
+  const timings = timingsFromVoicevoxQuery(query, text);
 
-  return objectUrl;
+  // Cache the full result (URL + timings)
+  const result: SynthResult = { url: objectUrl, timings };
+  audioCache.set(key, result);
+
+  return result;
 }

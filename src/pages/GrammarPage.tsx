@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { AudioButton } from '@/hooks/useAudio';
+import { HighlightableText } from '@/components/shared/HighlightableText';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useUserStore } from '@/stores/userStore';
@@ -383,13 +384,13 @@ function GrammarDetailModal({
                   <p className="text-xs text-text-secondary font-semibold uppercase tracking-wider">
                     Examples
                   </p>
-                  {grammar.examples.map((ex, i) => (
+                  {grammar.examples.map((ex, i) => {
+                    const exHlId = `grammar-ex-${grammar.pattern}-${i}`;
+                    return (
                     <div key={i} className="bg-bg-primary rounded-xl p-4 border-l-3 border-accent/30">
                       <div className="flex items-start gap-1.5">
-                        <p className="text-base font-medium text-text-primary jp-text flex-1">
-                          {ex.japanese}
-                        </p>
-                        <AudioButton text={ex.japanese} showSlow />
+                        <HighlightableText text={ex.japanese} highlightId={exHlId} className="text-base font-medium text-text-primary flex-1" />
+                        <AudioButton text={ex.japanese} showSlow highlightId={exHlId} />
                       </div>
                       {ex.reading && ex.reading !== ex.japanese && (
                         <p className="text-sm text-accent/60 jp-text mt-0.5">
@@ -400,7 +401,8 @@ function GrammarDetailModal({
                         {ex.translations['en'] ?? ''}
                       </p>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 {/* Notes */}
