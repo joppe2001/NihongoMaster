@@ -17,7 +17,9 @@
     "generate-audio:slow": "npx tsx scripts/generate-audio.ts --slow",
     "tauri:build": "tauri build",
     "tauri:build:dmg": "tauri build --bundles dmg",
-    "tauri:build:app": "tauri build --bundles app"
+    "tauri:build:app": "tauri build --bundles app",
+    "tauri:build:windows": "tauri build --bundles nsis,msi",
+    "tauri:build:linux": "tauri build --bundles deb,appimage,rpm"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",

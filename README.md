@@ -425,6 +425,26 @@ Output: `src-tauri/target/release/bundle/dmg/NihongoMaster_0.1.0_aarch64.dmg`
 npm run tauri:build:app
 ```
 
+### Windows (.exe / .msi)
+
+> Must be run on a Windows machine with Visual Studio Build Tools and WebView2 installed.
+
+```bash
+npm run tauri:build:windows
+```
+
+Output: `src-tauri/target/release/bundle/nsis/NihongoMaster_0.1.0_x64-setup.exe` and `.msi`
+
+### Linux (.deb / .AppImage / .rpm)
+
+> Must be run on a Linux machine with `webkit2gtk-4.1`, `libappindicator3-dev`, and `librsvg2-dev` installed.
+
+```bash
+npm run tauri:build:linux
+```
+
+Output: `src-tauri/target/release/bundle/deb/`, `appimage/`, and `rpm/`
+
 ### All platforms
 
 ```bash
@@ -432,6 +452,8 @@ npm run tauri:build
 ```
 
 This creates platform-appropriate installers (.dmg, .app, .exe, .deb, .rpm, .AppImage).
+
+> **Note:** Tauri requires building on the target platform. To produce binaries for all platforms, run the respective build command on each OS or use a CI/CD pipeline (e.g., GitHub Actions) with macOS, Windows, and Linux runners.
 
 ---
 
