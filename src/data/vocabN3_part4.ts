@@ -1,0 +1,123 @@
+/**
+ * N3 Vocabulary dataset — Part 4: More nouns, katakana loanwords, compound expressions (250 words).
+ */
+
+import type { VocabEntry } from './vocabN5';
+
+export const VOCAB_N3_PART4: VocabEntry[] = [
+  // ── Katakana Loanwords ──
+  { word: 'データ', reading: 'データ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['data'] }, frequencyRank: 1351, tags: ['nouns', 'technology'] },
+  { word: 'システム', reading: 'システム', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['system'] }, frequencyRank: 1352, tags: ['nouns', 'technology'] },
+  { word: 'エネルギー', reading: 'エネルギー', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['energy'] }, frequencyRank: 1353, tags: ['nouns', 'technology'] },
+  { word: 'メディア', reading: 'メディア', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['media'] }, frequencyRank: 1354, tags: ['nouns', 'media'] },
+  { word: 'リスク', reading: 'リスク', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['risk'] }, frequencyRank: 1355, tags: ['nouns'] },
+  { word: 'コスト', reading: 'コスト', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['cost'] }, frequencyRank: 1356, tags: ['nouns', 'work'] },
+  { word: 'メリット', reading: 'メリット', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['merit', 'advantage'] }, frequencyRank: 1357, tags: ['nouns'] },
+  { word: 'デメリット', reading: 'デメリット', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['demerit', 'disadvantage'] }, frequencyRank: 1358, tags: ['nouns'] },
+  { word: 'バランス', reading: 'バランス', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['balance'] }, frequencyRank: 1359, tags: ['nouns'] },
+  { word: 'ストレス', reading: 'ストレス', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['stress'] }, frequencyRank: 1360, tags: ['nouns', 'health'] },
+  { word: 'リサイクル', reading: 'リサイクル', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['recycling'] }, frequencyRank: 1361, tags: ['nouns', 'nature'] },
+  { word: 'ボランティア', reading: 'ボランティア', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['volunteer'] }, frequencyRank: 1362, tags: ['nouns', 'society'] },
+  { word: 'グローバル', reading: 'グローバル', jlptLevel: 3, partOfSpeech: 'na-adjective', meanings: { en: ['global'] }, frequencyRank: 1363, tags: ['adjectives', 'na-adjective'] },
+  { word: 'マナー', reading: 'マナー', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['manners', 'etiquette'] }, frequencyRank: 1364, tags: ['nouns', 'culture'] },
+  { word: 'ルール', reading: 'ルール', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['rule'] }, frequencyRank: 1365, tags: ['nouns'] },
+  { word: 'テーマ', reading: 'テーマ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['theme', 'topic'] }, frequencyRank: 1366, tags: ['nouns'] },
+  { word: 'レベル', reading: 'レベル', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['level'] }, frequencyRank: 1367, tags: ['nouns'] },
+  { word: 'コミュニケーション', reading: 'コミュニケーション', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['communication'] }, frequencyRank: 1368, tags: ['nouns'] },
+  { word: 'トラブル', reading: 'トラブル', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['trouble'] }, frequencyRank: 1369, tags: ['nouns'] },
+  { word: 'クレーム', reading: 'クレーム', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['complaint', 'claim'] }, frequencyRank: 1370, tags: ['nouns', 'work'] },
+
+  // ── Abstract Nouns ──
+  { word: '意義', reading: 'いぎ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['significance', 'meaning'] }, frequencyRank: 1371, tags: ['nouns'] },
+  { word: '本質', reading: 'ほんしつ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['essence', 'true nature'] }, frequencyRank: 1372, tags: ['nouns'] },
+  { word: '根拠', reading: 'こんきょ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['basis', 'grounds'] }, frequencyRank: 1373, tags: ['nouns'] },
+  { word: '前提', reading: 'ぜんてい', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['premise', 'prerequisite'] }, frequencyRank: 1374, tags: ['nouns'] },
+  { word: '仮説', reading: 'かせつ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['hypothesis'] }, frequencyRank: 1375, tags: ['nouns', 'education'] },
+  { word: '矛盾', reading: 'むじゅん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['contradiction'] }, frequencyRank: 1376, tags: ['nouns'] },
+  { word: '妥協', reading: 'だきょう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['compromise'] }, frequencyRank: 1377, tags: ['nouns'] },
+  { word: '偏見', reading: 'へんけん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['prejudice', 'bias'] }, frequencyRank: 1378, tags: ['nouns', 'society'] },
+  { word: '差別', reading: 'さべつ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['discrimination'] }, frequencyRank: 1379, tags: ['nouns', 'society'] },
+  { word: '平等', reading: 'びょうどう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['equality'] }, frequencyRank: 1380, tags: ['nouns', 'society'] },
+  { word: '自立', reading: 'じりつ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['independence', 'self-reliance'] }, frequencyRank: 1381, tags: ['nouns'] },
+  { word: '依存', reading: 'いぞん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['dependence', 'reliance'] }, frequencyRank: 1382, tags: ['nouns'] },
+  { word: '共存', reading: 'きょうぞん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['coexistence'] }, frequencyRank: 1383, tags: ['nouns'] },
+  { word: '対立', reading: 'たいりつ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['confrontation', 'opposition'] }, frequencyRank: 1384, tags: ['nouns'] },
+  { word: '協力', reading: 'きょうりょく', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['cooperation'] }, frequencyRank: 1385, tags: ['nouns'] },
+  { word: '手段', reading: 'しゅだん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['means', 'method'] }, frequencyRank: 1386, tags: ['nouns'] },
+  { word: '方法', reading: 'ほうほう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['method', 'way'] }, frequencyRank: 1387, tags: ['nouns'] },
+  { word: '対象', reading: 'たいしょう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['target', 'object'] }, frequencyRank: 1388, tags: ['nouns'] },
+  { word: '傾向', reading: 'けいこう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['tendency', 'trend'] }, frequencyRank: 1389, tags: ['nouns'] },
+  { word: '実態', reading: 'じったい', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['actual conditions', 'reality'] }, frequencyRank: 1390, tags: ['nouns'] },
+
+  // ── Family & Relationships ──
+  { word: '夫婦', reading: 'ふうふ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['married couple'] }, frequencyRank: 1391, tags: ['nouns', 'family'] },
+  { word: '親族', reading: 'しんぞく', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['relatives'] }, frequencyRank: 1392, tags: ['nouns', 'family'] },
+  { word: '世代', reading: 'せだい', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['generation'] }, frequencyRank: 1393, tags: ['nouns', 'family'] },
+  { word: '独身', reading: 'どくしん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['single', 'unmarried'] }, frequencyRank: 1394, tags: ['nouns', 'family'] },
+  { word: '育児', reading: 'いくじ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['childcare'] }, frequencyRank: 1395, tags: ['nouns', 'family'] },
+  { word: '介護', reading: 'かいご', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['nursing care'] }, frequencyRank: 1396, tags: ['nouns', 'health'] },
+  { word: '離婚', reading: 'りこん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['divorce'] }, frequencyRank: 1397, tags: ['nouns', 'family'] },
+  { word: '養子', reading: 'ようし', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['adopted child'] }, frequencyRank: 1398, tags: ['nouns', 'family'] },
+  { word: '遺産', reading: 'いさん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['inheritance', 'legacy'] }, frequencyRank: 1399, tags: ['nouns'] },
+  { word: '葬儀', reading: 'そうぎ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['funeral'] }, frequencyRank: 1400, tags: ['nouns', 'culture'] },
+
+  // ── Food & Cooking ──
+  { word: '和食', reading: 'わしょく', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['Japanese food'] }, frequencyRank: 1401, tags: ['nouns', 'food', 'culture'] },
+  { word: '洋食', reading: 'ようしょく', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['Western food'] }, frequencyRank: 1402, tags: ['nouns', 'food'] },
+  { word: '食材', reading: 'しょくざい', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['food ingredient'] }, frequencyRank: 1403, tags: ['nouns', 'food'] },
+  { word: '調味料', reading: 'ちょうみりょう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['seasoning', 'condiment'] }, frequencyRank: 1404, tags: ['nouns', 'food'] },
+  { word: '添加物', reading: 'てんかぶつ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['additive'] }, frequencyRank: 1405, tags: ['nouns', 'food', 'health'] },
+  { word: '有機', reading: 'ゆうき', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['organic'] }, frequencyRank: 1406, tags: ['nouns', 'food', 'nature'] },
+  { word: '冷凍', reading: 'れいとう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['frozen', 'freezing'] }, frequencyRank: 1407, tags: ['nouns', 'food'] },
+  { word: '賞味期限', reading: 'しょうみきげん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['expiration date (food)'] }, frequencyRank: 1408, tags: ['nouns', 'food'] },
+  { word: '栄養素', reading: 'えいようそ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['nutrient'] }, frequencyRank: 1409, tags: ['nouns', 'food', 'health'] },
+  { word: 'アレルギー', reading: 'アレルギー', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['allergy'] }, frequencyRank: 1410, tags: ['nouns', 'health'] },
+
+  // ── Sports & Entertainment ──
+  { word: '試合', reading: 'しあい', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['match', 'game'] }, frequencyRank: 1411, tags: ['nouns', 'sports'] },
+  { word: '予選', reading: 'よせん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['preliminary round'] }, frequencyRank: 1412, tags: ['nouns', 'sports'] },
+  { word: '決勝', reading: 'けっしょう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['finals'] }, frequencyRank: 1413, tags: ['nouns', 'sports'] },
+  { word: '選手', reading: 'せんしゅ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['athlete', 'player'] }, frequencyRank: 1414, tags: ['nouns', 'sports'] },
+  { word: '監督', reading: 'かんとく', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['director', 'coach'] }, frequencyRank: 1415, tags: ['nouns', 'sports', 'entertainment'] },
+  { word: '観客', reading: 'かんきゃく', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['spectator', 'audience'] }, frequencyRank: 1416, tags: ['nouns', 'entertainment'] },
+  { word: '興行', reading: 'こうぎょう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['show', 'performance'] }, frequencyRank: 1417, tags: ['nouns', 'entertainment'] },
+  { word: '脚本', reading: 'きゃくほん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['script', 'screenplay'] }, frequencyRank: 1418, tags: ['nouns', 'entertainment'] },
+  { word: '主演', reading: 'しゅえん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['starring role'] }, frequencyRank: 1419, tags: ['nouns', 'entertainment'] },
+  { word: '上映', reading: 'じょうえい', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['screening (movie)'] }, frequencyRank: 1420, tags: ['nouns', 'entertainment'] },
+
+  // ── Government & International ──
+  { word: '外交', reading: 'がいこう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['diplomacy'] }, frequencyRank: 1421, tags: ['nouns', 'society'] },
+  { word: '首脳', reading: 'しゅのう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['head of state', 'leader'] }, frequencyRank: 1422, tags: ['nouns', 'society'] },
+  { word: '内閣', reading: 'ないかく', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['cabinet (government)'] }, frequencyRank: 1423, tags: ['nouns', 'society'] },
+  { word: '野党', reading: 'やとう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['opposition party'] }, frequencyRank: 1424, tags: ['nouns', 'society'] },
+  { word: '与党', reading: 'よとう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['ruling party'] }, frequencyRank: 1425, tags: ['nouns', 'society'] },
+  { word: '憲法', reading: 'けんぽう', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['constitution'] }, frequencyRank: 1426, tags: ['nouns', 'society'] },
+  { word: '条例', reading: 'じょうれい', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['ordinance', 'regulation'] }, frequencyRank: 1427, tags: ['nouns', 'society'] },
+  { word: '予算', reading: 'よさん', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['budget'] }, frequencyRank: 1428, tags: ['nouns', 'work'] },
+  { word: '赤字', reading: 'あかじ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['deficit', 'in the red'] }, frequencyRank: 1429, tags: ['nouns', 'work'] },
+  { word: '黒字', reading: 'くろじ', jlptLevel: 3, partOfSpeech: 'noun', meanings: { en: ['surplus', 'in the black'] }, frequencyRank: 1430, tags: ['nouns', 'work'] },
+
+  // ── Onomatopoeia & Mimetic Words ──
+  { word: 'ぐるぐる', reading: 'ぐるぐる', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['round and round'] }, frequencyRank: 1431, tags: ['adverbs', 'onomatopoeia'] },
+  { word: 'ぶつぶつ', reading: 'ぶつぶつ', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['mumbling', 'grumbling'] }, frequencyRank: 1432, tags: ['adverbs', 'onomatopoeia'] },
+  { word: 'じろじろ', reading: 'じろじろ', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['staring'] }, frequencyRank: 1433, tags: ['adverbs', 'onomatopoeia'] },
+  { word: 'きちんと', reading: 'きちんと', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['properly', 'neatly'] }, frequencyRank: 1434, tags: ['adverbs'] },
+  { word: 'ぼんやり', reading: 'ぼんやり', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['vaguely', 'absent-mindedly'] }, frequencyRank: 1435, tags: ['adverbs', 'onomatopoeia'] },
+  { word: 'じっくり', reading: 'じっくり', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['thoroughly', 'carefully'] }, frequencyRank: 1436, tags: ['adverbs'] },
+  { word: 'ぎりぎり', reading: 'ぎりぎり', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['barely', 'just barely'] }, frequencyRank: 1437, tags: ['adverbs'] },
+  { word: 'くっきり', reading: 'くっきり', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['clearly', 'distinctly'] }, frequencyRank: 1438, tags: ['adverbs', 'onomatopoeia'] },
+  { word: 'うんざり', reading: 'うんざり', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['fed up', 'sick of'] }, frequencyRank: 1439, tags: ['adverbs', 'onomatopoeia', 'emotions'] },
+  { word: 'そっくり', reading: 'そっくり', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['exactly alike', 'spitting image'] }, frequencyRank: 1440, tags: ['adverbs'] },
+
+  // ── More Expressions ──
+  { word: '要するに', reading: 'ようするに', jlptLevel: 3, partOfSpeech: 'expression', meanings: { en: ['in short', 'basically'] }, frequencyRank: 1441, tags: ['expressions'] },
+  { word: 'いずれにしても', reading: 'いずれにしても', jlptLevel: 3, partOfSpeech: 'expression', meanings: { en: ['in any case'] }, frequencyRank: 1442, tags: ['expressions'] },
+  { word: '場合によっては', reading: 'ばあいによっては', jlptLevel: 3, partOfSpeech: 'expression', meanings: { en: ['depending on the case'] }, frequencyRank: 1443, tags: ['expressions'] },
+  { word: '少なくとも', reading: 'すくなくとも', jlptLevel: 3, partOfSpeech: 'expression', meanings: { en: ['at least'] }, frequencyRank: 1444, tags: ['expressions'] },
+  { word: '多かれ少なかれ', reading: 'おおかれすくなかれ', jlptLevel: 3, partOfSpeech: 'expression', meanings: { en: ['more or less'] }, frequencyRank: 1445, tags: ['expressions'] },
+  { word: '言い換えれば', reading: 'いいかえれば', jlptLevel: 3, partOfSpeech: 'expression', meanings: { en: ['in other words'] }, frequencyRank: 1446, tags: ['expressions'] },
+  { word: '一概に', reading: 'いちがいに', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['unconditionally', 'sweepingly'] }, frequencyRank: 1447, tags: ['adverbs'] },
+  { word: '必ずしも', reading: 'かならずしも', jlptLevel: 3, partOfSpeech: 'adverb', meanings: { en: ['not necessarily'] }, frequencyRank: 1448, tags: ['adverbs'] },
+  { word: 'かつ', reading: 'かつ', jlptLevel: 3, partOfSpeech: 'conjunction', meanings: { en: ['and also', 'moreover'] }, frequencyRank: 1449, tags: ['conjunctions'] },
+  { word: 'もっとも', reading: 'もっとも', jlptLevel: 3, partOfSpeech: 'conjunction', meanings: { en: ['although', 'but then'] }, frequencyRank: 1450, tags: ['conjunctions'] },
+];

@@ -1,0 +1,139 @@
+{
+  "app": {
+    "name": "NihongoMaster",
+    "tagline": "Your journey to Japanese fluency"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "hiragana": "Hiragana",
+    "katakana": "Katakana",
+    "kanji": "Kanji",
+    "vocabulary": "Vocabulary",
+    "grammar": "Grammar",
+    "typing": "Typing",
+    "review": "Review",
+    "progress": "Progress",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "streak": "Day Streak",
+    "todayReviews": "Reviews Today",
+    "cardsLearned": "Cards Learned",
+    "accuracy": "Accuracy",
+    "dueCards": "Cards Due",
+    "startReview": "Start Review",
+    "noCardsDue": "No cards due! Great job!",
+    "dailyGoal": "Daily Goal",
+    "xp": "XP",
+    "level": "Level"
+  },
+  "review": {
+    "showAnswer": "Show Answer",
+    "again": "Again",
+    "hard": "Hard",
+    "good": "Good",
+    "easy": "Easy",
+    "completed": "Review Complete!",
+    "cardsReviewed": "Cards Reviewed",
+    "correctRate": "Correct Rate",
+    "timeSpent": "Time Spent",
+    "noCards": "No cards to review right now",
+    "meaning": "Meaning",
+    "reading": "Reading",
+    "examples": "Examples"
+  },
+  "kana": {
+    "title": "Learn {{type}}",
+    "progress": "{{learned}} / {{total}} learned",
+    "practice": "Practice",
+    "study": "Study",
+    "quiz": "Quiz",
+    "allRows": "All Rows",
+    "typeRomaji": "Type the romaji",
+    "correct": "Correct!",
+    "incorrect": "Incorrect",
+    "tryAgain": "Try again"
+  },
+  "kanji": {
+    "title": "Kanji Study",
+    "strokeOrder": "Stroke Order",
+    "onReading": "On'yomi",
+    "kunReading": "Kun'yomi",
+    "meaning": "Meaning",
+    "radical": "Radical",
+    "examples": "Example Words",
+    "grade": "Grade",
+    "strokes": "Strokes",
+    "frequency": "Frequency"
+  },
+  "vocab": {
+    "title": "Vocabulary",
+    "word": "Word",
+    "reading": "Reading",
+    "meaning": "Meaning",
+    "partOfSpeech": "Part of Speech",
+    "examples": "Example Sentences"
+  },
+  "grammar": {
+    "title": "Grammar",
+    "pattern": "Pattern",
+    "meaning": "Meaning",
+    "formation": "Formation",
+    "examples": "Examples",
+    "notes": "Notes",
+    "related": "Related Grammar"
+  },
+  "typing": {
+    "title": "Typing Practice",
+    "wpm": "WPM",
+    "accuracy": "Accuracy",
+    "start": "Start Typing",
+    "restart": "Restart",
+    "timeRemaining": "Time Remaining"
+  },
+  "settings": {
+    "title": "Settings",
+    "general": "General",
+    "study": "Study",
+    "display": "Display",
+    "data": "Data",
+    "language": "Source Language",
+    "dailyGoal": "Daily Goal (minutes)",
+    "newCards": "New Cards Per Day",
+    "reviewLimit": "Daily Review Limit",
+    "furigana": "Show Furigana",
+    "fontSize": "Font Size",
+    "theme": "Theme",
+    "sound": "Sound Effects",
+    "animations": "Animations",
+    "exportData": "Export Data",
+    "importData": "Import Data",
+    "resetProgress": "Reset Progress"
+  },
+  "progress": {
+    "title": "Progress",
+    "overview": "Overview",
+    "history": "Study History",
+    "heatmap": "Activity Heatmap",
+    "breakdown": "Skill Breakdown",
+    "totalStudyTime": "Total Study Time",
+    "totalCardsLearned": "Total Cards Learned",
+    "averageAccuracy": "Average Accuracy",
+    "longestStreak": "Longest Streak"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort"
+  }
+}

@@ -1,0 +1,1 @@
+{"default":{"identifier":"default","description":"Default capabilities for NihongoMaster","local":true,"windows":["main"],"permissions":["core:default","sql:default","sql:allow-load","sql:allow-select","sql:allow-execute","sql:allow-close"]}}

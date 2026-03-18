@@ -1,0 +1,399 @@
+/* ═══════════════════════════════════════════════════════════════
+   JAPANESE COLOR THEMES — Light + Dark variants for each
+   Each theme overrides semantic tokens via [data-theme][data-mode].
+   Adobe Color Wheel: analogous harmonies, WCAG AA contrast ≥4.5:1.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────────────────────
+   桜 SAKURA — Cherry Blossom (spring, pink, warm)
+   ────────────────────────────────────────────────────────────── */
+
+[data-theme="sakura"][data-mode="light"] {
+  --color-bg-primary:    #FFF5F7;
+  --color-bg-secondary:  #FFFFFF;
+  --color-bg-sidebar:    #4A1028;
+  --color-bg-elevated:   #FFFFFF;
+  --color-bg-subtle:     #FDE8ED;
+  --color-bg-muted:      #F5CDD5;
+  --color-text-primary:  #3D1524;
+  --color-text-secondary: #8A5068;
+  --color-text-tertiary: #B07A90;
+  --color-border:        #F5D0DA;
+  --color-border-subtle: #FAE4EB;
+  --color-accent:        #D66B8A;
+  --color-primary-400:   #E88DA8;
+  --color-primary-500:   #D66B8A;
+  --color-primary-600:   #BF4D6F;
+  --color-primary-700:   #A13658;
+  --color-feedback-success-bg:     #f0fdf6;
+  --color-feedback-success-border: #bbf5d1;
+  --color-feedback-success-text:   #1D7D48;
+  --color-feedback-error-bg:       #fff0f2;
+  --color-feedback-error-border:   #f5c0ca;
+  --color-feedback-error-text:     #8B2040;
+  --color-feedback-info-bg:        #FFF0F4;
+  --color-feedback-info-border:    #F5C0D0;
+  --color-feedback-info-text:      #A13658;
+  --color-feedback-gold-bg:        #FFFCF0;
+  --color-feedback-gold-border:    #FFE8A3;
+  --color-feedback-gold-text:      #8C6118;
+}
+
+[data-theme="sakura"][data-mode="dark"] {
+  --color-bg-primary:    #1A0F14;
+  --color-bg-secondary:  #241519;
+  --color-bg-sidebar:    #140A10;
+  --color-bg-elevated:   #2E1A20;
+  --color-bg-subtle:     #2A171E;
+  --color-bg-muted:      #3A2028;
+  --color-text-primary:  #F5E0E6;
+  --color-text-secondary: #C8909A;
+  --color-text-tertiary: #9A6A78;
+  --color-border:        #3E2030;
+  --color-border-subtle: #321828;
+  --color-accent:        #E88DA8;
+  --color-primary-400:   #E88DA8;
+  --color-primary-500:   #D66B8A;
+  --color-primary-600:   #BF4D6F;
+  --color-primary-700:   #A13658;
+  --color-feedback-success-bg:     rgba(56, 193, 114, 0.10);
+  --color-feedback-success-border: rgba(56, 193, 114, 0.20);
+  --color-feedback-success-text:   #68D391;
+  --color-feedback-error-bg:       rgba(214, 107, 138, 0.12);
+  --color-feedback-error-border:   rgba(214, 107, 138, 0.22);
+  --color-feedback-error-text:     #FFB0BF;
+  --color-feedback-info-bg:        rgba(232, 141, 168, 0.10);
+  --color-feedback-info-border:    rgba(232, 141, 168, 0.20);
+  --color-feedback-info-text:      #E88DA8;
+  --color-feedback-gold-bg:        rgba(245, 176, 65, 0.10);
+  --color-feedback-gold-border:    rgba(245, 176, 65, 0.20);
+  --color-feedback-gold-text:      #FFD966;
+}
+
+[data-theme="sakura"] .gradient-sidebar { background: linear-gradient(180deg, #5A1A32 0%, #3A0E1E 100%) !important; }
+[data-theme="sakura"] .gradient-accent  { background: linear-gradient(135deg, #D66B8A, #A13658) !important; }
+[data-theme="sakura"] .gradient-hero    { background: linear-gradient(135deg, #D66B8A 0%, #BF4D6F 40%, #8A2848 100%) !important; }
+[data-theme="sakura"] .glow-accent { box-shadow: 0 0 20px rgba(214, 107, 138, 0.18), 0 0 60px rgba(214, 107, 138, 0.06); }
+
+/* ──────────────────────────────────────────────────────────────
+   抹茶 MATCHA — Tea Ceremony (earthy green, calm)
+   ────────────────────────────────────────────────────────────── */
+
+[data-theme="matcha"][data-mode="light"] {
+  --color-bg-primary:    #F4F9F2;
+  --color-bg-secondary:  #FFFFFF;
+  --color-bg-sidebar:    #1A2E1A;
+  --color-bg-elevated:   #FFFFFF;
+  --color-bg-subtle:     #E4F0E0;
+  --color-bg-muted:      #CCE0C6;
+  --color-text-primary:  #1C2E1C;
+  --color-text-secondary: #5A7A5A;
+  --color-text-tertiary: #7A9A7A;
+  --color-border:        #C8E0C4;
+  --color-border-subtle: #DDEFDA;
+  --color-accent:        #38845A;
+  --color-primary-400:   #4CA872;
+  --color-primary-500:   #38845A;
+  --color-primary-600:   #2C6A48;
+  --color-primary-700:   #205238;
+  --color-feedback-success-bg:     #EEFBE8;
+  --color-feedback-success-border: #B0E0A0;
+  --color-feedback-success-text:   #1A6030;
+  --color-feedback-error-bg:       #fef2f2;
+  --color-feedback-error-border:   #f5c0ca;
+  --color-feedback-error-text:     #A13658;
+  --color-feedback-info-bg:        #E8F5E8;
+  --color-feedback-info-border:    #B0D8B0;
+  --color-feedback-info-text:      #205238;
+  --color-feedback-gold-bg:        #FFFCF0;
+  --color-feedback-gold-border:    #FFE8A3;
+  --color-feedback-gold-text:      #8C6118;
+}
+
+[data-theme="matcha"][data-mode="dark"] {
+  --color-bg-primary:    #0E150E;
+  --color-bg-secondary:  #152015;
+  --color-bg-sidebar:    #0A140A;
+  --color-bg-elevated:   #1C2A1C;
+  --color-bg-subtle:     #182418;
+  --color-bg-muted:      #223022;
+  --color-text-primary:  #E0F0E0;
+  --color-text-secondary: #8CB88C;
+  --color-text-tertiary: #6A906A;
+  --color-border:        #264026;
+  --color-border-subtle: #1E321E;
+  --color-accent:        #4CA872;
+  --color-primary-400:   #4CA872;
+  --color-primary-500:   #38845A;
+  --color-primary-600:   #2C6A48;
+  --color-primary-700:   #205238;
+  --color-feedback-success-bg:     rgba(56, 193, 114, 0.10);
+  --color-feedback-success-border: rgba(56, 193, 114, 0.22);
+  --color-feedback-success-text:   #68D391;
+  --color-feedback-error-bg:       rgba(214, 107, 138, 0.10);
+  --color-feedback-error-border:   rgba(214, 107, 138, 0.20);
+  --color-feedback-error-text:     #FFB0BF;
+  --color-feedback-info-bg:        rgba(76, 168, 114, 0.10);
+  --color-feedback-info-border:    rgba(76, 168, 114, 0.20);
+  --color-feedback-info-text:      #68D391;
+  --color-feedback-gold-bg:        rgba(245, 176, 65, 0.10);
+  --color-feedback-gold-border:    rgba(245, 176, 65, 0.20);
+  --color-feedback-gold-text:      #FFD966;
+}
+
+[data-theme="matcha"] .gradient-sidebar { background: linear-gradient(180deg, #223A22 0%, #0E1E0E 100%) !important; }
+[data-theme="matcha"] .gradient-accent  { background: linear-gradient(135deg, #38845A, #205238) !important; }
+[data-theme="matcha"] .gradient-hero    { background: linear-gradient(135deg, #38845A 0%, #2C6A48 40%, #1A4030 100%) !important; }
+[data-theme="matcha"] .glow-accent { box-shadow: 0 0 20px rgba(56, 132, 90, 0.18), 0 0 60px rgba(56, 132, 90, 0.06); }
+
+/* ──────────────────────────────────────────────────────────────
+   藤 FUJI — Wisteria Purple (elegant, dreamy)
+   ────────────────────────────────────────────────────────────── */
+
+[data-theme="fuji"][data-mode="light"] {
+  --color-bg-primary:    #F5F0FF;
+  --color-bg-secondary:  #FFFFFF;
+  --color-bg-sidebar:    #1E1040;
+  --color-bg-elevated:   #FFFFFF;
+  --color-bg-subtle:     #EDE5F8;
+  --color-bg-muted:      #DDD0F0;
+  --color-text-primary:  #2A1850;
+  --color-text-secondary: #6E5698;
+  --color-text-tertiary: #9480B8;
+  --color-border:        #DDD0F0;
+  --color-border-subtle: #EDE5F8;
+  --color-accent:        #7C5CC4;
+  --color-primary-400:   #9A7ED8;
+  --color-primary-500:   #7C5CC4;
+  --color-primary-600:   #6344AB;
+  --color-primary-700:   #4E3290;
+  --color-feedback-success-bg:     #f0fdf6;
+  --color-feedback-success-border: #bbf5d1;
+  --color-feedback-success-text:   #1D7D48;
+  --color-feedback-error-bg:       #fef2f2;
+  --color-feedback-error-border:   #f5c0ca;
+  --color-feedback-error-text:     #A13658;
+  --color-feedback-info-bg:        #F0ECFF;
+  --color-feedback-info-border:    #C8B8F0;
+  --color-feedback-info-text:      #4E3290;
+  --color-feedback-gold-bg:        #FFFCF0;
+  --color-feedback-gold-border:    #FFE8A3;
+  --color-feedback-gold-text:      #8C6118;
+}
+
+[data-theme="fuji"][data-mode="dark"] {
+  --color-bg-primary:    #110E1C;
+  --color-bg-secondary:  #1A1530;
+  --color-bg-sidebar:    #0C0818;
+  --color-bg-elevated:   #221C3A;
+  --color-bg-subtle:     #1E1830;
+  --color-bg-muted:      #2A223E;
+  --color-text-primary:  #E5DCF5;
+  --color-text-secondary: #A898C8;
+  --color-text-tertiary: #7A6A9A;
+  --color-border:        #302848;
+  --color-border-subtle: #261E40;
+  --color-accent:        #9A7ED8;
+  --color-primary-400:   #9A7ED8;
+  --color-primary-500:   #7C5CC4;
+  --color-primary-600:   #6344AB;
+  --color-primary-700:   #4E3290;
+  --color-feedback-success-bg:     rgba(56, 193, 114, 0.10);
+  --color-feedback-success-border: rgba(56, 193, 114, 0.20);
+  --color-feedback-success-text:   #68D391;
+  --color-feedback-error-bg:       rgba(214, 107, 138, 0.10);
+  --color-feedback-error-border:   rgba(214, 107, 138, 0.20);
+  --color-feedback-error-text:     #FFB0BF;
+  --color-feedback-info-bg:        rgba(154, 126, 216, 0.10);
+  --color-feedback-info-border:    rgba(154, 126, 216, 0.20);
+  --color-feedback-info-text:      #B8A8E0;
+  --color-feedback-gold-bg:        rgba(245, 176, 65, 0.10);
+  --color-feedback-gold-border:    rgba(245, 176, 65, 0.20);
+  --color-feedback-gold-text:      #FFD966;
+}
+
+[data-theme="fuji"] .gradient-sidebar { background: linear-gradient(180deg, #281650 0%, #140A2E 100%) !important; }
+[data-theme="fuji"] .gradient-accent  { background: linear-gradient(135deg, #7C5CC4, #4E3290) !important; }
+[data-theme="fuji"] .gradient-hero    { background: linear-gradient(135deg, #7C5CC4 0%, #6344AB 40%, #3D2680 100%) !important; }
+[data-theme="fuji"] .glow-accent { box-shadow: 0 0 20px rgba(124, 92, 196, 0.18), 0 0 60px rgba(124, 92, 196, 0.06); }
+
+/* ──────────────────────────────────────────────────────────────
+   紅葉 MOMIJI — Autumn Maple (warm, rich, amber)
+   ────────────────────────────────────────────────────────────── */
+
+[data-theme="momiji"][data-mode="light"] {
+  --color-bg-primary:    #FDF6F0;
+  --color-bg-secondary:  #FFFFFF;
+  --color-bg-sidebar:    #3A1808;
+  --color-bg-elevated:   #FFFFFF;
+  --color-bg-subtle:     #F8E8DA;
+  --color-bg-muted:      #F0D4C0;
+  --color-text-primary:  #3A1808;
+  --color-text-secondary: #8A5A3A;
+  --color-text-tertiary: #A87858;
+  --color-border:        #F0D8C4;
+  --color-border-subtle: #F8E8DA;
+  --color-accent:        #C45A2A;
+  --color-primary-400:   #D87848;
+  --color-primary-500:   #C45A2A;
+  --color-primary-600:   #A84820;
+  --color-primary-700:   #883818;
+  --color-feedback-success-bg:     #f0fdf6;
+  --color-feedback-success-border: #bbf5d1;
+  --color-feedback-success-text:   #1D7D48;
+  --color-feedback-error-bg:       #fef2f2;
+  --color-feedback-error-border:   #f5c0ca;
+  --color-feedback-error-text:     #A13658;
+  --color-feedback-info-bg:        #FFF5EC;
+  --color-feedback-info-border:    #F0D0A8;
+  --color-feedback-info-text:      #883818;
+  --color-feedback-gold-bg:        #FFFCF0;
+  --color-feedback-gold-border:    #FFE8A3;
+  --color-feedback-gold-text:      #8C6118;
+}
+
+[data-theme="momiji"][data-mode="dark"] {
+  --color-bg-primary:    #1A120C;
+  --color-bg-secondary:  #241810;
+  --color-bg-sidebar:    #140C06;
+  --color-bg-elevated:   #2E2018;
+  --color-bg-subtle:     #221810;
+  --color-bg-muted:      #30221A;
+  --color-text-primary:  #F0E0D0;
+  --color-text-secondary: #C8A080;
+  --color-text-tertiary: #9A7858;
+  --color-border:        #3A2818;
+  --color-border-subtle: #302010;
+  --color-accent:        #D87848;
+  --color-primary-400:   #D87848;
+  --color-primary-500:   #C45A2A;
+  --color-primary-600:   #A84820;
+  --color-primary-700:   #883818;
+  --color-feedback-success-bg:     rgba(56, 193, 114, 0.10);
+  --color-feedback-success-border: rgba(56, 193, 114, 0.20);
+  --color-feedback-success-text:   #68D391;
+  --color-feedback-error-bg:       rgba(214, 107, 138, 0.10);
+  --color-feedback-error-border:   rgba(214, 107, 138, 0.20);
+  --color-feedback-error-text:     #FFB0BF;
+  --color-feedback-info-bg:        rgba(216, 120, 72, 0.10);
+  --color-feedback-info-border:    rgba(216, 120, 72, 0.20);
+  --color-feedback-info-text:      #E8A070;
+  --color-feedback-gold-bg:        rgba(245, 176, 65, 0.10);
+  --color-feedback-gold-border:    rgba(245, 176, 65, 0.20);
+  --color-feedback-gold-text:      #FFD966;
+}
+
+[data-theme="momiji"] .gradient-sidebar { background: linear-gradient(180deg, #4A2010 0%, #280E04 100%) !important; }
+[data-theme="momiji"] .gradient-accent  { background: linear-gradient(135deg, #C45A2A, #883818) !important; }
+[data-theme="momiji"] .gradient-hero    { background: linear-gradient(135deg, #C45A2A 0%, #A84820 40%, #6A2810 100%) !important; }
+[data-theme="momiji"] .glow-accent { box-shadow: 0 0 20px rgba(196, 90, 42, 0.18), 0 0 60px rgba(196, 90, 42, 0.06); }
+
+/* ──────────────────────────────────────────────────────────────
+   空 SORA — Sky Blue (serene, ocean, Japanese sky)
+   ────────────────────────────────────────────────────────────── */
+
+[data-theme="sora"][data-mode="light"] {
+  --color-bg-primary:    #F0F6FF;
+  --color-bg-secondary:  #FFFFFF;
+  --color-bg-sidebar:    #0C1A35;
+  --color-bg-elevated:   #FFFFFF;
+  --color-bg-subtle:     #E0ECFA;
+  --color-bg-muted:      #C8DAFA;
+  --color-text-primary:  #142040;
+  --color-text-secondary: #4A6A9A;
+  --color-text-tertiary: #6A8AB8;
+  --color-border:        #C0D4F0;
+  --color-border-subtle: #D8E6FA;
+  --color-accent:        #3B7DD8;
+  --color-primary-400:   #5A9AEE;
+  --color-primary-500:   #3B7DD8;
+  --color-primary-600:   #2E64B8;
+  --color-primary-700:   #204C96;
+  --color-feedback-success-bg:     #f0fdf6;
+  --color-feedback-success-border: #bbf5d1;
+  --color-feedback-success-text:   #1D7D48;
+  --color-feedback-error-bg:       #fef2f2;
+  --color-feedback-error-border:   #f5c0ca;
+  --color-feedback-error-text:     #A13658;
+  --color-feedback-info-bg:        #EEF4FF;
+  --color-feedback-info-border:    #B0C8F0;
+  --color-feedback-info-text:      #204C96;
+  --color-feedback-gold-bg:        #FFFCF0;
+  --color-feedback-gold-border:    #FFE8A3;
+  --color-feedback-gold-text:      #8C6118;
+}
+
+[data-theme="sora"][data-mode="dark"] {
+  --color-bg-primary:    #0C1220;
+  --color-bg-secondary:  #131D30;
+  --color-bg-sidebar:    #060D1C;
+  --color-bg-elevated:   #1A2640;
+  --color-bg-subtle:     #101C2E;
+  --color-bg-muted:      #182838;
+  --color-text-primary:  #E0E8F5;
+  --color-text-secondary: #8AAAD0;
+  --color-text-tertiary: #5A80A8;
+  --color-border:        #1E3050;
+  --color-border-subtle: #182640;
+  --color-accent:        #5A9AEE;
+  --color-primary-400:   #5A9AEE;
+  --color-primary-500:   #3B7DD8;
+  --color-primary-600:   #2E64B8;
+  --color-primary-700:   #204C96;
+  --color-feedback-success-bg:     rgba(56, 193, 114, 0.10);
+  --color-feedback-success-border: rgba(56, 193, 114, 0.20);
+  --color-feedback-success-text:   #68D391;
+  --color-feedback-error-bg:       rgba(214, 107, 138, 0.10);
+  --color-feedback-error-border:   rgba(214, 107, 138, 0.20);
+  --color-feedback-error-text:     #FFB0BF;
+  --color-feedback-info-bg:        rgba(90, 154, 238, 0.10);
+  --color-feedback-info-border:    rgba(90, 154, 238, 0.20);
+  --color-feedback-info-text:      #80B0E8;
+  --color-feedback-gold-bg:        rgba(245, 176, 65, 0.10);
+  --color-feedback-gold-border:    rgba(245, 176, 65, 0.20);
+  --color-feedback-gold-text:      #FFD966;
+}
+
+[data-theme="sora"] .gradient-sidebar { background: linear-gradient(180deg, #14264A 0%, #081428 100%) !important; }
+[data-theme="sora"] .gradient-accent  { background: linear-gradient(135deg, #3B7DD8, #204C96) !important; }
+[data-theme="sora"] .gradient-hero    { background: linear-gradient(135deg, #3B7DD8 0%, #2E64B8 40%, #1A3870 100%) !important; }
+[data-theme="sora"] .glow-accent { box-shadow: 0 0 20px rgba(59, 125, 216, 0.18), 0 0 60px rgba(59, 125, 216, 0.06); }
+
+/* ═══════════════════════════════════════════════════════════════
+   DARK MODE SHADOW OVERRIDES — Per-theme tinted shadows
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme="sakura"][data-mode="dark"] .shadow-md { box-shadow: 0 4px 12px rgba(0,0,0,0.30); }
+[data-theme="matcha"][data-mode="dark"] .shadow-md { box-shadow: 0 4px 12px rgba(0,0,0,0.30); }
+[data-theme="fuji"][data-mode="dark"]   .shadow-md { box-shadow: 0 4px 12px rgba(0,0,0,0.30); }
+[data-theme="momiji"][data-mode="dark"] .shadow-md { box-shadow: 0 4px 12px rgba(0,0,0,0.30); }
+[data-theme="sora"][data-mode="dark"]   .shadow-md { box-shadow: 0 4px 12px rgba(0,0,0,0.30); }
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLLBAR PER THEME
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme="sakura"] ::-webkit-scrollbar-thumb { background-color: rgba(214, 107, 138, 0.20); }
+[data-theme="matcha"] ::-webkit-scrollbar-thumb { background-color: rgba(56, 132, 90, 0.20); }
+[data-theme="fuji"]   ::-webkit-scrollbar-thumb { background-color: rgba(124, 92, 196, 0.20); }
+[data-theme="momiji"] ::-webkit-scrollbar-thumb { background-color: rgba(196, 90, 42, 0.20); }
+[data-theme="sora"]   ::-webkit-scrollbar-thumb { background-color: rgba(59, 125, 216, 0.20); }
+
+/* ═══════════════════════════════════════════════════════════════
+   SMOOTH THEME TRANSITION
+   ═══════════════════════════════════════════════════════════════ */
+
+html.theme-transitioning * {
+  transition:
+    background-color 0.4s ease,
+    background      0.4s ease,
+    color           0.25s ease,
+    border-color    0.3s ease,
+    box-shadow      0.4s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning * {
+    transition: none !important;
+  }
+}

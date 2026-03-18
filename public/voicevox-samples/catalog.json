@@ -1,0 +1,1005 @@
+{
+  "version": "0.25.1",
+  "vvm_files": {
+    "0.vvm": {
+      "size_bytes": 58214379
+    },
+    "1.vvm": {
+      "size_bytes": 59477413
+    },
+    "10.vvm": {
+      "size_bytes": 57235185
+    },
+    "11.vvm": {
+      "size_bytes": 60231796
+    },
+    "12.vvm": {
+      "size_bytes": 58213390
+    },
+    "13.vvm": {
+      "size_bytes": 60231935
+    },
+    "14.vvm": {
+      "size_bytes": 64664926
+    },
+    "15.vvm": {
+      "size_bytes": 65647574
+    },
+    "16.vvm": {
+      "size_bytes": 58212115
+    },
+    "17.vvm": {
+      "size_bytes": 58212482
+    },
+    "18.vvm": {
+      "size_bytes": 61399262
+    },
+    "19.vvm": {
+      "size_bytes": 59022148
+    },
+    "2.vvm": {
+      "size_bytes": 58214778
+    },
+    "20.vvm": {
+      "size_bytes": 59535608
+    },
+    "21.vvm": {
+      "size_bytes": 62075160
+    },
+    "22.vvm": {
+      "size_bytes": 62289486
+    },
+    "23.vvm": {
+      "size_bytes": 59022909
+    },
+    "3.vvm": {
+      "size_bytes": 61730024
+    },
+    "4.vvm": {
+      "size_bytes": 58211265
+    },
+    "5.vvm": {
+      "size_bytes": 56517330
+    },
+    "6.vvm": {
+      "size_bytes": 58211181
+    },
+    "7.vvm": {
+      "size_bytes": 57232459
+    },
+    "8.vvm": {
+      "size_bytes": 58210984
+    },
+    "9.vvm": {
+      "size_bytes": 57235017
+    },
+    "s0.vvm": {
+      "size_bytes": 130412376
+    }
+  },
+  "speakers": [
+    {
+      "name": "四国めたん",
+      "uuid": "7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff",
+      "styles": [
+        {
+          "id": 2,
+          "name": "ノーマル"
+        },
+        {
+          "id": 0,
+          "name": "あまあま"
+        },
+        {
+          "id": 6,
+          "name": "ツンツン"
+        },
+        {
+          "id": 4,
+          "name": "セクシー"
+        },
+        {
+          "id": 36,
+          "name": "ささやき"
+        },
+        {
+          "id": 37,
+          "name": "ヒソヒソ"
+        }
+      ],
+      "sample_id": 2,
+      "vvm_files": [
+        "0.vvm",
+        "5.vvm"
+      ],
+      "total_size_bytes": 114731709
+    },
+    {
+      "name": "ずんだもん",
+      "uuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+      "styles": [
+        {
+          "id": 3,
+          "name": "ノーマル"
+        },
+        {
+          "id": 1,
+          "name": "あまあま"
+        },
+        {
+          "id": 7,
+          "name": "ツンツン"
+        },
+        {
+          "id": 5,
+          "name": "セクシー"
+        },
+        {
+          "id": 22,
+          "name": "ささやき"
+        },
+        {
+          "id": 38,
+          "name": "ヒソヒソ"
+        },
+        {
+          "id": 75,
+          "name": "ヘロヘロ"
+        },
+        {
+          "id": 76,
+          "name": "なみだめ"
+        }
+      ],
+      "sample_id": 3,
+      "vvm_files": [
+        "0.vvm",
+        "15.vvm",
+        "5.vvm"
+      ],
+      "total_size_bytes": 180379283
+    },
+    {
+      "name": "春日部つむぎ",
+      "uuid": "35b2c544-660e-401e-b503-0e14c635303a",
+      "styles": [
+        {
+          "id": 8,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 8,
+      "vvm_files": [
+        "0.vvm"
+      ],
+      "total_size_bytes": 58214379
+    },
+    {
+      "name": "雨晴はう",
+      "uuid": "3474ee95-c274-47f9-aa1a-8322163d96f1",
+      "styles": [
+        {
+          "id": 10,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 10,
+      "vvm_files": [
+        "0.vvm"
+      ],
+      "total_size_bytes": 58214379
+    },
+    {
+      "name": "波音リツ",
+      "uuid": "b1a81618-b27b-40d2-b0ea-27a9ad408c4b",
+      "styles": [
+        {
+          "id": 9,
+          "name": "ノーマル"
+        },
+        {
+          "id": 65,
+          "name": "クイーン"
+        }
+      ],
+      "sample_id": 9,
+      "vvm_files": [
+        "3.vvm"
+      ],
+      "total_size_bytes": 61730024
+    },
+    {
+      "name": "玄野武宏",
+      "uuid": "c30dc15a-0992-4f8d-8bb8-ad3b314e6a6f",
+      "styles": [
+        {
+          "id": 11,
+          "name": "ノーマル"
+        },
+        {
+          "id": 39,
+          "name": "喜び"
+        },
+        {
+          "id": 40,
+          "name": "ツンギレ"
+        },
+        {
+          "id": 41,
+          "name": "悲しみ"
+        }
+      ],
+      "sample_id": 11,
+      "vvm_files": [
+        "10.vvm",
+        "4.vvm"
+      ],
+      "total_size_bytes": 115446450
+    },
+    {
+      "name": "白上虎太郎",
+      "uuid": "e5020595-5c5d-4e87-b849-270a518d0dcf",
+      "styles": [
+        {
+          "id": 12,
+          "name": "ふつう"
+        },
+        {
+          "id": 32,
+          "name": "わーい"
+        },
+        {
+          "id": 33,
+          "name": "びくびく"
+        },
+        {
+          "id": 34,
+          "name": "おこ"
+        },
+        {
+          "id": 35,
+          "name": "びえーん"
+        }
+      ],
+      "sample_id": 12,
+      "vvm_files": [
+        "9.vvm"
+      ],
+      "total_size_bytes": 57235017
+    },
+    {
+      "name": "青山龍星",
+      "uuid": "4f51116a-d9ee-4516-925d-21f183e2afad",
+      "styles": [
+        {
+          "id": 13,
+          "name": "ノーマル"
+        },
+        {
+          "id": 81,
+          "name": "熱血"
+        },
+        {
+          "id": 82,
+          "name": "不機嫌"
+        },
+        {
+          "id": 83,
+          "name": "喜び"
+        },
+        {
+          "id": 84,
+          "name": "しっとり"
+        },
+        {
+          "id": 85,
+          "name": "かなしみ"
+        },
+        {
+          "id": 86,
+          "name": "囁き"
+        }
+      ],
+      "sample_id": 13,
+      "vvm_files": [
+        "15.vvm"
+      ],
+      "total_size_bytes": 65647574
+    },
+    {
+      "name": "冥鳴ひまり",
+      "uuid": "8eaad775-3119-417e-8cf4-2a10bfd592c8",
+      "styles": [
+        {
+          "id": 14,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 14,
+      "vvm_files": [
+        "1.vvm"
+      ],
+      "total_size_bytes": 59477413
+    },
+    {
+      "name": "九州そら",
+      "uuid": "481fb609-6446-4870-9f46-90c4dd623403",
+      "styles": [
+        {
+          "id": 16,
+          "name": "ノーマル"
+        },
+        {
+          "id": 15,
+          "name": "あまあま"
+        },
+        {
+          "id": 18,
+          "name": "ツンツン"
+        },
+        {
+          "id": 17,
+          "name": "セクシー"
+        },
+        {
+          "id": 19,
+          "name": "ささやき"
+        }
+      ],
+      "sample_id": 16,
+      "vvm_files": [
+        "2.vvm",
+        "5.vvm"
+      ],
+      "total_size_bytes": 114732108
+    },
+    {
+      "name": "もち子さん",
+      "uuid": "9f3ee141-26ad-437e-97bd-d22298d02ad2",
+      "styles": [
+        {
+          "id": 20,
+          "name": "ノーマル"
+        },
+        {
+          "id": 66,
+          "name": "セクシー／あん子"
+        },
+        {
+          "id": 77,
+          "name": "泣き"
+        },
+        {
+          "id": 78,
+          "name": "怒り"
+        },
+        {
+          "id": 79,
+          "name": "喜び"
+        },
+        {
+          "id": 80,
+          "name": "のんびり"
+        }
+      ],
+      "sample_id": 20,
+      "vvm_files": [
+        "15.vvm"
+      ],
+      "total_size_bytes": 65647574
+    },
+    {
+      "name": "剣崎雌雄",
+      "uuid": "1a17ca16-7ee5-4ea5-b191-2f02ace24d21",
+      "styles": [
+        {
+          "id": 21,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 21,
+      "vvm_files": [
+        "4.vvm"
+      ],
+      "total_size_bytes": 58211265
+    },
+    {
+      "name": "WhiteCUL",
+      "uuid": "67d5d8da-acd7-4207-bb10-b5542d3a663b",
+      "styles": [
+        {
+          "id": 23,
+          "name": "ノーマル"
+        },
+        {
+          "id": 24,
+          "name": "たのしい"
+        },
+        {
+          "id": 25,
+          "name": "かなしい"
+        },
+        {
+          "id": 26,
+          "name": "びえーん"
+        }
+      ],
+      "sample_id": 23,
+      "vvm_files": [
+        "8.vvm"
+      ],
+      "total_size_bytes": 58210984
+    },
+    {
+      "name": "後鬼",
+      "uuid": "0f56c2f2-644c-49c9-8989-94e11f7129d0",
+      "styles": [
+        {
+          "id": 27,
+          "name": "人間ver."
+        },
+        {
+          "id": 28,
+          "name": "ぬいぐるみver."
+        },
+        {
+          "id": 87,
+          "name": "人間（怒り）ver."
+        },
+        {
+          "id": 88,
+          "name": "鬼ver."
+        }
+      ],
+      "sample_id": 27,
+      "vvm_files": [
+        "16.vvm",
+        "7.vvm"
+      ],
+      "total_size_bytes": 115444574
+    },
+    {
+      "name": "No.7",
+      "uuid": "044830d2-f23b-44d6-ac0d-b5d733caa900",
+      "styles": [
+        {
+          "id": 29,
+          "name": "ノーマル"
+        },
+        {
+          "id": 30,
+          "name": "アナウンス"
+        },
+        {
+          "id": 31,
+          "name": "読み聞かせ"
+        }
+      ],
+      "sample_id": 29,
+      "vvm_files": [
+        "6.vvm"
+      ],
+      "total_size_bytes": 58211181
+    },
+    {
+      "name": "ちび式じい",
+      "uuid": "468b8e94-9da4-4f7a-8715-a22a48844f9e",
+      "styles": [
+        {
+          "id": 42,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 42,
+      "vvm_files": [
+        "10.vvm"
+      ],
+      "total_size_bytes": 57235185
+    },
+    {
+      "name": "櫻歌ミコ",
+      "uuid": "0693554c-338e-4790-8982-b9c6d476dc69",
+      "styles": [
+        {
+          "id": 43,
+          "name": "ノーマル"
+        },
+        {
+          "id": 44,
+          "name": "第二形態"
+        },
+        {
+          "id": 45,
+          "name": "ロリ"
+        }
+      ],
+      "sample_id": 43,
+      "vvm_files": [
+        "11.vvm"
+      ],
+      "total_size_bytes": 60231796
+    },
+    {
+      "name": "小夜/SAYO",
+      "uuid": "a8cc6d22-aad0-4ab8-bf1e-2f843924164a",
+      "styles": [
+        {
+          "id": 46,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 46,
+      "vvm_files": [
+        "15.vvm"
+      ],
+      "total_size_bytes": 65647574
+    },
+    {
+      "name": "ナースロボ＿タイプＴ",
+      "uuid": "882a636f-3bac-431a-966d-c5e6bba9f949",
+      "styles": [
+        {
+          "id": 47,
+          "name": "ノーマル"
+        },
+        {
+          "id": 48,
+          "name": "楽々"
+        },
+        {
+          "id": 49,
+          "name": "恐怖"
+        },
+        {
+          "id": 50,
+          "name": "内緒話"
+        }
+      ],
+      "sample_id": 47,
+      "vvm_files": [
+        "11.vvm"
+      ],
+      "total_size_bytes": 60231796
+    },
+    {
+      "name": "†聖騎士 紅桜†",
+      "uuid": "471e39d2-fb11-4c8c-8d89-4b322d2498e0",
+      "styles": [
+        {
+          "id": 51,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 51,
+      "vvm_files": [
+        "12.vvm"
+      ],
+      "total_size_bytes": 58213390
+    },
+    {
+      "name": "雀松朱司",
+      "uuid": "0acebdee-a4a5-4e12-a695-e19609728e30",
+      "styles": [
+        {
+          "id": 52,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 52,
+      "vvm_files": [
+        "12.vvm"
+      ],
+      "total_size_bytes": 58213390
+    },
+    {
+      "name": "麒ヶ島宗麟",
+      "uuid": "7d1e7ba7-f957-40e5-a3fc-da49f769ab65",
+      "styles": [
+        {
+          "id": 53,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 53,
+      "vvm_files": [
+        "12.vvm"
+      ],
+      "total_size_bytes": 58213390
+    },
+    {
+      "name": "春歌ナナ",
+      "uuid": "ba5d2428-f7e0-4c20-ac41-9dd56e9178b4",
+      "styles": [
+        {
+          "id": 54,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 54,
+      "vvm_files": [
+        "13.vvm"
+      ],
+      "total_size_bytes": 60231935
+    },
+    {
+      "name": "猫使アル",
+      "uuid": "00a5c10c-d3bd-459f-83fd-43180b521a44",
+      "styles": [
+        {
+          "id": 55,
+          "name": "ノーマル"
+        },
+        {
+          "id": 56,
+          "name": "おちつき"
+        },
+        {
+          "id": 57,
+          "name": "うきうき"
+        },
+        {
+          "id": 110,
+          "name": "つよつよ"
+        },
+        {
+          "id": 111,
+          "name": "へろへろ"
+        }
+      ],
+      "sample_id": 55,
+      "vvm_files": [
+        "13.vvm",
+        "21.vvm"
+      ],
+      "total_size_bytes": 122307095
+    },
+    {
+      "name": "猫使ビィ",
+      "uuid": "c20a2254-0349-4470-9fc8-e5c0f8cf3404",
+      "styles": [
+        {
+          "id": 58,
+          "name": "ノーマル"
+        },
+        {
+          "id": 59,
+          "name": "おちつき"
+        },
+        {
+          "id": 60,
+          "name": "人見知り"
+        },
+        {
+          "id": 112,
+          "name": "つよつよ"
+        }
+      ],
+      "sample_id": 58,
+      "vvm_files": [
+        "13.vvm",
+        "21.vvm"
+      ],
+      "total_size_bytes": 122307095
+    },
+    {
+      "name": "中国うさぎ",
+      "uuid": "1f18ffc3-47ea-4ce0-9829-0576d03a7ec8",
+      "styles": [
+        {
+          "id": 61,
+          "name": "ノーマル"
+        },
+        {
+          "id": 62,
+          "name": "おどろき"
+        },
+        {
+          "id": 63,
+          "name": "こわがり"
+        },
+        {
+          "id": 64,
+          "name": "へろへろ"
+        }
+      ],
+      "sample_id": 61,
+      "vvm_files": [
+        "3.vvm"
+      ],
+      "total_size_bytes": 61730024
+    },
+    {
+      "name": "栗田まろん",
+      "uuid": "04dbd989-32d0-40b4-9e71-17c920f2a8a9",
+      "styles": [
+        {
+          "id": 67,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 67,
+      "vvm_files": [
+        "14.vvm"
+      ],
+      "total_size_bytes": 64664926
+    },
+    {
+      "name": "あいえるたん",
+      "uuid": "dda44ade-5f9c-4a3a-9d2c-2a976c7476d9",
+      "styles": [
+        {
+          "id": 68,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 68,
+      "vvm_files": [
+        "14.vvm"
+      ],
+      "total_size_bytes": 64664926
+    },
+    {
+      "name": "満別花丸",
+      "uuid": "287aa49f-e56b-4530-a469-855776c84a8d",
+      "styles": [
+        {
+          "id": 69,
+          "name": "ノーマル"
+        },
+        {
+          "id": 70,
+          "name": "元気"
+        },
+        {
+          "id": 71,
+          "name": "ささやき"
+        },
+        {
+          "id": 72,
+          "name": "ぶりっ子"
+        },
+        {
+          "id": 73,
+          "name": "ボーイ"
+        }
+      ],
+      "sample_id": 69,
+      "vvm_files": [
+        "14.vvm"
+      ],
+      "total_size_bytes": 64664926
+    },
+    {
+      "name": "琴詠ニア",
+      "uuid": "97a4af4b-086e-4efd-b125-7ae2da85e697",
+      "styles": [
+        {
+          "id": 74,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 74,
+      "vvm_files": [
+        "14.vvm"
+      ],
+      "total_size_bytes": 64664926
+    },
+    {
+      "name": "Voidoll",
+      "uuid": "0ebe2c7d-96f3-4f0e-a2e3-ae13fe27c403",
+      "styles": [
+        {
+          "id": 89,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 89,
+      "vvm_files": [
+        "17.vvm"
+      ],
+      "total_size_bytes": 58212482
+    },
+    {
+      "name": "ぞん子",
+      "uuid": "0156da66-4300-474a-a398-49eb2e8dd853",
+      "styles": [
+        {
+          "id": 90,
+          "name": "ノーマル"
+        },
+        {
+          "id": 91,
+          "name": "低血圧"
+        },
+        {
+          "id": 92,
+          "name": "覚醒"
+        },
+        {
+          "id": 93,
+          "name": "実況風"
+        }
+      ],
+      "sample_id": 90,
+      "vvm_files": [
+        "18.vvm"
+      ],
+      "total_size_bytes": 61399262
+    },
+    {
+      "name": "中部つるぎ",
+      "uuid": "4614a7de-9829-465d-9791-97eb8a5f9b86",
+      "styles": [
+        {
+          "id": 94,
+          "name": "ノーマル"
+        },
+        {
+          "id": 95,
+          "name": "怒り"
+        },
+        {
+          "id": 96,
+          "name": "ヒソヒソ"
+        },
+        {
+          "id": 97,
+          "name": "おどおど"
+        },
+        {
+          "id": 98,
+          "name": "絶望と敗北"
+        }
+      ],
+      "sample_id": 94,
+      "vvm_files": [
+        "18.vvm"
+      ],
+      "total_size_bytes": 61399262
+    },
+    {
+      "name": "離途",
+      "uuid": "3b91e034-e028-4acb-a08d-fbdcd207ea63",
+      "styles": [
+        {
+          "id": 99,
+          "name": "ノーマル"
+        },
+        {
+          "id": 101,
+          "name": "シリアス"
+        }
+      ],
+      "sample_id": 99,
+      "vvm_files": [
+        "19.vvm"
+      ],
+      "total_size_bytes": 59022148
+    },
+    {
+      "name": "黒沢冴白",
+      "uuid": "0b466290-f9b6-4718-8d37-6c0c81e824ac",
+      "styles": [
+        {
+          "id": 100,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 100,
+      "vvm_files": [
+        "19.vvm"
+      ],
+      "total_size_bytes": 59022148
+    },
+    {
+      "name": "ユーレイちゃん",
+      "uuid": "462cd6b4-c088-42b0-b357-3816e24f112e",
+      "styles": [
+        {
+          "id": 102,
+          "name": "ノーマル"
+        },
+        {
+          "id": 103,
+          "name": "甘々"
+        },
+        {
+          "id": 104,
+          "name": "哀しみ"
+        },
+        {
+          "id": 105,
+          "name": "ささやき"
+        },
+        {
+          "id": 106,
+          "name": "ツクモちゃん"
+        }
+      ],
+      "sample_id": 102,
+      "vvm_files": [
+        "20.vvm"
+      ],
+      "total_size_bytes": 59535608
+    },
+    {
+      "name": "東北ずん子",
+      "uuid": "80802b2d-8c75-4429-978b-515105017010",
+      "styles": [
+        {
+          "id": 107,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 107,
+      "vvm_files": [
+        "21.vvm"
+      ],
+      "total_size_bytes": 62075160
+    },
+    {
+      "name": "東北きりたん",
+      "uuid": "1bd6b32b-d650-4072-bbe5-1d0ef4aaa28b",
+      "styles": [
+        {
+          "id": 108,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 108,
+      "vvm_files": [
+        "21.vvm"
+      ],
+      "total_size_bytes": 62075160
+    },
+    {
+      "name": "東北イタコ",
+      "uuid": "ab4c31a3-8769-422a-b412-708f5ae637e8",
+      "styles": [
+        {
+          "id": 109,
+          "name": "ノーマル"
+        }
+      ],
+      "sample_id": 109,
+      "vvm_files": [
+        "21.vvm"
+      ],
+      "total_size_bytes": 62075160
+    },
+    {
+      "name": "あんこもん",
+      "uuid": "3be49e15-34bb-48a0-9e2f-9b80c96e9905",
+      "styles": [
+        {
+          "id": 113,
+          "name": "ノーマル"
+        },
+        {
+          "id": 114,
+          "name": "つよつよ"
+        },
+        {
+          "id": 115,
+          "name": "よわよわ"
+        },
+        {
+          "id": 116,
+          "name": "けだるげ"
+        },
+        {
+          "id": 117,
+          "name": "ささやき"
+        }
+      ],
+      "sample_id": 113,
+      "vvm_files": [
+        "22.vvm",
+        "23.vvm"
+      ],
+      "total_size_bytes": 121312395
+    }
+  ],
+  "singing_model": "s0.vvm",
+  "singing_model_size_bytes": 130412376
+}

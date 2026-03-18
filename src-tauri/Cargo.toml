@@ -1,0 +1,29 @@
+[package]
+name = "nihongo-master"
+version = "0.1.0"
+description = "The ultimate macOS Japanese learning application"
+authors = ["NihongoMaster Team"]
+edition = "2021"
+
+[lib]
+name = "nihongo_master_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-sql = { version = "2", features = ["sqlite"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", features = ["serde"] }
+rand = "0.8"
+reqwest = { version = "0.12", features = ["stream", "native-tls"] }
+tokio = { version = "1", features = ["full"] }
+futures-util = "0.3"
+libc = "0.2"
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]
