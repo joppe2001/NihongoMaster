@@ -565,6 +565,7 @@ Additionally:
 
 ## Roadmap
 
+### Planned
 - [ ] N1 content (kanji, vocabulary, grammar)
 - [ ] Pitch accent visualization
 - [ ] Handwriting recognition (on-device ML)
@@ -572,7 +573,13 @@ Additionally:
 - [ ] Grammar conjugation tables
 - [ ] Community shared mnemonics
 - [ ] Mobile companion (Tauri v2 iOS/Android)
-- [ ] Plugin system for custom content packs
+
+### Community Requested
+- [ ] Custom content packs -- load your own vocab, reading material, and grammar in JSON/CSV format (Yomitan-style user-loadable dictionaries)
+- [ ] Anki CSV import -- bring your existing Anki flashcards into NihongoMaster
+- [ ] Traditional Chinese interface (zh-TW) -- i18n architecture is ready, needs translations
+- [ ] Shadowing practice -- listen-then-repeat with word-by-word audio sync
+- [ ] Spoken conversation practice -- on-device speech recognition (exploring local Whisper integration)
 
 ---
 
