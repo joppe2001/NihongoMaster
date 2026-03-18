@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NihongoMaster — Free, 100% offline Japanese learning app for desktop. JLPT N5–N2, FSRS spaced repetition, VOICEVOX AI voices. No account needed." />
+  <meta property="og:title" content="NihongoMaster — Desktop Japanese Learning" />
+  <meta property="og:description" content="Free offline Japanese learning app. Kana · Kanji · Vocabulary · Grammar · FSRS SRS · AI Voices. No account. No subscription." />
+  <meta property="og:image" content="https://raw.githubusercontent.com/joppe2001/NihongoMaster/main/docs/screenshots/hero-dashboard.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>NihongoMaster — Desktop Japanese Learning App</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/joppe2001/NihongoMaster/main/public/app-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       RESET & TOKENS
+    ═══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg-base:   #0B0A14;
+      --bg-0:      #0F0E1A;
+      --bg-1:      #161425;
+      --bg-2:      #1E1C2E;
+      --bg-3:      #272537;
+      --bg-4:      #2E2C40;
+
+      --border:        rgba(255,255,255,0.06);
+      --border-md:     rgba(255,255,255,0.10);
+      --border-strong: rgba(255,255,255,0.16);
+
+      --t1: #F8F7FC;
+      --t2: #C8C4D8;
+      --t3: #8E8AA2;
+      --t4: #534F66;
+
+      --indigo:      #6C63FF;
+      --indigo-400:  #8B7AFF;
+      --indigo-300:  #A899FF;
+      --indigo-dim:  rgba(108,99,255,0.12);
+      --indigo-glow: 0 0 40px rgba(108,99,255,0.18), 0 0 80px rgba(108,99,255,0.07);
+
+      --sakura:     #D66B8A;
+      --sakura-400: #E88DA8;
+      --sakura-dim: rgba(214,107,138,0.12);
+
+      --matcha:     #38C172;
+      --matcha-400: #68D391;
+      --matcha-dim: rgba(56,193,114,0.12);
+
+      --gold:      #F5B041;
+      --gold-400:  #FFD966;
+      --gold-dim:  rgba(245,176,65,0.12);
+
+      --danger:    #EF4444;
+      --danger-dim: rgba(239,68,68,0.10);
+      --warn:      #F59E0B;
+      --warn-dim:  rgba(245,158,11,0.12);
+
+      --r-sm:  6px;
+      --r:     10px;
+      --r-md:  14px;
+      --r-lg:  20px;
+      --r-xl:  28px;
+
+      --sh-sm: 0 2px 8px rgba(0,0,0,0.35);
+      --sh:    0 4px 24px rgba(0,0,0,0.45);
+      --sh-lg: 0 8px 48px rgba(0,0,0,0.55);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+      background: var(--bg-0);
+      color: var(--t1);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-0); }
+    ::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--t4); }
+
+    /* ═══════════════════════════════════════════════
+       BACKGROUND DECORATION
+    ═══════════════════════════════════════════════ */
+    .bg-grid {
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(108,99,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108,99,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none; z-index: 0;
+    }
+    .bg-glow {
+      position: fixed; top: -280px; left: 50%; transform: translateX(-50%);
+      width: 1000px; height: 560px;
+      background: radial-gradient(ellipse, rgba(108,99,255,0.09) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ═══════════════════════════════════════════════
+       LAYOUT
+    ═══════════════════════════════════════════════ */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    section { position: relative; z-index: 1; padding: 88px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--t3); margin-bottom: 14px;
+    }
+    .section-eyebrow::before,
+    .section-eyebrow::after { content: ''; width: 20px; height: 1px; background: var(--bg-4); }
+
+    h2.section-title {
+      font-size: clamp(26px, 3.5vw, 38px); font-weight: 800;
+      line-height: 1.18; letter-spacing: -0.025em; margin-bottom: 14px;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--t2); max-width: 580px;
+      line-height: 1.75; margin-bottom: 48px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════════ */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(15,14,26,0.82);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1080px; margin: 0 auto; padding: 0 24px; height: 58px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--t1);
+    }
+    .nav-logo img { width: 26px; height: 26px; border-radius: 6px; }
+    .nav-wordmark { font-size: 15px; font-weight: 700; }
+    .nav-wordmark span {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 10px; font-weight: 400; color: var(--t4);
+      margin-left: 6px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 6px; }
+    .nav-ver {
+      font-size: 11px; font-weight: 600; color: var(--t4);
+      background: var(--bg-3); padding: 3px 9px; border-radius: 100px;
+      border: 1px solid var(--border-md);
+    }
+    .nav-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: var(--r-sm);
+      font-size: 13px; font-weight: 600; color: var(--t2);
+      text-decoration: none; transition: all 0.15s;
+    }
+    .nav-btn:hover { background: var(--bg-3); color: var(--t1); }
+    .nav-btn-primary {
+      background: var(--indigo-dim); color: var(--indigo-400);
+      border: 1px solid rgba(108,99,255,0.22);
+    }
+    .nav-btn-primary:hover { background: rgba(108,99,255,0.20); }
+
+    /* ═══════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════ */
+    .hero {
+      padding: 110px 0 80px;
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+    .hero-kanji-bg {
+      position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 200px; font-weight: 700;
+      color: rgba(108,99,255,0.035);
+      white-space: nowrap; pointer-events: none; user-select: none;
+      line-height: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 14px; border-radius: 100px;
+      background: var(--indigo-dim); border: 1px solid rgba(108,99,255,0.22);
+      font-size: 12px; font-weight: 600; color: var(--indigo-400);
+      margin-bottom: 28px; letter-spacing: 0.04em;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--indigo-400);
+      animation: badge-pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes badge-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.85)} }
+
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 78px); font-weight: 800;
+      line-height: 1.04; letter-spacing: -0.035em; margin-bottom: 22px;
+    }
+    .grad {
+      background: linear-gradient(130deg, var(--indigo-300) 0%, var(--sakura-400) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-jp {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px; color: var(--t4); margin-bottom: 4px;
+      letter-spacing: 0.08em;
+    }
+    .hero-desc {
+      font-size: clamp(15px, 2vw, 18px); color: var(--t2);
+      max-width: 540px; margin: 0 auto 44px;
+    }
+
+    /* Download CTA */
+    .dl-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .dl-primary {
+      display: inline-flex; align-items: center; gap: 14px;
+      padding: 14px 28px; border-radius: var(--r-md);
+      background: linear-gradient(135deg, #6C63FF 0%, #5548E0 100%);
+      box-shadow: var(--indigo-glow);
+      color: #fff; text-decoration: none; font-weight: 700;
+      border: none; cursor: pointer; transition: all 0.2s;
+    }
+    .dl-primary:hover { transform: translateY(-2px); filter: brightness(1.12); }
+    .dl-primary-icon { flex-shrink: 0; }
+    .dl-primary-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; line-height: 1.2; }
+    .dl-primary-label { font-size: 11px; font-weight: 500; opacity: 0.7; }
+    .dl-primary-title { font-size: 15px; font-weight: 700; }
+    .dl-primary-sub { font-size: 11px; opacity: 0.55; }
+
+    .dl-others { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .dl-other {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 16px; border-radius: var(--r-sm);
+      background: var(--bg-3); border: 1px solid var(--border-md);
+      color: var(--t2); font-size: 13px; font-weight: 500;
+      text-decoration: none; transition: all 0.15s;
+    }
+    .dl-other:hover { background: var(--bg-4); color: var(--t1); border-color: var(--border-strong); }
+
+    /* Trust strip */
+    .trust-strip {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      justify-content: center; margin-top: 32px;
+    }
+    .trust-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 100px;
+      background: var(--bg-2); border: 1px solid var(--border);
+      font-size: 11px; font-weight: 500; color: var(--t3);
+    }
+    .trust-pip { width: 5px; height: 5px; border-radius: 50%; }
+
+    /* Hero screenshot */
+    .hero-shot {
+      margin-top: 72px; border-radius: var(--r-lg);
+      overflow: hidden; border: 1px solid var(--border-md);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.65), var(--indigo-glow);
+      position: relative;
+    }
+    .hero-shot img { width: 100%; display: block; }
+    .hero-shot::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+      background: linear-gradient(to top, var(--bg-0), transparent);
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════════
+       INSTALL SAFELY  (the key section)
+    ═══════════════════════════════════════════════ */
+    #install { background: var(--bg-base); }
+
+    .os-tabs {
+      display: flex; gap: 3px; width: fit-content;
+      background: var(--bg-2); padding: 4px;
+      border-radius: var(--r-md); margin-bottom: 28px;
+    }
+    .os-tab {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 22px; border-radius: var(--r-sm);
+      background: none; border: none; cursor: pointer;
+      font-size: 13px; font-weight: 600; color: var(--t3);
+      transition: all 0.15s; font-family: inherit;
+    }
+    .os-tab.active {
+      background: var(--bg-4); color: var(--t1);
+      box-shadow: var(--sh-sm);
+    }
+    .os-tab svg { flex-shrink: 0; }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .install-card {
+      background: var(--bg-2); border: 1px solid var(--border-md);
+      border-radius: var(--r-lg); overflow: hidden;
+    }
+    .install-hdr {
+      display: flex; align-items: center; gap: 14px;
+      padding: 18px 24px; border-bottom: 1px solid var(--border);
+    }
+    .install-hdr-icon {
+      width: 40px; height: 40px; border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .install-hdr-text h3 { font-size: 16px; font-weight: 700; }
+    .install-hdr-text p { font-size: 12px; color: var(--t3); margin-top: 2px; }
+
+    /* Steps */
+    .install-steps { padding: 24px; display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex; gap: 16px;
+      position: relative; padding-bottom: 24px;
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step-connector {
+      position: absolute; left: 15px; top: 34px; bottom: 0;
+      width: 1px; background: var(--border-md);
+    }
+    .step:last-child .step-connector { display: none; }
+    .step-num {
+      flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; z-index: 1;
+    }
+    .step-body { flex: 1; padding-top: 5px; }
+    .step-body h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .step-body p { font-size: 13px; color: var(--t2); line-height: 1.65; }
+    .step-body code {
+      font-family: 'SF Mono','Fira Code','JetBrains Mono',monospace;
+      font-size: 12px; padding: 2px 7px; border-radius: 4px;
+      background: var(--bg-3); color: var(--indigo-300);
+      border: 1px solid var(--border-md);
+    }
+
+    /* Scenarios (if/then blocks) */
+    .scenarios { display: flex; flex-direction: column; gap: 14px; padding: 0 24px 24px; }
+    .scenario {
+      border-radius: var(--r); padding: 16px 18px;
+      border: 1px solid var(--border-md);
+    }
+    .scenario-hdr {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 600; margin-bottom: 10px; flex-wrap: wrap;
+    }
+    .badge {
+      font-size: 10px; font-weight: 700; padding: 2px 9px;
+      border-radius: 100px; letter-spacing: 0.04em;
+    }
+    .badge-warn { background: var(--warn-dim); color: var(--warn); border: 1px solid rgba(245,158,11,0.2); }
+    .badge-danger { background: var(--danger-dim); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); }
+    .badge-ok { background: var(--matcha-dim); color: var(--matcha-400); border: 1px solid rgba(56,193,114,0.2); }
+
+    .scenario-body { font-size: 13px; color: var(--t2); }
+    .scenario-body ol, .scenario-body ul { padding-left: 18px; }
+    .scenario-body li { margin-bottom: 5px; line-height: 1.6; }
+    .scenario-body b { color: var(--t1); font-weight: 600; }
+
+    /* Terminal block */
+    .term {
+      position: relative; margin-top: 12px;
+      background: var(--bg-0); border: 1px solid var(--border-md);
+      border-radius: var(--r-sm); padding: 12px 16px;
+      font-family: 'SF Mono','Fira Code','JetBrains Mono',monospace;
+      font-size: 12.5px; color: var(--matcha-400);
+      overflow-x: auto; white-space: nowrap;
+    }
+    .term .prompt { color: var(--t4); user-select: none; margin-right: 8px; }
+    .copy-btn {
+      position: absolute; top: 8px; right: 8px;
+      background: var(--bg-3); border: 1px solid var(--border-md);
+      color: var(--t3); padding: 3px 9px; border-radius: var(--r-sm);
+      font-size: 10px; font-weight: 600; cursor: pointer;
+      font-family: inherit; transition: all 0.15s;
+    }
+    .copy-btn:hover { color: var(--t1); background: var(--bg-4); }
+    .copy-btn.copied { color: var(--matcha-400); border-color: rgba(56,193,114,0.3); }
+
+    /* Why this happens box */
+    .why-box {
+      margin: 0 24px 24px;
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--indigo-dim); border: 1px solid rgba(108,99,255,0.18);
+      border-radius: var(--r); padding: 14px 18px;
+      font-size: 13px; color: var(--t2); line-height: 1.7;
+    }
+    .why-box-icon { flex-shrink: 0; color: var(--indigo-400); margin-top: 2px; }
+    .why-box a { color: var(--indigo-400); text-decoration: none; }
+    .why-box a:hover { text-decoration: underline; }
+
+    /* ═══════════════════════════════════════════════
+       FEATURES
+    ═══════════════════════════════════════════════ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .feat-card {
+      background: var(--bg-2); border: 1px solid var(--border-md);
+      border-radius: var(--r-lg); padding: 26px;
+      transition: all 0.2s; position: relative; overflow: hidden;
+    }
+    .feat-card:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+    .feat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    }
+    .fc-indigo::before { background: linear-gradient(90deg, var(--indigo), transparent); }
+    .fc-sakura::before { background: linear-gradient(90deg, var(--sakura), transparent); }
+    .fc-matcha::before { background: linear-gradient(90deg, var(--matcha), transparent); }
+    .fc-gold::before   { background: linear-gradient(90deg, var(--gold), transparent); }
+
+    .feat-icon {
+      width: 46px; height: 46px; border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin-bottom: 18px;
+    }
+    .feat-card .jp { font-family: 'Noto Sans JP', sans-serif; font-size: 11px; color: var(--t4); display: block; margin-bottom: 4px; }
+    .feat-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .feat-card p { font-size: 13px; color: var(--t2); line-height: 1.7; margin-bottom: 18px; }
+    .feat-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .feat-tag {
+      font-size: 11px; font-weight: 500; color: var(--t3);
+      padding: 3px 10px; border-radius: 100px;
+      background: var(--bg-3); border: 1px solid var(--border-md);
+    }
+
+    /* ═══════════════════════════════════════════════
+       COMPARISON TABLE
+    ═══════════════════════════════════════════════ */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--r-lg); border: 1px solid var(--border-md);
+    }
+    .cmp-table {
+      width: 100%; border-collapse: collapse; font-size: 13px; min-width: 560px;
+    }
+    .cmp-table th {
+      padding: 13px 18px; text-align: center; font-weight: 700;
+      background: var(--bg-2); border-bottom: 1px solid var(--border-md);
+      white-space: nowrap;
+    }
+    .cmp-table th:first-child { text-align: left; min-width: 200px; }
+    .cmp-table .th-us {
+      background: var(--indigo-dim); color: var(--indigo-400);
+      border-bottom-color: rgba(108,99,255,0.2);
+    }
+    .cmp-table td {
+      padding: 11px 18px; text-align: center;
+      border-bottom: 1px solid var(--border);
+      color: var(--t2);
+    }
+    .cmp-table td:first-child { text-align: left; color: var(--t1); font-weight: 500; }
+    .cmp-table tr:last-child td { border-bottom: none; }
+    .cmp-table tr:nth-child(even) td { background: rgba(255,255,255,0.013); }
+    .cmp-table .yes  { color: var(--matcha-400); font-size: 17px; }
+    .cmp-table .no   { color: var(--t4); }
+    .cmp-table .part { color: var(--gold); font-size: 13px; }
+    .cmp-us { background: var(--indigo-dim) !important; color: var(--indigo-400) !important; font-weight: 700 !important; }
+
+    /* ═══════════════════════════════════════════════
+       THEMES
+    ═══════════════════════════════════════════════ */
+    .themes-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 12px;
+    }
+    .theme-card {
+      border-radius: var(--r-md); overflow: hidden;
+      border: 1px solid var(--border-md); transition: all 0.2s;
+    }
+    .theme-card:hover { transform: translateY(-4px); box-shadow: var(--sh); }
+    .theme-preview {
+      height: 76px; display: flex; align-items: center; justify-content: center;
+    }
+    .theme-dot {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.18);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+    }
+    .theme-info { padding: 10px 12px; background: var(--bg-2); }
+    .theme-name { font-size: 13px; font-weight: 600; }
+    .theme-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 10px; color: var(--t4); margin-top: 1px; }
+
+    /* ═══════════════════════════════════════════════
+       SCREENSHOTS
+    ═══════════════════════════════════════════════ */
+    .shots-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
+    }
+    .shot {
+      border-radius: var(--r); overflow: hidden;
+      border: 1px solid var(--border-md); cursor: pointer;
+      transition: all 0.2s; background: var(--bg-2);
+    }
+    .shot:hover { border-color: var(--indigo); transform: scale(1.015); box-shadow: var(--sh); }
+    .shot img {
+      width: 100%; display: block;
+      aspect-ratio: 16/10; object-fit: cover;
+    }
+    .shot-cap { padding: 9px 12px; font-size: 12px; font-weight: 500; color: var(--t3); }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.90); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center;
+      cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 92vw; max-height: 90vh;
+      border-radius: var(--r-lg); box-shadow: var(--sh-lg);
+      object-fit: contain;
+    }
+
+    /* ═══════════════════════════════════════════════
+       JLPT COVERAGE
+    ═══════════════════════════════════════════════ */
+    .jlpt-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px;
+    }
+    .jlpt-card {
+      background: var(--bg-2); border: 1px solid var(--border-md);
+      border-radius: var(--r-md); padding: 22px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .jlpt-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .jn5::before { background: var(--matcha); }
+    .jn4::before { background: var(--indigo); }
+    .jn3::before { background: var(--gold); }
+    .jn2::before { background: var(--sakura); }
+    .jlpt-level {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 30px; font-weight: 800; margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .jlpt-stats { display: flex; flex-direction: column; gap: 5px; }
+    .jlpt-stat { font-size: 12px; color: var(--t2); }
+    .jlpt-stat strong { color: var(--t1); }
+    .jlpt-status {
+      position: absolute; top: 12px; right: 12px;
+      font-size: 10px; font-weight: 700; padding: 2px 8px;
+      border-radius: 100px;
+      background: var(--matcha-dim); color: var(--matcha-400);
+      border: 1px solid rgba(56,193,114,0.2);
+    }
+
+    /* ═══════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 52px 0; background: var(--bg-base);
+      position: relative; z-index: 1;
+    }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto; padding: 0 24px;
+      display: flex; flex-direction: column; align-items: center; gap: 22px;
+    }
+    .footer-logo {
+      display: flex; align-items: center; gap: 8px;
+      color: var(--t2); font-size: 14px; font-weight: 600;
+    }
+    .footer-logo img { width: 22px; height: 22px; border-radius: 5px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .footer-link {
+      font-size: 13px; color: var(--t3); text-decoration: none; transition: color 0.15s;
+    }
+    .footer-link:hover { color: var(--t1); }
+    .footer-credits { font-size: 12px; color: var(--t4); text-align: center; line-height: 1.8; }
+    .footer-credits a { color: var(--t3); text-decoration: none; }
+    .footer-credits a:hover { color: var(--t1); }
+    .footer-sep { color: var(--bg-4); }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      section { padding: 60px 0; }
+      .hero { padding: 80px 0 60px; }
+      .hero-kanji-bg { font-size: 110px; }
+      .os-tabs { width: 100%; }
+      .os-tab { flex: 1; justify-content: center; padding: 8px 10px; }
+      .nav-wordmark span { display: none; }
+      .cmp-table th, .cmp-table td { padding: 9px 12px; font-size: 12px; }
+      .scenarios { padding: 0 16px 16px; }
+      .install-steps { padding: 16px; }
+      .why-box { margin: 0 16px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <img src="https://raw.githubusercontent.com/joppe2001/NihongoMaster/main/public/app-icon.png" alt="NihongoMaster icon" />
+      <span class="nav-wordmark">NihongoMaster <span>日本語マスター</span></span>
+    </a>
+    <div class="nav-right">
+      <span class="nav-ver" id="nav-ver">v0.1.1</span>
+      <a class="nav-btn" href="https://github.com/joppe2001/NihongoMaster" target="_blank" rel="noopener">
+        <!-- GitHub icon -->
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a class="nav-btn nav-btn-primary" href="#install">Install Guide</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-kanji-bg" aria-hidden="true">日本語</div>
+
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Free &amp; Open Source · v<span id="hero-ver">0.1.1</span>
+    </div>
+
+    <p class="hero-jp">日本語マスター</p>
+    <h1>Learn Japanese.<br/><span class="grad">On your terms.</span></h1>
+    <p class="hero-desc">
+      A free, 100% offline desktop app for mastering Japanese from N5 to N2.
+      Real AI voices, FSRS spaced repetition, stroke-order animations —
+      all running locally on your machine. No account. No subscription. Ever.
+    </p>
+
+    <div class="dl-wrap">
+      <!-- Primary download — JS fills href, label, format -->
+      <a id="dl-primary" class="dl-primary" href="https://github.com/joppe2001/NihongoMaster/releases/latest">
+        <span class="dl-primary-icon">
+          <!-- Arrow-down icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </span>
+        <span class="dl-primary-meta">
+          <span class="dl-primary-label" id="dl-primary-label">Detecting your OS…</span>
+          <span class="dl-primary-title" id="dl-primary-title">Download NihongoMaster</span>
+          <span class="dl-primary-sub" id="dl-primary-sub">Free · ~5 MB</span>
+        </span>
+      </a>
+
+      <!-- All platform links -->
+      <div class="dl-others">
+        <a id="dl-mac" class="dl-other" href="https://github.com/joppe2001/NihongoMaster/releases/latest">
+          <!-- Apple icon -->
+          <svg width="14" height="14" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164.2-39.5c-76.7 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.7 269-317.7 70.5 0 129.5 46.4 173.1 46.4 42.7 0 109.2-49 192.5-49 31 0 113.3 2.6 168.2 99.4zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
+          macOS
+        </a>
+        <a id="dl-win" class="dl-other" href="https://github.com/joppe2001/NihongoMaster/releases/latest">
+          <!-- Windows icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.949"/></svg>
+          Windows
+        </a>
+        <a id="dl-linux-appimage" class="dl-other" href="https://github.com/joppe2001/NihongoMaster/releases/latest">
+          <!-- Linux icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.480.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489.117.779.567 1.563 1.095 2.121.17.19.24.356.275.573.035.234.047.515.036.846-.037 1.339-.236 1.728-.237 3.263 0 .604.136 1.09.38 1.49.255.421.6.689.945.912 1.208.76 2.292.806 3.31 1.093.546.155 1.005.439 1.294.85.29.41.394.975.3 1.784-.093.81.059 1.54.4 2.046.328.486.831.776 1.432.85.606.073 1.327-.032 2.048-.324.658-.267 1.333-.654 2.07-.934.85-.322 1.688-.503 2.447-.499.764.003 1.596.186 2.444.508.737.279 1.413.667 2.068.933.721.291 1.44.396 2.047.322.603-.074 1.106-.363 1.433-.85.34-.504.492-1.233.4-2.044-.094-.81.01-1.373.298-1.784.289-.411.748-.694 1.294-.85 1.018-.287 2.102-.332 3.31-1.093.345-.224.69-.491.946-.912.243-.401.379-.887.379-1.491-.001-1.534-.2-1.924-.237-3.263-.011-.331 0-.612.035-.846.036-.218.106-.384.276-.573.527-.558.978-1.342 1.095-2.121.123-.805-.009-1.657-.287-2.489-.589-1.77-1.831-3.47-2.716-4.521-.75-1.067-.975-1.928-1.050-3.02-.066-1.494 1.054-5.968-3.174-6.301-.155-.012-.313-.02-.469-.020zm2.24 1.63c1.74.23 1.84 1.72 1.778 3.64-.03.865.047 1.64.252 2.377.383 1.394.922 2.455 1.78 3.396.72.799 1.33 1.558 1.745 2.275.415.717.624 1.395.603 1.976-.02.581-.267 1.076-.715 1.505l-.024.023c-.19.184-.36.368-.47.58-.11.212-.15.451-.14.714.02.527.06 1.028.032 1.484-.023.392-.1.74-.282.976.085.096.235.206.345.331.228.259.414.576.53.93.115.353.16.746.13 1.163-.028.417-.124.862-.317 1.306-.37.876-.996 1.666-1.78 2.04-.31.149-.646.218-1.003.218-.357 0-.73-.07-1.09-.2-.41-.147-.844-.317-1.33-.454-.693-.196-1.43-.3-2.133-.295-.703.005-1.44.113-2.13.311-.484.137-.916.307-1.325.453-.36.13-.733.2-1.09.2-.358 0-.694-.069-1.004-.218-.784-.374-1.41-1.164-1.78-2.04-.193-.444-.289-.889-.317-1.306-.03-.417.015-.81.13-1.163.116-.354.302-.671.53-.93.11-.125.26-.235.345-.331-.182-.236-.259-.584-.282-.976-.028-.456.012-.957.032-1.484.01-.263-.03-.502-.14-.714-.11-.212-.28-.396-.47-.58l-.024-.023c-.448-.43-.695-.924-.715-1.505-.021-.581.188-1.259.603-1.976.415-.717 1.025-1.476 1.745-2.275.858-.941 1.397-2.002 1.78-3.396.205-.737.282-1.512.252-2.377-.062-1.92.038-3.41 1.778-3.64.175-.023.353-.034.526-.033.173.001.35.013.526.036zm-.77 13.65c1.45 0 2.63.51 2.63 1.14s-1.18 1.14-2.63 1.14-2.63-.51-2.63-1.14 1.18-1.14 2.63-1.14z"/></svg>
+          Linux (.AppImage)
+        </a>
+        <a id="dl-linux-deb" class="dl-other" href="https://github.com/joppe2001/NihongoMaster/releases/latest">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.480.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489.117.779.567 1.563 1.095 2.121.17.19.24.356.275.573.035.234.047.515.036.846-.037 1.339-.236 1.728-.237 3.263 0 .604.136 1.09.38 1.49.255.421.6.689.945.912 1.208.76 2.292.806 3.31 1.093.546.155 1.005.439 1.294.85.29.41.394.975.3 1.784-.093.81.059 1.54.4 2.046.328.486.831.776 1.432.85.606.073 1.327-.032 2.048-.324.658-.267 1.333-.654 2.07-.934.85-.322 1.688-.503 2.447-.499.764.003 1.596.186 2.444.508.737.279 1.413.667 2.068.933.721.291 1.44.396 2.047.322.603-.074 1.106-.363 1.433-.85.34-.504.492-1.233.4-2.044-.094-.81.01-1.373.298-1.784.289-.411.748-.694 1.294-.85 1.018-.287 2.102-.332 3.31-1.093.345-.224.69-.491.946-.912.243-.401.379-.887.379-1.491-.001-1.534-.2-1.924-.237-3.263-.011-.331 0-.612.035-.846.036-.218.106-.384.276-.573.527-.558.978-1.342 1.095-2.121.123-.805-.009-1.657-.287-2.489-.589-1.77-1.831-3.47-2.716-4.521-.75-1.067-.975-1.928-1.050-3.02-.066-1.494 1.054-5.968-3.174-6.301-.155-.012-.313-.02-.469-.020z"/></svg>
+          Linux (.deb)
+        </a>
+        <a class="dl-other" href="https://github.com/joppe2001/NihongoMaster/releases/latest" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          All releases
+        </a>
+      </div>
+    </div>
+
+    <!-- Trust pills -->
+    <div class="trust-strip">
+      <span class="trust-pill"><span class="trust-pip" style="background:var(--matcha)"></span>100% Offline</span>
+      <span class="trust-pill"><span class="trust-pip" style="background:var(--indigo)"></span>No Account</span>
+      <span class="trust-pill"><span class="trust-pip" style="background:var(--sakura)"></span>No Subscription</span>
+      <span class="trust-pill"><span class="trust-pip" style="background:var(--gold)"></span>No Telemetry</span>
+      <span class="trust-pill"><span class="trust-pip" style="background:var(--matcha)"></span>~5 MB</span>
+      <span class="trust-pill"><span class="trust-pip" style="background:var(--t4)"></span>MIT License</span>
+    </div>
+
+    <!-- Hero screenshot -->
+    <div class="hero-shot">
+      <img src="screenshots/hero-dashboard.png" alt="NihongoMaster dashboard screenshot" />
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ INSTALL SAFELY ═══════════════ -->
+<section id="install">
+  <div class="wrap">
+    <div class="section-eyebrow">安全にインストール</div>
+    <h2 class="section-title">Your OS will warn you.<br/>Here's exactly what to do.</h2>
+    <p class="section-sub">
+      NihongoMaster is 100% open source and safe. Because it's an independent app not yet submitted to
+      the Mac App Store or signed with a paid Microsoft certificate, macOS and Windows will show a
+      security prompt. This is normal for free open-source software — VLC, Audacity, and Blender all
+      have the same situation. Follow the steps below for your platform.
+    </p>
+
+    <!-- OS Tabs (auto-selected by JS) -->
+    <div class="os-tabs">
+      <button class="os-tab" data-tab="mac">
+        <svg width="14" height="14" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164.2-39.5c-76.7 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.7 269-317.7 70.5 0 129.5 46.4 173.1 46.4 42.7 0 109.2-49 192.5-49 31 0 113.3 2.6 168.2 99.4zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
+        macOS
+      </button>
+      <button class="os-tab" data-tab="windows">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.949"/></svg>
+        Windows
+      </button>
+      <button class="os-tab" data-tab="linux">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.480.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489.117.779.567 1.563 1.095 2.121.17.19.24.356.275.573.035.234.047.515.036.846-.037 1.339-.236 1.728-.237 3.263 0 .604.136 1.09.38 1.49.255.421.6.689.945.912 1.208.76 2.292.806 3.31 1.093.546.155 1.005.439 1.294.85.29.41.394.975.3 1.784-.093.81.059 1.54.4 2.046.328.486.831.776 1.432.85.606.073 1.327-.032 2.048-.324.658-.267 1.333-.654 2.07-.934.85-.322 1.688-.503 2.447-.499.764.003 1.596.186 2.444.508.737.279 1.413.667 2.068.933.721.291 1.44.396 2.047.322.603-.074 1.106-.363 1.433-.85.34-.504.492-1.233.4-2.044-.094-.81.01-1.373.298-1.784.289-.411.748-.694 1.294-.85 1.018-.287 2.102-.332 3.31-1.093.345-.224.69-.491.946-.912.243-.401.379-.887.379-1.491-.001-1.534-.2-1.924-.237-3.263-.011-.331 0-.612.035-.846.036-.218.106-.384.276-.573.527-.558.978-1.342 1.095-2.121.123-.805-.009-1.657-.287-2.489-.589-1.77-1.831-3.47-2.716-4.521-.75-1.067-.975-1.928-1.050-3.02-.066-1.494 1.054-5.968-3.174-6.301-.155-.012-.313-.02-.469-.020z"/></svg>
+        Linux
+      </button>
+    </div>
+
+    <!-- ── macOS ── -->
+    <div class="tab-panel" id="tab-mac">
+      <div class="install-card">
+        <div class="install-hdr">
+          <div class="install-hdr-icon" style="background:rgba(108,99,255,0.12)">
+            <svg width="20" height="20" viewBox="0 0 814 1000" fill="var(--indigo-400)"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164.2-39.5c-76.7 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.7 269-317.7 70.5 0 129.5 46.4 173.1 46.4 42.7 0 109.2-49 192.5-49 31 0 113.3 2.6 168.2 99.4zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
+          </div>
+          <div class="install-hdr-text">
+            <h3>macOS — Normal Installation</h3>
+            <p>Universal binary — runs on both Intel and Apple Silicon Macs</p>
+          </div>
+        </div>
+
+        <div class="install-steps">
+          <div class="step">
+            <div class="step-num" style="background:var(--indigo-dim);color:var(--indigo-400)">1</div>
+            <div class="step-connector"></div>
+            <div class="step-body">
+              <h4>Open the .dmg installer</h4>
+              <p>Double-click the downloaded <code>NihongoMaster_*_universal.dmg</code> file in your Downloads folder to mount it.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num" style="background:var(--indigo-dim);color:var(--indigo-400)">2</div>
+            <div class="step-connector"></div>
+            <div class="step-body">
+              <h4>Drag to Applications</h4>
+              <p>In the window that opens, drag the NihongoMaster icon into the <b>Applications</b> folder shortcut.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num" style="background:var(--indigo-dim);color:var(--indigo-400)">3</div>
+            <div class="step-connector"></div>
+            <div class="step-body">
+              <h4>Eject the disk image</h4>
+              <p>Right-click the mounted disk image on your Desktop and choose <b>Eject</b>. Then open NihongoMaster from Launchpad or Spotlight.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num" style="background:var(--indigo-dim);color:var(--indigo-400)">4</div>
+            <div class="step-body">
+              <h4>macOS asks "Are you sure?"</h4>
+              <p>Gatekeeper will show a warning on first launch because the app isn't notarized with Apple yet. See the scenarios below to proceed in 30 seconds.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenarios">
+          <!-- Scenario A -->
+          <div class="scenario" style="background:rgba(245,158,11,0.05);border-color:rgba(245,158,11,0.18)">
+            <div class="scenario-hdr">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warn)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span style="color:var(--t1)">"NihongoMaster can't be opened because Apple cannot verify it"</span>
+              <span class="badge badge-warn">Most common</span>
+            </div>
+            <div class="scenario-body">
+              <p style="margin-bottom:8px"><b>Option A — Via System Settings (recommended):</b></p>
+              <ol>
+                <li>Click <b>Cancel</b> (or <b>OK</b>) to dismiss the popup</li>
+                <li>Open <b>System Settings</b> → <b>Privacy &amp; Security</b></li>
+                <li>Scroll down — you'll see <i>"NihongoMaster was blocked from use"</i></li>
+                <li>Click <b>Open Anyway</b> → enter your Mac password → <b>Open</b></li>
+              </ol>
+              <p style="margin-top:10px;margin-bottom:8px"><b>Option B — Right-click bypass (faster):</b></p>
+              <ol>
+                <li>In Finder, navigate to <b>Applications</b></li>
+                <li><b>Right-click</b> (or Control+click) NihongoMaster</li>
+                <li>Choose <b>Open</b> from the context menu</li>
+                <li>Click <b>Open</b> in the dialog — you only need to do this once</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Scenario B -->
+          <div class="scenario" style="background:rgba(239,68,68,0.05);border-color:rgba(239,68,68,0.18)">
+            <div class="scenario-hdr">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span style="color:var(--t1)">"NihongoMaster is damaged and can't be opened"</span>
+              <span class="badge badge-danger">Older macOS / quarantine flag</span>
+            </div>
+            <div class="scenario-body">
+              <p>This happens because macOS applied a quarantine flag to the downloaded file. It's a false positive — run this one command in Terminal to remove it:</p>
+              <div class="term" id="term-xattr">
+                <button class="copy-btn" data-copy="term-xattr" data-cmd="xattr -cr /Applications/NihongoMaster.app">Copy</button>
+                <span class="prompt">$</span> xattr -cr /Applications/NihongoMaster.app
+              </div>
+              <p style="margin-top:10px">Open <b>Terminal</b> (Spotlight → type "Terminal"), paste the command, press <b>Return</b>, then try opening the app again.</p>
+              <p style="margin-top:8px">If the app isn't in <code>/Applications</code> yet, replace the path with wherever NihongoMaster is located.</p>
+            </div>
+          </div>
+
+          <!-- Scenario C -->
+          <div class="scenario" style="background:rgba(56,193,114,0.05);border-color:rgba(56,193,114,0.18)">
+            <div class="scenario-hdr">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--matcha)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span style="color:var(--t1)">Alternative: use spctl to permanently approve</span>
+              <span class="badge badge-ok">Advanced</span>
+            </div>
+            <div class="scenario-body">
+              <p>Permanently adds the app to macOS's allowlist via Terminal:</p>
+              <div class="term" id="term-spctl">
+                <button class="copy-btn" data-copy="term-spctl" data-cmd="sudo spctl --add /Applications/NihongoMaster.app">Copy</button>
+                <span class="prompt">$</span> sudo spctl --add /Applications/NihongoMaster.app
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="why-box">
+          <span class="why-box-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </span>
+          <span>
+            <b style="color:var(--t1)">Why does this happen?</b> Apple requires developers to pay for a notarization certificate ($99/year). NihongoMaster is a free, independent open-source project — this cost hasn't been covered yet. Every line of code is public at <a href="https://github.com/joppe2001/NihongoMaster" target="_blank">github.com/joppe2001/NihongoMaster</a> — you can audit it before installing.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Windows ── -->
+    <div class="tab-panel" id="tab-windows">
+      <div class="install-card">
+        <div class="install-hdr">
+          <div class="install-hdr-icon" style="background:rgba(0,120,215,0.12)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0078D7"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.949"/></svg>
+          </div>
+          <div class="install-hdr-text">
+            <h3>Windows — SmartScreen Bypass</h3>
+            <p>Windows 10 &amp; 11 (64-bit) · NSIS installer (.exe)</p>
+          </div>
+        </div>
+
+        <div class="install-steps">
+          <div class="step">
+            <div class="step-num" style="background:rgba(0,120,215,0.12);color:#0078D7">1</div>
+            <div class="step-connector"></div>
+            <div class="step-body">
+              <h4>Run the installer</h4>
+              <p>Double-click the downloaded <code>NihongoMaster_*_x64-setup.exe</code> file from your Downloads folder.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num" style="background:rgba(0,120,215,0.12);color:#0078D7">2</div>
+            <div class="step-connector"></div>
+            <div class="step-body">
+              <h4>SmartScreen appears — click "More info"</h4>
+              <p>Windows Defender SmartScreen will show a blue dialog: <b>"Windows protected your PC."</b> This is expected. Click <b>"More info"</b> in the lower-left area of the dialog — a new button will appear.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num" style="background:rgba(0,120,215,0.12);color:#0078D7">3</div>
+            <div class="step-connector"></div>
+            <div class="step-body">
+              <h4>Click "Run anyway"</h4>
+              <p>After clicking More info, a <b>"Run anyway"</b> button appears at the bottom right. Click it to proceed.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num" style="background:rgba(0,120,215,0.12);color:#0078D7">4</div>
+            <div class="step-body">
+              <h4>Follow the installation wizard</h4>
+              <p>Click through the standard installer. NihongoMaster will appear in your Start Menu and optionally on your Desktop when done.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenarios">
+          <div class="scenario" style="background:rgba(245,158,11,0.05);border-color:rgba(245,158,11,0.18)">
+            <div class="scenario-hdr">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warn)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span style="color:var(--t1)">"Windows protected your PC" — no "More info" link visible</span>
+              <span class="badge badge-warn">Strict policy</span>
+            </div>
+            <div class="scenario-body">
+              <p>Some corporate or managed Windows machines have SmartScreen set to block without a bypass option. You have a few alternatives:</p>
+              <ol>
+                <li>Try the <b>.msi</b> installer instead — also available on the releases page</li>
+                <li>Ask your IT admin to add an exception for the app</li>
+                <li>Try right-clicking the .exe → <b>Properties</b> → check <b>"Unblock"</b> at the bottom → Apply → run the installer again</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="scenario" style="background:rgba(239,68,68,0.05);border-color:rgba(239,68,68,0.18)">
+            <div class="scenario-hdr">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span style="color:var(--t1)">Windows Defender flagged it as a threat</span>
+              <span class="badge badge-danger">False positive</span>
+            </div>
+            <div class="scenario-body">
+              <p>Rarely, Defender's heuristics flag unsigned Tauri/Rust installers as suspicious. This is a false positive. To resolve:</p>
+              <ol>
+                <li>Open <b>Windows Security</b> → <b>Virus &amp; threat protection</b></li>
+                <li>Click <b>Protection history</b></li>
+                <li>Find the NihongoMaster entry → click <b>Actions</b> → <b>Allow on device</b></li>
+                <li>Re-run the installer</li>
+              </ol>
+              <p style="margin-top:8px">You can also temporarily disable real-time protection, install, then re-enable it — though allowing via Protection history is safer.</p>
+            </div>
+          </div>
+
+          <div class="scenario" style="background:rgba(56,193,114,0.05);border-color:rgba(56,193,114,0.18)">
+            <div class="scenario-hdr">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--matcha)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span style="color:var(--t1)">Unblock via PowerShell (advanced)</span>
+              <span class="badge badge-ok">One-liner</span>
+            </div>
+            <div class="scenario-body">
+              <p>Removes the NTFS "Zone.Identifier" that SmartScreen uses to flag downloads. Run in PowerShell:</p>
+              <div class="term" id="term-unblock">
+                <button class="copy-btn" data-copy="term-unblock" data-cmd="Unblock-File -Path $env:USERPROFILE\Downloads\NihongoMaster_*_x64-setup.exe">Copy</button>
+                <span class="prompt">PS&gt;</span> Unblock-File -Path "$env:USERPROFILE\Downloads\NihongoMaster_*_x64-setup.exe"
+              </div>
+              <p style="margin-top:8px">Then run the installer — SmartScreen won't appear.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="why-box">
+          <span class="why-box-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </span>
+          <span>
+            <b style="color:var(--t1)">Why does SmartScreen appear?</b> Microsoft SmartScreen uses "reputation" — apps without enough download history or a paid Extended Validation (EV) certificate are flagged automatically. EV certificates cost $300–$500/year. As more people download and install NihongoMaster, the warning will go away naturally. The app is fully open source at <a href="https://github.com/joppe2001/NihongoMaster" target="_blank">github.com/joppe2001/NihongoMaster</a>.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Linux ── -->
+    <div class="tab-panel" id="tab-linux">
+      <div class="install-card">
+        <div class="install-hdr">
+          <div class="install-hdr-icon" style="background:rgba(245,176,65,0.12)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12.504 0c-.155 0-.315.008-.480.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489.117.779.567 1.563 1.095 2.121.17.19.24.356.275.573.035.234.047.515.036.846-.037 1.339-.236 1.728-.237 3.263 0 .604.136 1.09.38 1.49.255.421.6.689.945.912 1.208.76 2.292.806 3.31 1.093.546.155 1.005.439 1.294.85.29.41.394.975.3 1.784-.093.81.059 1.54.4 2.046.328.486.831.776 1.432.85.606.073 1.327-.032 2.048-.324.658-.267 1.333-.654 2.07-.934.85-.322 1.688-.503 2.447-.499.764.003 1.596.186 2.444.508.737.279 1.413.667 2.068.933.721.291 1.44.396 2.047.322.603-.074 1.106-.363 1.433-.85.34-.504.492-1.233.4-2.044-.094-.81.01-1.373.298-1.784.289-.411.748-.694 1.294-.85 1.018-.287 2.102-.332 3.31-1.093.345-.224.69-.491.946-.912.243-.401.379-.887.379-1.491-.001-1.534-.2-1.924-.237-3.263-.011-.331 0-.612.035-.846.036-.218.106-.384.276-.573.527-.558.978-1.342 1.095-2.121.123-.805-.009-1.657-.287-2.489-.589-1.77-1.831-3.47-2.716-4.521-.75-1.067-.975-1.928-1.050-3.02-.066-1.494 1.054-5.968-3.174-6.301-.155-.012-.313-.02-.469-.020z"/></svg>
+          </div>
+          <div class="install-hdr-text">
+            <h3>Linux — AppImage &amp; .deb</h3>
+            <p>No system-level security warnings — just needs execute permission</p>
+          </div>
+        </div>
+
+        <div class="install-steps" style="padding-bottom:0">
+          <p style="font-size:13px;color:var(--t3);margin-bottom:16px">Linux doesn't show security dialogs for unsigned apps. Choose the format that suits your distro:</p>
+        </div>
+
+        <div class="scenarios">
+          <!-- AppImage -->
+          <div class="scenario" style="background:rgba(56,193,114,0.05);border-color:rgba(56,193,114,0.18)">
+            <div class="scenario-hdr">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--matcha)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span style="color:var(--t1)">AppImage — any distro, no install needed</span>
+              <span class="badge badge-ok">Recommended</span>
+            </div>
+            <div class="scenario-body">
+              <p style="margin-bottom:8px"><b>Option A — GUI (right-click):</b></p>
+              <ol>
+                <li>Right-click the downloaded <code>NihongoMaster_*.AppImage</code></li>
+                <li>Select <b>Properties</b> → <b>Permissions</b></li>
+                <li>Check <b>"Allow executing file as program"</b> → Close</li>
+                <li>Double-click the file to launch</li>
+              </ol>
+              <p style="margin-top:10px;margin-bottom:8px"><b>Option B — Terminal (one command):</b></p>
+              <div class="term" id="term-appimage">
+                <button class="copy-btn" data-copy="term-appimage" data-cmd="chmod +x NihongoMaster_*.AppImage && ./NihongoMaster_*.AppImage">Copy</button>
+                <span class="prompt">$</span> chmod +x NihongoMaster_*.AppImage &amp;&amp; ./NihongoMaster_*.AppImage
+              </div>
+              <p style="margin-top:10px">The AppImage is fully self-contained — no installation or root access required. Move it anywhere you like.</p>
+            </div>
+          </div>
+
+          <!-- .deb -->
+          <div class="scenario" style="background:rgba(108,99,255,0.05);border-color:rgba(108,99,255,0.18)">
+            <div class="scenario-hdr">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-400)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span style="color:var(--t1)">.deb — Debian, Ubuntu, Mint and derivatives</span>
+              <span class="badge" style="background:var(--indigo-dim);color:var(--indigo-400);border:1px solid rgba(108,99,255,0.2)">Installs system-wide</span>
+            </div>
+            <div class="scenario-body">
+              <p style="margin-bottom:8px"><b>Option A — GUI:</b> Double-click the <code>.deb</code> file. Your software center (GNOME Software, Discover, or GDebi) will open and handle the install.</p>
+              <p style="margin-bottom:8px"><b>Option B — Terminal:</b></p>
+              <div class="term" id="term-deb">
+                <button class="copy-btn" data-copy="term-deb" data-cmd="sudo dpkg -i nihongo-master_*.deb">Copy</button>
+                <span class="prompt">$</span> sudo dpkg -i nihongo-master_*.deb
+              </div>
+              <p style="margin-top:10px">After installing, launch from your application menu or by running <code>nihongo-master</code> in a terminal.</p>
+              <p style="margin-top:8px">If <code>dpkg</code> reports missing dependencies, run: <code>sudo apt-get install -f</code></p>
+            </div>
+          </div>
+
+          <!-- RPM -->
+          <div class="scenario" style="background:rgba(245,176,65,0.05);border-color:rgba(245,176,65,0.18)">
+            <div class="scenario-hdr">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span style="color:var(--t1)">.rpm — Fedora, RHEL, openSUSE</span>
+              <span class="badge badge-warn">Also available</span>
+            </div>
+            <div class="scenario-body">
+              <div class="term" id="term-rpm">
+                <button class="copy-btn" data-copy="term-rpm" data-cmd="sudo rpm -i NihongoMaster_*.rpm">Copy</button>
+                <span class="prompt">$</span> sudo rpm -i NihongoMaster_*.rpm
+              </div>
+              <p style="margin-top:10px">Or use your distro's package manager: <code>sudo dnf install nihongo-master_*.rpm</code> (Fedora) / <code>sudo zypper install nihongo-master_*.rpm</code> (openSUSE)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="why-box">
+          <span class="why-box-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </span>
+          <span>
+            <b style="color:var(--t1)">Good news:</b> Linux has no Gatekeeper or SmartScreen equivalent for desktop apps. The only requirement is marking the AppImage as executable — and that's it. Full source at <a href="https://github.com/joppe2001/NihongoMaster" target="_blank">github.com/joppe2001/NihongoMaster</a>.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FEATURES ═══════════════ -->
+<section id="features">
+  <div class="wrap">
+    <div class="section-eyebrow">機能</div>
+    <h2 class="section-title">Everything you need<br/>to master Japanese</h2>
+    <p class="section-sub">
+      From your first hiragana to advanced N2 grammar — every feature runs
+      completely offline, with no ads, no paywalls, and no tracking.
+    </p>
+
+    <div class="features-grid">
+      <div class="feat-card fc-indigo">
+        <div class="feat-icon" style="background:var(--indigo-dim)">📖</div>
+        <span class="jp">学ぶ</span>
+        <h3>Learn</h3>
+        <p>Guided lessons for all 206 kana with stroke animations, 1,000+ kanji with KanjiVG stroke order, 2,800+ vocabulary words grouped by theme, and 195+ grammar patterns with formation rules.</p>
+        <div class="feat-tags">
+          <span class="feat-tag">Kana</span>
+          <span class="feat-tag">Kanji N5–N2</span>
+          <span class="feat-tag">Vocabulary</span>
+          <span class="feat-tag">Grammar</span>
+          <span class="feat-tag">Stroke animations</span>
+        </div>
+      </div>
+
+      <div class="feat-card fc-sakura">
+        <div class="feat-icon" style="background:var(--sakura-dim)">⚡</div>
+        <span class="jp">練習する</span>
+        <h3>Practice</h3>
+        <p>Six exercise types: drag-and-drop sentence building, fill-in-the-blank particle drills, verb conjugation, error correction, timed matching pairs, and multi-turn dialogue completion across 35+ real-world scenarios.</p>
+        <div class="feat-tags">
+          <span class="feat-tag">Sentence Builder</span>
+          <span class="feat-tag">Conjugation Drill</span>
+          <span class="feat-tag">Error Correction</span>
+          <span class="feat-tag">Dialogue</span>
+        </div>
+      </div>
+
+      <div class="feat-card fc-matcha">
+        <div class="feat-icon" style="background:var(--matcha-dim)">📚</div>
+        <span class="jp">読む・書く</span>
+        <h3>Read &amp; Type</h3>
+        <p>Mini reading stories using only grammar you know, with furigana toggle and sentence-by-sentence VOICEVOX audio. Romaji speed test and Japanese IME typing practice with custom word lists.</p>
+        <div class="feat-tags">
+          <span class="feat-tag">Reading Stories</span>
+          <span class="feat-tag">Comprehension Quiz</span>
+          <span class="feat-tag">IME Typing</span>
+          <span class="feat-tag">Furigana toggle</span>
+        </div>
+      </div>
+
+      <div class="feat-card fc-gold">
+        <div class="feat-icon" style="background:var(--gold-dim)">📊</div>
+        <span class="jp">追跡する</span>
+        <h3>Track</h3>
+        <p>FSRS spaced repetition — the same algorithm as Anki's latest scheduler — implemented natively in Rust. Activity heatmap, XP across 30 levels, 15 unlockable achievements, streak tracking, and daily goals.</p>
+        <div class="feat-tags">
+          <span class="feat-tag">FSRS SRS</span>
+          <span class="feat-tag">Activity Heatmap</span>
+          <span class="feat-tag">Achievements</span>
+          <span class="feat-tag">Streak</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ COMPARISON ═══════════════ -->
+<section id="compare">
+  <div class="wrap">
+    <div class="section-eyebrow">比較</div>
+    <h2 class="section-title">How it compares</h2>
+    <p class="section-sub">NihongoMaster vs the apps you've already heard of.</p>
+
+    <div class="table-wrap">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="th-us">NihongoMaster</th>
+            <th>Duolingo</th>
+            <th>WaniKani</th>
+            <th>Anki</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Works 100% offline</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="part">Partial</td>
+          </tr>
+          <tr>
+            <td>Native AI voices (VOICEVOX)</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr>
+            <td>FSRS spaced repetition</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="no">✗</td>
+            <td class="part">Custom SRS</td>
+            <td class="part">Plugin</td>
+          </tr>
+          <tr>
+            <td>Kanji stroke-order animation</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr>
+            <td>Sentence building exercises</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr>
+            <td>Japanese IME typing practice</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr>
+            <td>Reading stories</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr>
+            <td>No account required</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>No telemetry or tracking</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Full data export / import</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Native desktop performance (Rust)</td>
+            <td class="cmp-us yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="part">Partial</td>
+          </tr>
+          <tr>
+            <td>App size</td>
+            <td class="cmp-us" style="color:var(--matcha-400)!important;font-weight:700!important">~5 MB</td>
+            <td>~150 MB</td>
+            <td>Web</td>
+            <td>~100 MB</td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td class="cmp-us" style="color:var(--matcha-400)!important;font-weight:700!important">Free</td>
+            <td>$84 / yr</td>
+            <td>$99 / yr</td>
+            <td>Free</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ THEMES ═══════════════ -->
+<section id="themes">
+  <div class="wrap">
+    <div class="section-eyebrow">テーマ</div>
+    <h2 class="section-title">7 themes, all Japanese-inspired</h2>
+    <p class="section-sub">Switch themes instantly — backgrounds, text, borders, glows, and scrollbars all change with a 500ms transition.</p>
+
+    <div class="themes-grid">
+      <div class="theme-card">
+        <div class="theme-preview" style="background:#F4F2FB">
+          <div class="theme-dot" style="background:#6C63FF"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">Light</div>
+          <div class="theme-jp">ライト</div>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:#0F0E1A">
+          <div class="theme-dot" style="background:#6C63FF"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">Dark</div>
+          <div class="theme-jp">ダーク · 宵の集中</div>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#FFF5F7,#FFE8ED)">
+          <div class="theme-dot" style="background:#D66B8A"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">Sakura</div>
+          <div class="theme-jp">桜 · Cherry Blossom</div>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#F4F9F2,#E4F0E0)">
+          <div class="theme-dot" style="background:#38845A"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">Matcha</div>
+          <div class="theme-jp">抹茶 · Tea Ceremony</div>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#F2F0FF,#E8E4FF)">
+          <div class="theme-dot" style="background:#7C3AED"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">Fuji</div>
+          <div class="theme-jp">藤 · Wisteria</div>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#1C0A00,#2E1000)">
+          <div class="theme-dot" style="background:#E05C38"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">Momiji</div>
+          <div class="theme-jp">紅葉 · Autumn Maple</div>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-preview" style="background:linear-gradient(90deg,#0F0E1A 50%,#F4F2FB 50%)">
+          <div class="theme-dot" style="background:var(--t3)"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-name">System</div>
+          <div class="theme-jp">システム · Follows OS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SCREENSHOTS ═══════════════ -->
+<section id="screenshots">
+  <div class="wrap">
+    <div class="section-eyebrow">スクリーンショット</div>
+    <h2 class="section-title">See it in action</h2>
+    <p class="section-sub">Click any screenshot to enlarge.</p>
+
+    <div class="shots-grid">
+      <div class="shot">
+        <img src="screenshots/dashboard.png" alt="Dashboard" loading="lazy" />
+        <div class="shot-cap">Dashboard &amp; Study Guide</div>
+      </div>
+      <div class="shot">
+        <img src="screenshots/kana-lesson.png" alt="Kana lesson" loading="lazy" />
+        <div class="shot-cap">Kana — Stroke Animation Lessons</div>
+      </div>
+      <div class="shot">
+        <img src="screenshots/vocabulary.png" alt="Vocabulary" loading="lazy" />
+        <div class="shot-cap">Vocabulary — 2,800+ Words</div>
+      </div>
+      <div class="shot">
+        <img src="screenshots/grammar.png" alt="Grammar" loading="lazy" />
+        <div class="shot-cap">Grammar — 195+ Patterns</div>
+      </div>
+      <div class="shot">
+        <img src="screenshots/practice.png" alt="Practice exercises" loading="lazy" />
+        <div class="shot-cap">Practice — Sentence Builder &amp; Drills</div>
+      </div>
+      <div class="shot">
+        <img src="screenshots/reading.png" alt="Reading stories" loading="lazy" />
+        <div class="shot-cap">Reading Stories with Audio</div>
+      </div>
+      <div class="shot">
+        <img src="screenshots/review.png" alt="SRS review" loading="lazy" />
+        <div class="shot-cap">FSRS Spaced Repetition Review</div>
+      </div>
+      <div class="shot">
+        <img src="screenshots/progress.png" alt="Progress tracking" loading="lazy" />
+        <div class="shot-cap">Progress, Achievements &amp; Streaks</div>
+      </div>
+      <div class="shot">
+        <img src="screenshots/typing.png" alt="Typing practice" loading="lazy" />
+        <div class="shot-cap">IME &amp; Romaji Typing Practice</div>
+      </div>
+      <div class="shot">
+        <img src="screenshots/voicevox-setup.png" alt="VOICEVOX setup" loading="lazy" />
+        <div class="shot-cap">VOICEVOX — 40+ Local AI Voices</div>
+      </div>
+      <div class="shot">
+        <img src="screenshots/settings-themes.png" alt="Settings and themes" loading="lazy" />
+        <div class="shot-cap">Settings &amp; Theme Switcher</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ JLPT COVERAGE ═══════════════ -->
+<section id="jlpt">
+  <div class="wrap">
+    <div class="section-eyebrow">JLPT</div>
+    <h2 class="section-title">N5 through N2 — all bundled in the app</h2>
+    <p class="section-sub">All content is included at install time. No downloads, no DLC, no internet required.</p>
+
+    <div class="jlpt-grid">
+      <div class="jlpt-card jn5">
+        <div class="jlpt-status">Complete</div>
+        <div class="jlpt-level" style="color:var(--matcha-400)">N5</div>
+        <div class="jlpt-stats">
+          <div class="jlpt-stat"><strong>102</strong> Kanji</div>
+          <div class="jlpt-stat"><strong>300</strong> Vocabulary</div>
+          <div class="jlpt-stat"><strong>40</strong> Grammar</div>
+        </div>
+      </div>
+      <div class="jlpt-card jn4">
+        <div class="jlpt-status">Complete</div>
+        <div class="jlpt-level" style="color:var(--indigo-400)">N4</div>
+        <div class="jlpt-stats">
+          <div class="jlpt-stat"><strong>170</strong> Kanji</div>
+          <div class="jlpt-stat"><strong>700</strong> Vocabulary</div>
+          <div class="jlpt-stat"><strong>55</strong> Grammar</div>
+        </div>
+      </div>
+      <div class="jlpt-card jn3">
+        <div class="jlpt-status">Complete</div>
+        <div class="jlpt-level" style="color:var(--gold-400)">N3</div>
+        <div class="jlpt-stats">
+          <div class="jlpt-stat"><strong>370</strong> Kanji</div>
+          <div class="jlpt-stat"><strong>1,300+</strong> Vocabulary</div>
+          <div class="jlpt-stat"><strong>60+</strong> Grammar</div>
+        </div>
+      </div>
+      <div class="jlpt-card jn2">
+        <div class="jlpt-status">Complete</div>
+        <div class="jlpt-level" style="color:var(--sakura-400)">N2</div>
+        <div class="jlpt-stats">
+          <div class="jlpt-stat"><strong>380+</strong> Kanji</div>
+          <div class="jlpt-stat"><strong>500+</strong> Vocabulary</div>
+          <div class="jlpt-stat"><strong>40+</strong> Grammar</div>
+        </div>
+      </div>
+      <div class="jlpt-card" style="border-color:var(--border);opacity:0.5">
+        <div class="jlpt-level" style="color:var(--t4)">N1</div>
+        <div class="jlpt-stats">
+          <div class="jlpt-stat" style="color:var(--t4)">Planned</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="https://raw.githubusercontent.com/joppe2001/NihongoMaster/main/public/app-icon.png" alt="" />
+      NihongoMaster
+    </div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://github.com/joppe2001/NihongoMaster" target="_blank" rel="noopener">GitHub</a>
+      <a class="footer-link" href="https://github.com/joppe2001/NihongoMaster/releases" target="_blank" rel="noopener">All Releases</a>
+      <a class="footer-link" href="https://github.com/joppe2001/NihongoMaster/issues" target="_blank" rel="noopener">Report a Bug</a>
+      <a class="footer-link" href="https://github.com/joppe2001/NihongoMaster/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+      <a class="footer-link" href="#install">Install Guide</a>
+    </div>
+    <div class="footer-credits">
+      Built with <a href="https://tauri.app" target="_blank">Tauri v2</a> <span class="footer-sep">·</span>
+      <a href="https://react.dev" target="_blank">React 19</a> <span class="footer-sep">·</span>
+      <a href="https://www.rust-lang.org" target="_blank">Rust</a> <span class="footer-sep">·</span>
+      <a href="https://www.sqlite.org" target="_blank">SQLite</a><br/>
+      Voice synthesis by <a href="https://voicevox.hiroshiba.jp" target="_blank">VOICEVOX</a> <span class="footer-sep">·</span>
+      Stroke data by <a href="https://kanjivg.tagaini.net" target="_blank">KanjiVG</a> <span class="footer-sep">·</span>
+      SRS algorithm by <a href="https://github.com/open-spaced-repetition/fsrs4anki" target="_blank">FSRS</a><br/>
+      <br/>
+      Made with care for Japanese learners who value privacy, performance, and beautiful design.
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+  <img id="lightbox-img" src="" alt="Screenshot enlarged" />
+</div>
+
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  const REPO = 'joppe2001/NihongoMaster';
+  const RELEASES_URL = 'https://github.com/' + REPO + '/releases/latest';
+
+  /* ── OS detection ── */
+  function getOS() {
+    var ua = navigator.userAgent;
+    var pl = navigator.platform || '';
+    if (/Mac/i.test(pl) || /Macintosh/i.test(ua)) return 'mac';
+    if (/Win/i.test(pl) || /Windows/i.test(ua)) return 'windows';
+    if (/Linux/i.test(pl)) return 'linux';
+    return 'unknown';
+  }
+
+  /* ── GitHub API ── */
+  async function fetchLatestRelease() {
+    try {
+      var r = await fetch('https://api.github.com/repos/' + REPO + '/releases/latest', {
+        headers: { 'Accept': 'application/vnd.github.v3+json' }
+      });
+      if (!r.ok) return null;
+      return await r.json();
+    } catch (e) { return null; }
+  }
+
+  function findAsset(assets, os) {
+    if (!assets || !assets.length) return null;
+    if (os === 'mac')     return assets.find(function(a){ return a.name.toLowerCase().endsWith('.dmg'); }) || null;
+    if (os === 'windows') return assets.find(function(a){ return a.name.includes('setup.exe'); })
+                              || assets.find(function(a){ return a.name.endsWith('.msi'); })
+                              || assets.find(function(a){ return a.name.endsWith('.exe'); }) || null;
+    if (os === 'linux')   return assets.find(function(a){ return a.name.endsWith('.AppImage'); })
+                              || assets.find(function(a){ return a.name.endsWith('.deb'); }) || null;
+    return null;
+  }
+
+  function fmtMB(bytes) { return (bytes / 1048576).toFixed(1) + ' MB'; }
+
+  /* ── Update download buttons ── */
+  function initDownloads(release, os) {
+    var tag    = release && release.tag_name ? release.tag_name : 'latest';
+    var assets = release && release.assets ? release.assets : [];
+
+    // Update version displays
+    document.querySelectorAll('#nav-ver, #hero-ver').forEach(function(el) {
+      el.textContent = tag;
+    });
+
+    // Primary button
+    var primaryAsset = findAsset(assets, os);
+    var primaryUrl   = primaryAsset ? primaryAsset.browser_download_url : RELEASES_URL;
+
+    var primary = document.getElementById('dl-primary');
+    if (primary) {
+      primary.href = primaryUrl;
+    }
+
+    var labelEl = document.getElementById('dl-primary-label');
+    var titleEl = document.getElementById('dl-primary-title');
+    var subEl   = document.getElementById('dl-primary-sub');
+
+    var labels = {
+      mac:     { label: 'macOS · Universal (.dmg)',      title: 'Download for macOS' },
+      windows: { label: 'Windows 10/11 · Installer (.exe)', title: 'Download for Windows' },
+      linux:   { label: 'Linux · AppImage or .deb',     title: 'Download for Linux' },
+      unknown: { label: 'All platforms',                  title: 'Download NihongoMaster' }
+    };
+
+    var info = labels[os] || labels.unknown;
+    if (labelEl) labelEl.textContent = info.label;
+    if (titleEl) titleEl.textContent = info.title;
+    if (subEl)   subEl.textContent   = tag + (primaryAsset ? ' · ' + fmtMB(primaryAsset.size) : ' · Free');
+
+    // Secondary platform buttons — set hrefs from assets, hide the current OS one
+    var platMap = [
+      { id: 'dl-mac',           os: 'mac',     filter: function(a){ return a.name.toLowerCase().endsWith('.dmg'); } },
+      { id: 'dl-win',           os: 'windows', filter: function(a){ return a.name.includes('setup.exe') || a.name.endsWith('.exe'); } },
+      { id: 'dl-linux-appimage',os: 'linux',   filter: function(a){ return a.name.endsWith('.AppImage'); } },
+      { id: 'dl-linux-deb',     os: 'linux',   filter: function(a){ return a.name.endsWith('.deb'); } }
+    ];
+
+    platMap.forEach(function(p) {
+      var el = document.getElementById(p.id);
+      if (!el) return;
+      var asset = assets.find(p.filter);
+      if (asset) el.href = asset.browser_download_url;
+    });
+
+    // Hide the primary OS from the "other platforms" row
+    var hide = { mac: 'dl-mac', windows: 'dl-win', linux: null };
+    if (hide[os]) {
+      var hideEl = document.getElementById(hide[os]);
+      if (hideEl) hideEl.style.display = 'none';
+    }
+    // For Linux, hide both linux buttons and show them in "others" instead — actually keep both visible
+  }
+
+  /* ── Tab switching ── */
+  function initTabs(activeOS) {
+    var tabs   = document.querySelectorAll('.os-tab');
+    var panels = document.querySelectorAll('.tab-panel');
+
+    function activate(tabId) {
+      tabs.forEach(function(t) { t.classList.toggle('active', t.dataset.tab === tabId); });
+      panels.forEach(function(p) { p.classList.toggle('active', p.id === 'tab-' + tabId); });
+    }
+
+    tabs.forEach(function(btn) {
+      btn.addEventListener('click', function() { activate(btn.dataset.tab); });
+    });
+
+    // Auto-select user's OS tab
+    var initial = activeOS === 'mac' ? 'mac' : activeOS === 'windows' ? 'windows' : 'linux';
+    activate(initial);
+  }
+
+  /* ── Copy buttons ── */
+  function initCopy() {
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var cmd = btn.dataset.cmd;
+        if (!cmd) {
+          var target = document.getElementById(btn.dataset.copy);
+          if (target) cmd = target.dataset.cmd || target.textContent.replace(/^\$\s*|^PS>\s*/gm, '').trim();
+        }
+        if (!cmd) return;
+        navigator.clipboard.writeText(cmd).then(function() {
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+        }).catch(function() {
+          // Fallback for older browsers
+          var ta = document.createElement('textarea');
+          ta.value = cmd;
+          ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+        });
+      });
+    });
+  }
+
+  /* ── Lightbox ── */
+  function initLightbox() {
+    var box = document.getElementById('lightbox');
+    var img = document.getElementById('lightbox-img');
+    if (!box || !img) return;
+
+    document.querySelectorAll('.shot img').forEach(function(shotImg) {
+      shotImg.addEventListener('click', function() {
+        img.src = shotImg.src;
+        box.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    box.addEventListener('click', function() {
+      box.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        box.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  /* ── Init ── */
+  document.addEventListener('DOMContentLoaded', async function() {
+    var os = getOS();
+    initTabs(os);
+    initCopy();
+    initLightbox();
+
+    var release = await fetchLatestRelease();
+    initDownloads(release, os);
+  });
+})();
+</script>
+
+</body>
+</html>
