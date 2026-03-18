@@ -1,0 +1,100 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v0.1.0)'
+        required: true
+        default: 'v0.1.0'
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # macOS — universal binary (Intel + Apple Silicon in one .dmg)
+          - platform: macos-latest
+            args: --target universal-apple-darwin
+
+          # Linux — .deb + .AppImage
+          - platform: ubuntu-22.04
+            args: ''
+
+          # Windows — .exe (NSIS installer)
+          - platform: windows-latest
+            args: ''
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── Linux system deps ──────────────────────────────────────────────────
+      - name: Install Linux dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            libssl-dev \
+            pkg-config
+
+      # ── Node.js ───────────────────────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      # ── Rust ──────────────────────────────────────────────────────────────
+      - name: Install Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # Universal macOS build needs both targets
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Rust build cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+
+      # ── Frontend ──────────────────────────────────────────────────────────
+      - name: Install npm dependencies
+        run: npm ci
+
+      # ── Build & publish ───────────────────────────────────────────────────
+      - name: Build and upload to GitHub Release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
+          releaseName: NihongoMaster ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
+          releaseBody: |
+            ## Download NihongoMaster
+
+            Pick the installer for your operating system:
+
+            | Platform | File | Notes |
+            |----------|------|-------|
+            | **macOS** | `NihongoMaster_*.dmg` | Universal — runs on Intel & Apple Silicon |
+            | **Windows** | `NihongoMaster_*-setup.exe` | Windows 10/11 (64-bit) |
+            | **Linux** | `nihongo-master_*.deb` | Debian / Ubuntu |
+            | **Linux** | `NihongoMaster_*.AppImage` | Any distro (make executable, then run) |
+
+            > **macOS note:** If you see "app is damaged", right-click → Open, or run:
+            > `xattr -cr /Applications/NihongoMaster.app`
+          releaseDraft: false
+          prerelease: false
+          args: ${{ matrix.args }}
