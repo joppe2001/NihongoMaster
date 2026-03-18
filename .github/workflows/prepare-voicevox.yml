@@ -1,0 +1,63 @@
+name: Prepare VOICEVOX Engine Assets
+
+# Run this manually whenever you need to (re)upload engine cores.
+# It downloads each platform's official VOICEVOX vvpp, strips the
+# bundled .vvm model files (those are downloaded individually in-app),
+# and uploads the slim core zip to the voicevox-engine-v0.25.1 release.
+on:
+  workflow_dispatch:
+    inputs:
+      voicevox_version:
+        description: 'VOICEVOX Engine version to package'
+        required: true
+        default: '0.25.1'
+
+jobs:
+  package:
+    name: Package ${{ matrix.platform }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - windows-cpu
+          - macos-x64
+          - linux-cpu-x64
+
+    steps:
+      - name: Download official VOICEVOX vvpp
+        run: |
+          echo "Downloading voicevox_engine-${{ matrix.platform }}-${{ inputs.voicevox_version }}.vvpp …"
+          wget --progress=dot:giga -O voicevox_engine.vvpp \
+            "https://github.com/VOICEVOX/voicevox_engine/releases/download/${{ inputs.voicevox_version }}/voicevox_engine-${{ matrix.platform }}-${{ inputs.voicevox_version }}.vvpp"
+          echo "Downloaded: $(du -sh voicevox_engine.vvpp | cut -f1)"
+
+      - name: Extract, strip models, repackage
+        run: |
+          echo "Extracting …"
+          mkdir extracted
+          unzip -q voicevox_engine.vvpp -d extracted
+
+          echo "Contents before stripping:"
+          du -sh extracted/*/ 2>/dev/null || ls extracted/
+
+          echo "Removing bundled .vvm voice models …"
+          find extracted -name "*.vvm" -delete
+
+          echo "Repackaging core (no models) …"
+          OUTPUT="engine-core-${{ matrix.platform }}.zip"
+          (cd extracted && zip -r "../${OUTPUT}" .)
+          echo "Final size: $(du -sh "${OUTPUT}" | cut -f1)"
+
+      - name: Upload to NihongoMaster release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload voicevox-engine-v0.25.1 \
+            "engine-core-${{ matrix.platform }}.zip" \
+            --repo joppe2001/NihongoMaster \
+            --clobber
+          echo "Uploaded engine-core-${{ matrix.platform }}.zip"
