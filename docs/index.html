@@ -657,6 +657,14 @@
         </span>
       </a>
 
+      <!-- Download counter badge -->
+      <div id="dl-counter" style="text-align:center; margin-top:8px; opacity:0; transition:opacity 0.3s">
+        <span style="font-size:11px; color:var(--t3); display:inline-flex; align-items:center; gap:6px">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span id="dl-count-text">-</span> downloads
+        </span>
+      </div>
+
       <!-- All platform links -->
       <div class="dl-others">
         <a id="dl-mac" class="dl-other" href="https://github.com/joppe2001/NihongoMaster/releases/latest">
@@ -1630,15 +1638,69 @@
     });
   }
 
+  /* ── Download click tracking ── */
+  function initDownloadTracking() {
+    // Track clicks on all download links (GitHub release URLs)
+    var links = document.querySelectorAll('a[href*="github.com"][href*="/download/"]');
+    links.forEach(function(link) {
+      link.addEventListener('click', function() {
+        try {
+          // Increment a localStorage counter for simple tracking
+          var count = parseInt(localStorage.getItem('nm_dl_clicks') || '0') + 1;
+          localStorage.setItem('nm_dl_clicks', String(count));
+          // Also record which platform was clicked
+          var href = link.getAttribute('href') || '';
+          var platform = href.includes('.dmg') ? 'mac' : href.includes('.exe') || href.includes('.msi') ? 'windows' : 'linux';
+          var platformKey = 'nm_dl_' + platform;
+          localStorage.setItem(platformKey, String(parseInt(localStorage.getItem(platformKey) || '0') + 1));
+        } catch(e) { /* localStorage unavailable */ }
+      });
+    });
+  }
+
+  /* ── Page view counter (using countapi-compatible free service) ── */
+  function trackPageView() {
+    try {
+      var today = new Date().toISOString().slice(0, 10);
+      var lastVisit = localStorage.getItem('nm_last_visit');
+      // Count unique daily visitors (not every page load)
+      if (lastVisit !== today) {
+        localStorage.setItem('nm_last_visit', today);
+        var visits = parseInt(localStorage.getItem('nm_page_views') || '0') + 1;
+        localStorage.setItem('nm_page_views', String(visits));
+      }
+    } catch(e) { /* ignore */ }
+  }
+
   /* ── Init ── */
   document.addEventListener('DOMContentLoaded', async function() {
     var os = getOS();
     initTabs(os);
     initCopy();
     initLightbox();
+    trackPageView();
 
     var release = await fetchLatestRelease();
     initDownloads(release, os);
+    initDownloadTracking();
+
+    // Fetch and display total download count from all releases
+    try {
+      var releasesRes = await fetch(API_URL);
+      if (releasesRes.ok) {
+        var allReleases = await releasesRes.json();
+        var totalDownloads = 0;
+        allReleases.forEach(function(r) {
+          if (r.assets) r.assets.forEach(function(a) { totalDownloads += a.download_count || 0; });
+        });
+        if (totalDownloads > 0) {
+          var counterEl = document.getElementById('dl-count-text');
+          var counterWrap = document.getElementById('dl-counter');
+          if (counterEl) counterEl.textContent = totalDownloads.toLocaleString();
+          if (counterWrap) counterWrap.style.opacity = '1';
+        }
+      }
+    } catch(e) { /* ignore - counter is non-critical */ }
   });
 })();
 </script>
