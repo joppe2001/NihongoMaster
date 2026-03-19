@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue?style=flat-square" alt="Version" />
+  <img src="https://img.shields.io/badge/version-0.1.3-blue?style=flat-square" alt="Version" />
   <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey?style=flat-square" alt="Platform" />
   <img src="https://img.shields.io/badge/offline-100%25-success?style=flat-square" alt="Offline" />
   <img src="https://img.shields.io/badge/JLPT-N5%E2%80%93N2-orange?style=flat-square" alt="JLPT" />
@@ -69,8 +69,8 @@ Most Japanese learning apps are cloud-based, subscription-locked, and can't func
 ### Learn
 - **Kana** -- Guided Duolingo-style lessons for all 206 hiragana and katakana (including dakuten and combinations)
 - **Kanji** -- Stroke-order animations from KanjiVG, thematic lesson groups, three quiz modes
-- **Vocabulary** -- 2,500+ words across N5-N2, grouped by theme with teach-then-drill lessons
-- **Grammar** -- 150+ patterns with formation rules, example sentences, and interactive quizzes
+- **Vocabulary** -- 3,800+ words across N5-N2, grouped by theme with teach-then-drill lessons
+- **Grammar** -- 370+ patterns with formation rules, example sentences, and interactive quizzes
 
 </td>
 <td width="50%" valign="top">
@@ -546,12 +546,12 @@ All content is bundled with the app -- no downloads required.
 
 | Level | Kanji | Vocabulary | Grammar | Status |
 |-------|------:|----------:|--------:|--------|
-| **N5** | 102 | 300 | 40 | Complete |
-| **N4** | 170 | 700 | 55 | Complete |
-| **N3** | 370 | 1,300+ | 60+ | Complete |
-| **N2** | 380+ | 500+ | 40+ | Complete |
+| **N5** | 104 | 301 | 41 | Complete |
+| **N4** | 120 | 400 | 57 | Complete |
+| **N3** | 197 | 2,100 | 129 | Near Complete |
+| **N2** | 310 | 1,000 | 151 | In Progress |
 | **N1** | -- | -- | -- | Planned |
-| **Total** | **1,000+** | **2,800+** | **195+** | |
+| **Total** | **731** | **3,801** | **378** | |
 
 Additionally:
 - 42 radical definitions with example kanji
@@ -569,17 +569,21 @@ Additionally:
 - [ ] N1 content (kanji, vocabulary, grammar)
 - [ ] Pitch accent visualization
 - [ ] Handwriting recognition (on-device ML)
-- [ ] Listening comprehension exercises
 - [ ] Grammar conjugation tables
 - [ ] Community shared mnemonics
 - [ ] Mobile companion (Tauri v2 iOS/Android)
-
-### Community Requested
-- [ ] Custom content packs -- load your own vocab, reading material, and grammar in JSON/CSV format (Yomitan-style user-loadable dictionaries)
-- [ ] Anki CSV import -- bring your existing Anki flashcards into NihongoMaster
 - [ ] Traditional Chinese interface (zh-TW) -- i18n architecture is ready, needs translations
 - [ ] Shadowing practice -- listen-then-repeat with word-by-word audio sync
-- [ ] Spoken conversation practice -- on-device speech recognition (exploring local Whisper integration)
+- [ ] Spoken conversation practice -- on-device speech recognition
+
+### Recently Shipped
+- [x] Custom content packs (Yomitan-style JSON/CSV/Anki import)
+- [x] Listening comprehension (single sentences + full conversation scenarios)
+- [x] Dual VOICEVOX voices in conversations (auto opposite-gender pairing)
+- [x] Kana character management (hide/show/add/delete individual characters)
+- [x] In-app update popup + What's New modal after each update
+- [x] Voice model management (add/remove individual VOICEVOX voices)
+- [x] Download statistics from GitHub Releases API
 
 ---
 
