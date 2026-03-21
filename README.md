@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.5-blue?style=flat-square" alt="Version" />
+  <img src="https://img.shields.io/badge/version-0.1.6-blue?style=flat-square" alt="Version" />
   <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey?style=flat-square" alt="Platform" />
   <img src="https://img.shields.io/badge/offline-100%25-success?style=flat-square" alt="Offline" />
   <img src="https://img.shields.io/badge/JLPT-N5%E2%80%93N2-orange?style=flat-square" alt="JLPT" />
