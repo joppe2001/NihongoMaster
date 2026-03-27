@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NihongoMaster Privacy Policy — Learn how your data is handled." />
+  <title>Privacy Policy — NihongoMaster</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/joppe2001/NihongoMaster/main/public/app-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg-base: #0B0A14;
+      --bg-1: #161425;
+      --bg-2: #1E1C2E;
+      --border: rgba(255,255,255,0.06);
+      --t1: #F8F7FC;
+      --t2: #C8C4D8;
+      --t3: #8E8AA2;
+      --indigo: #6C63FF;
+      --indigo-dim: rgba(108,99,255,0.12);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-base);
+      color: var(--t2);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    a { color: var(--indigo); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--t3);
+      margin-bottom: 2rem;
+    }
+    .back-link:hover { color: var(--t2); text-decoration: none; }
+
+    h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--t1);
+      margin-bottom: 0.5rem;
+    }
+
+    .updated {
+      font-size: 0.85rem;
+      color: var(--t3);
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--t1);
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p, li { margin-bottom: 0.75rem; font-size: 0.95rem; }
+    ul { padding-left: 1.5rem; }
+    li { padding-left: 0.25rem; }
+    strong { color: var(--t1); font-weight: 600; }
+
+    .highlight-box {
+      background: var(--indigo-dim);
+      border: 1px solid rgba(108,99,255,0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+      color: var(--t1);
+    }
+
+    .footer-note {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--t3);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to NihongoMaster</a>
+
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: March 27, 2026</p>
+
+    <div class="highlight-box">
+      NihongoMaster is designed with privacy first. All your learning data stays on your device. No account required. No personal information collected.
+    </div>
+
+    <h2>1. Data We Store</h2>
+    <p>All data is stored <strong>locally on your device</strong> in an SQLite database. Nothing is sent to our servers. This includes:</p>
+    <ul>
+      <li><strong>Display name</strong> — The name you enter during setup (e.g., "Learner"). Used only for in-app personalization.</li>
+      <li><strong>Learning progress</strong> — Mastery levels, quiz scores, SRS review schedules, and study streaks.</li>
+      <li><strong>App settings</strong> — Theme, audio speed, daily goals, and other preferences.</li>
+    </ul>
+
+    <h2>2. Network Connections</h2>
+    <p>NihongoMaster makes the following network requests:</p>
+    <ul>
+      <li><strong>Text-to-Speech (VOICEVOX)</strong> — Japanese text you view in the app may be sent to a VOICEVOX server for audio synthesis. On desktop, this runs locally on your machine. On mobile, text is sent to our self-hosted VOICEVOX server to generate pronunciation audio. No text is logged or stored on the server.</li>
+      <li><strong>Text-to-Speech (OpenAI, optional)</strong> — If you choose to use OpenAI TTS and provide your own API key, text is sent to OpenAI's API. This is entirely opt-in and governed by <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">OpenAI's privacy policy</a>.</li>
+      <li><strong>Update checks (desktop only)</strong> — The app periodically checks for new versions via GitHub's public API. No personal data is sent.</li>
+      <li><strong>Google Fonts</strong> — Font files are loaded from Google's CDN on app startup. Google may log your IP address per their <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener">font privacy FAQ</a>.</li>
+    </ul>
+
+    <h2>3. Analytics</h2>
+    <p>NihongoMaster includes an <strong>optional, anonymous</strong> daily usage ping that sends only:</p>
+    <ul>
+      <li>App version</li>
+      <li>Platform (macOS, Windows, Linux, Android)</li>
+      <li>System locale (e.g., "en-US")</li>
+      <li>A random anonymous ID (not linked to any personal information)</li>
+    </ul>
+    <p>This feature is <strong>disabled by default</strong> and can be toggled in Settings &gt; Privacy. The analytics endpoint is currently inactive — no data is sent even if enabled. If activated in the future, this policy will be updated.</p>
+
+    <h2>4. Data We Do NOT Collect</h2>
+    <ul>
+      <li>No email addresses</li>
+      <li>No real names (only a self-chosen display name, stored locally)</li>
+      <li>No location data</li>
+      <li>No device identifiers</li>
+      <li>No advertising data</li>
+      <li>No third-party tracking or analytics SDKs (no Firebase, Crashlytics, etc.)</li>
+    </ul>
+
+    <h2>5. Data Sharing</h2>
+    <p>We do not sell, trade, or share any user data with third parties. The only data that leaves your device is:</p>
+    <ul>
+      <li>Japanese text sent to a TTS engine for pronunciation (VOICEVOX or OpenAI, as described above)</li>
+    </ul>
+
+    <h2>6. Data Storage &amp; Security</h2>
+    <p>All learning data is stored in a local SQLite database within the app's private storage. On Android, this is within the app's sandboxed data directory. On desktop, it is in the application data folder. The data is not encrypted at rest but is protected by your device's own security (screen lock, file system permissions).</p>
+
+    <h2>7. Children's Privacy</h2>
+    <p>NihongoMaster does not knowingly collect personal information from children under 13. The app does not require an account and does not collect any personal information from any user, regardless of age.</p>
+
+    <h2>8. Data Deletion</h2>
+    <p>Since all data is stored locally, you can delete it at any time by:</p>
+    <ul>
+      <li>Uninstalling the app (removes all data)</li>
+      <li>Clearing app data in your device settings</li>
+    </ul>
+
+    <h2>9. Changes to This Policy</h2>
+    <p>We may update this privacy policy from time to time. Changes will be posted on this page with an updated "Last updated" date. Continued use of the app after changes constitutes acceptance of the revised policy.</p>
+
+    <h2>10. Contact</h2>
+    <p>If you have any questions about this privacy policy, you can reach us at:</p>
+    <ul>
+      <li>GitHub: <a href="https://github.com/joppe2001/NihongoMaster/issues" target="_blank" rel="noopener">github.com/joppe2001/NihongoMaster/issues</a></li>
+    </ul>
+
+    <div class="footer-note">
+      NihongoMaster is an open-source project. View the source code at <a href="https://github.com/joppe2001/NihongoMaster" target="_blank" rel="noopener">github.com/joppe2001/NihongoMaster</a>.
+    </div>
+  </div>
+</body>
+</html>
