@@ -1,23 +1,23 @@
 {
-  "version": "v0.2.8",
+  "version": "v0.2.9",
   "notes": "See the GitHub releases page for details.",
-  "pub_date": "2026-03-31T00:40:33.072Z",
+  "pub_date": "2026-03-31T14:44:46.711Z",
   "platforms": {
     "darwin-aarch64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTKytteUk1Vk1NMXQ2a3djbGwyTDl5UUw4M0M3Q0FuRytWU3A2SnAvaVF1MXBOdGtSTWs1YUtXTFdiNkFoVlFYRDQvTmVtYmtGaHFWQkc1djRDbFJBbUhMNzdRTWZma1FzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0OTE3NjMwCWZpbGU6Tmlob25nb01hc3Rlcl91bml2ZXJzYWwuYXBwLnRhci5negp1R28yaCtOb3FlUVc0UmNxa1IyV05vSENpVXNiQUZKVVNzREZqenJkSmZHMFdYQldETmFNcVRrd3h4M1E4ZXR1a3FoUklNT2M0RW5jalFvVG9PMHFCdz09Cg==",
-      "url": "https://github.com/joppe2001/NihongoMaster/releases/download/v0.2.8/NihongoMaster_universal.app.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTKytteUk1Vk1NMXFNbktlNGNLR3dnczZaaHZFVDdsbUpkZUFlK2ZEQVNnTjEzMkVjTGxXaWRjRGl4aEJHS2hoNE44L3VhTmtPU3ZiMnBuaWdacnNBSzNwSjNOVzZiaWcwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0OTY4MjgyCWZpbGU6Tmlob25nb01hc3Rlcl91bml2ZXJzYWwuYXBwLnRhci5negpiUE9UNklEdTJtd1BFU3VtN0lXS3Q1cTg1Vkt0dWN0RWJucjV2VElTd2JTUW5TZDFRSFFRQVU0VWFxSm5wRUpVV1NKcTc4U0RsejRET2tyZDZhY3dDZz09Cg==",
+      "url": "https://github.com/joppe2001/NihongoMaster/releases/download/v0.2.9/NihongoMaster_universal.app.tar.gz"
     },
     "darwin-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTKytteUk1Vk1NMXQ2a3djbGwyTDl5UUw4M0M3Q0FuRytWU3A2SnAvaVF1MXBOdGtSTWs1YUtXTFdiNkFoVlFYRDQvTmVtYmtGaHFWQkc1djRDbFJBbUhMNzdRTWZma1FzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0OTE3NjMwCWZpbGU6Tmlob25nb01hc3Rlcl91bml2ZXJzYWwuYXBwLnRhci5negp1R28yaCtOb3FlUVc0UmNxa1IyV05vSENpVXNiQUZKVVNzREZqenJkSmZHMFdYQldETmFNcVRrd3h4M1E4ZXR1a3FoUklNT2M0RW5jalFvVG9PMHFCdz09Cg==",
-      "url": "https://github.com/joppe2001/NihongoMaster/releases/download/v0.2.8/NihongoMaster_universal.app.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTKytteUk1Vk1NMXFNbktlNGNLR3dnczZaaHZFVDdsbUpkZUFlK2ZEQVNnTjEzMkVjTGxXaWRjRGl4aEJHS2hoNE44L3VhTmtPU3ZiMnBuaWdacnNBSzNwSjNOVzZiaWcwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0OTY4MjgyCWZpbGU6Tmlob25nb01hc3Rlcl91bml2ZXJzYWwuYXBwLnRhci5negpiUE9UNklEdTJtd1BFU3VtN0lXS3Q1cTg1Vkt0dWN0RWJucjV2VElTd2JTUW5TZDFRSFFRQVU0VWFxSm5wRUpVV1NKcTc4U0RsejRET2tyZDZhY3dDZz09Cg==",
+      "url": "https://github.com/joppe2001/NihongoMaster/releases/download/v0.2.9/NihongoMaster_universal.app.tar.gz"
     },
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTKytteUk1Vk1NMWxNczF3TlV1VVNTK2lPeWorTS9ZS05zNzJ2YzlOb00yc3FrZkM0dTFhTkZMeGlDS0Z5YkRpejN5eU80VlpwZGFpZzVKZEdmU25mSjVHMGRaSFhybHdvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0OTE3NjI5CWZpbGU6Tmlob25nb01hc3Rlcl8wLjIuOF94NjRfZW4tVVMubXNpCktOWVZ6aXVvdCtaYXBSaHE0a2Q4NEJYajRIckIyMjZNK1NNVEhhNi92SGdMMDV0eHNMMWJ0L0dwYS82OHorVUFSMXVDUHdFeDRTb2xiMWMzaDNlSkNnPT0K",
-      "url": "https://github.com/joppe2001/NihongoMaster/releases/download/v0.2.8/NihongoMaster_0.2.8_x64_en-US.msi"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTKytteUk1Vk1NMWs3cW5IWmgxRHVBK3plMXFMcGFQbGUwOXhSSUowcCs4Skk0Yk0rcEZnNmZoWEVmNUFHSDhsc2F1TkNLYWQ2Yjd6V2orZmZBa0pTMFZLRk84UHFSWHdZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0OTY4MjgyCWZpbGU6Tmlob25nb01hc3Rlcl8wLjIuOV94NjRfZW4tVVMubXNpCnJ4NWk1OHNmZ2xoMGhBaDhIT3NrS3J1bVNjNlJuVm9QR3duakVpQm41U09YbFFpbnhQa3FVT1BKQVRHV1VyR0NKZm45VXVPMC8vbW8wVG5QUmtYMURBPT0K",
+      "url": "https://github.com/joppe2001/NihongoMaster/releases/download/v0.2.9/NihongoMaster_0.2.9_x64_en-US.msi"
     },
     "linux-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTKytteUk1Vk1NMWxJNVJqUy9qSlFDVnBCdGtYTUQwY2d3RnlFZXlWQ3V4dXZHb3dDY250MU5hQWVWZ1U1L1ZOZXcrTGVBRDNsZkZOOWRuOG13Y0ZvVFhZRjA3Um96VGd3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0OTE3NjI4CWZpbGU6Tmlob25nb01hc3Rlcl8wLjIuOF9hbWQ2NC5BcHBJbWFnZQo0d05CUG9nb3ZiZUFpUHBnUHB4RHJNWkVueVZMVFFYcktlQVJqSzVCWXlyUUV2UTQ1ekEzbWtuNExkN0w5ODhBWFZLZHRFaTl1NkxrOWFpN1BZeHhDZz09Cg==",
-      "url": "https://github.com/joppe2001/NihongoMaster/releases/download/v0.2.8/NihongoMaster_0.2.8_amd64.AppImage"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTKytteUk1Vk1NMXN2ZGRhQTZoK1dMZGdJOTgrdHpML2l1Z3orck9ISGcvVWM4czJ0QXdsV2FEb3gzOVhXY0JpU1dGU2VZc3dweGlaaytBNUJabStmQkFYQmFsa0JWWWdjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0OTY4MjgwCWZpbGU6Tmlob25nb01hc3Rlcl8wLjIuOV9hbWQ2NC5BcHBJbWFnZQpQSmFIZTdyRDhPVk5qcjlnOTJlbWJNZ2hLUHpaVlB5RVBoNTdFYWQ4Nno2Z2lVa29keXRDVVUwS1hBeVpEYy9vaVYwRStLVVJtOUtndm9hZWRjeEZEZz09Cg==",
+      "url": "https://github.com/joppe2001/NihongoMaster/releases/download/v0.2.9/NihongoMaster_0.2.9_amd64.AppImage"
     }
   }
 }
