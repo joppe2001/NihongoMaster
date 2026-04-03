@@ -10,11 +10,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.6-blue?style=flat-square" alt="Version" />
-  <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey?style=flat-square" alt="Platform" />
+  <img src="https://img.shields.io/badge/version-0.3.2-blue?style=flat-square" alt="Version" />
+  <img src="https://img.shields.io/badge/platform-macOS%20%7C%20iOS%20%7C%20Android%20%7C%20Windows%20%7C%20Linux-lightgrey?style=flat-square" alt="Platform" />
   <img src="https://img.shields.io/badge/offline-100%25-success?style=flat-square" alt="Offline" />
-  <img src="https://img.shields.io/badge/JLPT-N5%E2%80%93N2-orange?style=flat-square" alt="JLPT" />
-  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License" />
+  <img src="https://img.shields.io/badge/JLPT-N5%E2%80%93N1-orange?style=flat-square" alt="JLPT" />
   <img src="https://img.shields.io/badge/rust-%23000000.svg?style=flat-square&logo=rust&logoColor=white" alt="Rust" />
   <img src="https://img.shields.io/badge/tauri-v2-24C8D8?style=flat-square&logo=tauri&logoColor=white" alt="Tauri" />
   <img src="https://img.shields.io/badge/react-19-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React" />
@@ -23,7 +22,7 @@
 <br/>
 
 <p align="center">
-  <img src="docs/screenshots/hero-dashboard.png" alt="NihongoMaster Dashboard" width="800" />
+  <img src="docs/screenshots/dashboard.png" alt="NihongoMaster Dashboard" width="800" />
 </p>
 
 ---
@@ -35,8 +34,8 @@ Most Japanese learning apps are cloud-based, subscription-locked, and can't func
 - **100% offline after install** -- your data never leaves your machine
 - **Native Japanese voices** via VOICEVOX -- real AI speech synthesis running locally on your CPU, not a robotic browser voice
 - **FSRS spaced repetition** -- the same algorithm behind Anki's latest scheduler, implemented natively in Rust for speed
-- **Comprehensive JLPT coverage** -- N5 through N2 kanji, vocabulary, and grammar in a single app
-- **Tiny footprint** -- the entire app is under 5 MB (before optional VOICEVOX voice models)
+- **Comprehensive JLPT coverage** -- N5 through N1 kanji, vocabulary, and grammar in a single app
+- **Tiny footprint** -- the entire app is under 30 MB (before optional VOICEVOX voice models)
 - **No account required** -- no sign-up, no telemetry, no tracking
 
 ---
@@ -57,8 +56,6 @@ Most Japanese learning apps are cloud-based, subscription-locked, and can't func
 - [JLPT Content](#jlpt-content)
 - [Roadmap](#roadmap)
 - [Credits](#credits)
-- [License](#license)
-
 ---
 
 ## Features
@@ -70,7 +67,7 @@ Most Japanese learning apps are cloud-based, subscription-locked, and can't func
 ### Learn
 - **Kana** -- Guided Duolingo-style lessons for all 206 hiragana and katakana (including dakuten and combinations)
 - **Kanji** -- Stroke-order animations from KanjiVG, thematic lesson groups, three quiz modes
-- **Vocabulary** -- 3,800+ words across N5-N2, grouped by theme with teach-then-drill lessons
+- **Vocabulary** -- 6,000+ words across N5-N1, grouped by theme with teach-then-drill lessons
 - **Grammar** -- 370+ patterns with formation rules, example sentences, and interactive quizzes
 
 </td>
@@ -111,127 +108,16 @@ Most Japanese learning apps are cloud-based, subscription-locked, and can't func
 
 ## Screenshots
 
-> **Note:** Add your own screenshots to `docs/screenshots/` and they will display here automatically.
-
-<details>
-<summary><strong>Dashboard & Smart Study Guide</strong></summary>
-<br/>
 <p align="center">
-  <img src="docs/screenshots/dashboard.png" alt="Dashboard" width="700" />
+  <img src="docs/screenshots/dashboard.png" alt="Dashboard" width="32%" />
+  <img src="docs/screenshots/kanji.png" alt="Kanji" width="32%" />
+  <img src="docs/screenshots/vocabulary.png" alt="Vocabulary" width="32%" />
 </p>
-
-The dashboard shows your daily progress, due reviews, streak, XP, a GitHub-style activity heatmap, skill breakdown across all four domains (Kana, Kanji, Vocabulary, Grammar), and personalized study recommendations based on your learning data.
-</details>
-
-<details>
-<summary><strong>Kana Learning -- Guided Lessons</strong></summary>
-<br/>
 <p align="center">
-  <img src="docs/screenshots/kana-lesson.png" alt="Kana Lesson" width="700" />
+  <img src="docs/screenshots/first-steps.png" alt="First Steps" width="32%" />
+  <img src="docs/screenshots/typing.png" alt="Typing Practice" width="32%" />
+  <img src="docs/screenshots/mock-test.png" alt="JLPT Mock Test" width="32%" />
 </p>
-
-Row-by-row lessons with KanjiVG stroke animations, audio pronunciation, and immediate drill-then-reinforce quizzes. Mastery dots track your progress per character.
-</details>
-
-<details>
-<summary><strong>Kanji -- Stroke Animation & Quizzes</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/kanji-stroke.png" alt="Kanji Stroke Animation" width="700" />
-</p>
-
-Every kanji has accurate stroke-order animation. Thematic groups (Numbers, Time, People, Nature...) with three quiz types: meaning, reading, and recognition. Compound words (jukugo) shown for each kanji.
-</details>
-
-<details>
-<summary><strong>Vocabulary Browse & Learn</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/vocabulary.png" alt="Vocabulary Page" width="700" />
-</p>
-
-Browse 2,500+ words by JLPT level and part of speech. Each word has audio, example usage, and mastery tracking. Themed lesson groups for systematic learning.
-</details>
-
-<details>
-<summary><strong>Grammar Patterns</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/grammar.png" alt="Grammar Page" width="700" />
-</p>
-
-150+ grammar patterns with formation rules, multiple example sentences with furigana, usage notes, and interactive quizzes.
-</details>
-
-<details>
-<summary><strong>Practice -- Sentence Builder & Exercises</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/practice.png" alt="Practice Page" width="700" />
-</p>
-
-Six exercise types including drag-and-drop sentence building, conjugation drills, error correction, matching pairs, and dialogue completion. Real-world scenarios: convenience store, restaurant, train station, and more.
-</details>
-
-<details>
-<summary><strong>Reading Stories</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/reading.png" alt="Reading Page" width="700" />
-</p>
-
-Mini stories written with only the grammar and vocabulary you know. Tap any sentence to reveal the translation. Toggle furigana on/off. Comprehension quizzes at the end.
-</details>
-
-<details>
-<summary><strong>Typing Practice</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/typing.png" alt="Typing Practice" width="700" />
-</p>
-
-Two modes: romaji speed test and Japanese IME practice. Custom word lists, session history with WPM and accuracy tracking, and a hide-answer toggle for memory practice.
-</details>
-
-<details>
-<summary><strong>SRS Review Session</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/review.png" alt="Review Session" width="700" />
-</p>
-
-Card-based review with FSRS scheduling. Rate each card Again/Hard/Good/Easy. Keyboard shortcuts for rapid review. Supports kana, kanji, vocabulary, and grammar cards.
-</details>
-
-<details>
-<summary><strong>Progress & Achievements</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/progress.png" alt="Progress Page" width="700" />
-</p>
-
-Track total reviews, accuracy, study streaks, and XP across 30 levels. 15 achievements unlock as you hit milestones.
-</details>
-
-<details>
-<summary><strong>Settings & Themes</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/settings-themes.png" alt="Settings & Themes" width="700" />
-</p>
-
-7 themes including 4 Japanese-inspired color palettes. Full data export/import, daily goal configuration, and VOICEVOX engine management.
-</details>
-
-<details>
-<summary><strong>Onboarding</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/onboarding.png" alt="Onboarding Wizard" width="700" />
-</p>
-
-5-step first-launch wizard: welcome, name input, JLPT level selection, daily goal, and setup complete.
-</details>
 
 ---
 
@@ -252,7 +138,7 @@ Track total reviews, accuracy, study streaks, and XP across 30 levels. 15 achiev
 | No account / No subscription | **Yes** | No | No | Yes |
 | No telemetry or tracking | **Yes** | No | No | Yes |
 | Native desktop performance (Rust) | **Yes** | No | No | Partial |
-| App size | **~5 MB** | ~150 MB | Web | ~100 MB |
+| App size | **~30 MB** | ~150 MB | Web | ~100 MB |
 | Price | **Free** | $84/yr | $99/yr | Free |
 
 ---
@@ -647,12 +533,12 @@ All content is bundled with the app -- no downloads required.
 
 | Level | Kanji | Vocabulary | Grammar | Status |
 |-------|------:|----------:|--------:|--------|
-| **N5** | 104 | 301 | 41 | Complete |
-| **N4** | 120 | 400 | 57 | Complete |
-| **N3** | 197 | 2,100 | 129 | Near Complete |
-| **N2** | 310 | 1,000 | 151 | In Progress |
-| **N1** | -- | -- | -- | Planned |
-| **Total** | **731** | **3,801** | **378** | |
+| **N5** | 104 | 600+ | 41 | Complete |
+| **N4** | 200+ | 700+ | 57 | Complete |
+| **N3** | 300+ | 1,000+ | 60+ | Complete |
+| **N2** | 400+ | 700+ | 42+ | Complete |
+| **N1** | 800+ | 3,000+ | 200+ | Complete |
+| **Total** | **1,800+** | **6,000+** | **400+** | |
 
 Additionally:
 - 42 radical definitions with example kanji
@@ -667,7 +553,6 @@ Additionally:
 ## Roadmap
 
 ### Planned
-- [ ] N1 content (kanji, vocabulary, grammar)
 - [ ] Pitch accent visualization
 - [ ] Handwriting recognition (on-device ML)
 - [ ] Grammar conjugation tables
@@ -678,6 +563,8 @@ Additionally:
 - [ ] Spoken conversation practice -- on-device speech recognition
 
 ### Recently Shipped
+- [x] N1 content (kanji, vocabulary, grammar)
+- [x] iOS & Mac App Store release
 - [x] Custom content packs (Yomitan-style JSON/CSV/Anki import)
 - [x] Listening comprehension (single sentences + full conversation scenarios)
 - [x] Dual VOICEVOX voices in conversations (auto opposite-gender pairing)
@@ -695,12 +582,6 @@ Additionally:
 - **[FSRS](https://github.com/open-spaced-repetition/fsrs4anki)** -- Free Spaced Repetition Scheduler algorithm by Jarrett Ye
 - **[Tauri](https://tauri.app)** -- Framework for building desktop apps with web frontends
 - **[Google Cloud TTS](https://cloud.google.com/text-to-speech)** -- Neural2-B voice used for pre-generated audio files
-
----
-
-## License
-
-MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
