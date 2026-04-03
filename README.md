@@ -50,6 +50,7 @@ Most Japanese learning apps are cloud-based, subscription-locked, and can't func
 - [The SRS Engine](#the-srs-engine)
 - [Themes](#themes)
 - [Getting Started](#getting-started)
+- [Local Testing Helpers](#local-testing-helpers)
 - [Building from Source](#building-from-source)
 - [Keyboard Shortcuts](#keyboard-shortcuts)
 - [Architecture](#architecture)
@@ -406,6 +407,106 @@ npm run generate-audio:kanji
 # Generate slow-speed variants
 npm run generate-audio:slow
 ```
+
+---
+
+## Local Testing Helpers
+
+### Switch the local test account level
+
+For local testing, two values matter:
+
+- `settings.value` where `key = 'learning_profile'` holds `placedLevel` and `placedSublevel`. This drives the dashboard roadmap, journey routing, and onboarding-based placement.
+- `users.current_level` holds the numeric JLPT level used by level-scoped features such as content filtering and typing defaults.
+
+The app currently boots the first row from `users` (`SELECT * FROM users LIMIT 1`), so the commands below update that same row directly.
+
+On macOS dev installs, the SQLite file is:
+
+```bash
+DB="$HOME/Library/Application Support/com.nihongomaster.app/nihongo-master.db"
+```
+
+Inspect the active local placement:
+
+```bash
+sqlite3 "$DB" "
+SELECT id, name, current_level FROM users;
+SELECT
+  json_extract(value, '$.placedLevel') AS placed_level,
+  json_extract(value, '$.placedSublevel') AS placed_sublevel
+FROM settings
+WHERE key = 'learning_profile';
+"
+```
+
+Useful sublevels for dashboard and journey testing:
+
+| `placedSublevel` | What it unlocks |
+|---|---|
+| `absolute-beginner` | Beginner Journey is the first dashboard roadmap stage |
+| `kana-learner` | Beginner Journey remains visible, but the roadmap assumes some kana progress |
+| `n5-early` | Skips the beginner journey on the dashboard and starts the N5 roadmap |
+| `n5-late` | Late N5 roadmap |
+| `n4-early` / `n4-late` | N4 roadmap and N4 journey routing |
+| `n3-plus` | N3 roadmap and N3 journey routing |
+
+Common switches:
+
+```bash
+# Show Beginner Journey on the dashboard again
+sqlite3 "$DB" "
+UPDATE users
+SET current_level = 5
+WHERE id = (SELECT id FROM users LIMIT 1);
+UPDATE settings
+SET value = json_set(value, '$.placedLevel', 5, '$.placedSublevel', 'absolute-beginner')
+WHERE key = 'learning_profile';
+"
+```
+
+```bash
+# Test N5 after the beginner roadmap
+sqlite3 "$DB" "
+UPDATE users
+SET current_level = 5
+WHERE id = (SELECT id FROM users LIMIT 1);
+UPDATE settings
+SET value = json_set(value, '$.placedLevel', 5, '$.placedSublevel', 'n5-early')
+WHERE key = 'learning_profile';
+"
+```
+
+```bash
+# Test N4 roadmap / journey
+sqlite3 "$DB" "
+UPDATE users
+SET current_level = 4
+WHERE id = (SELECT id FROM users LIMIT 1);
+UPDATE settings
+SET value = json_set(value, '$.placedLevel', 4, '$.placedSublevel', 'n4-early')
+WHERE key = 'learning_profile';
+"
+```
+
+```bash
+# Test N3 roadmap / journey
+sqlite3 "$DB" "
+UPDATE users
+SET current_level = 3
+WHERE id = (SELECT id FROM users LIMIT 1);
+UPDATE settings
+SET value = json_set(value, '$.placedLevel', 3, '$.placedSublevel', 'n3-plus')
+WHERE key = 'learning_profile';
+"
+```
+
+Notes:
+
+- Restart or reload the app after changing the database so the in-memory store picks up the new placement.
+- Changing placement does not reset progress by itself. It only changes what the dashboard and journey system point to.
+- Leave `beginner_journey_state` and progress tables alone unless you explicitly want to reset journey progress too.
+- If the `learning_profile` row is missing entirely, rerun onboarding instead of handcrafting partial JSON.
 
 ---
 
