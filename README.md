@@ -123,23 +123,49 @@ Most Japanese learning apps are cloud-based, subscription-locked, and can't func
 
 ## What Makes It Different
 
+Verified against official docs and product pages, April 2026. Where competitors do something
+well we say so — this is meant to help you pick the right tool, not just sell ours.
+
 | Feature | NihongoMaster | Duolingo | WaniKani | Anki |
 |---|:---:|:---:|:---:|:---:|
-| Works 100% offline | **Yes** | No | No | Partial |
-| Native Japanese AI voices (VOICEVOX) | **Yes** | No | No | No |
-| FSRS spaced repetition | **Yes** | No | SRS (custom) | Yes (plugin) |
-| Kanji stroke-order animation | **Yes** | No | No | No |
+| Built specifically for Japanese | **Yes** | No | Yes | No |
+| Full JLPT N5 → N1 curriculum | **Yes** | No (~N5) | Partial (kanji + vocab only) | No |
+| Timed JLPT mock tests | **Yes** | No | No | No |
+| Adaptive SRS (FSRS-class) | **Yes** | Partial (HLR) | No (fixed-interval) | **Yes** (in-core since v23.10) |
+| Native Japanese voice audio | **Yes** (VOICEVOX) | Partial (TTS mix) | **Yes** (Kenichi / Kyoko) | Partial (OS TTS, decks vary) |
+| Kanji stroke-order practice | **Yes** | **Yes** (guided trace) | No | No (add-ons exist) |
 | Sentence building exercises | **Yes** | Yes | No | No |
 | Reading stories with comprehension | **Yes** | Yes | No | No |
 | Japanese IME typing practice | **Yes** | No | No | No |
-| Drawing canvas for handwriting | **Yes** | No | No | No |
+| Drawing canvas for handwriting | **Yes** | Partial (tracing) | No | No |
+| Hand-crafted kanji mnemonics | No | No | **Yes** (Tofugu stories) | Partial (decks) |
+| Free cross-device sync | No (Pro · later) | **Yes** | **Yes** | **Yes** (AnkiWeb) |
+| Works fully offline | **Yes** | No | No | **Yes** |
 | Multiple Japanese-inspired themes | **Yes** | No | No | No |
-| Full data export/import | **Yes** | No | No | Yes |
-| No account / No subscription | **Yes** | No | No | Yes |
-| No telemetry or tracking | **Yes** | No | No | Yes |
-| Native desktop performance (Rust) | **Yes** | No | No | Partial |
+| No account required | **Yes** | No | No | **Yes** |
+| No ads, no guilt-trip streak mechanics | **Yes** | No | **Yes** | **Yes** |
+| Native desktop performance | **Yes** (Rust + Tauri) | n/a (web) | n/a (web) | **Yes** (Rust backend) |
+| Full data export/import | **Yes** | No | No | **Yes** |
 | App size | **~30 MB** | ~150 MB | Web | ~100 MB |
-| Price | **Free** | $84/yr | $99/yr | Free |
+| Price (2026-04) | **Free** | Free / Super ~$84/yr / Max ~$168/yr | $9/mo · $89/yr · $299 lifetime | Free desktop & Android · $24.99 iOS one-time |
+
+### Notes on the comparison
+
+- **Anki ships FSRS in-core since version 23.10 (October 2023)** — earlier "plugin" claims are out of date.
+- **Anki Desktop is Rust-backed** since the 2.1 series; calling Anki "non-native" on desktop is not accurate.
+- **WaniKani's SRS is fixed-interval** (4h → 8h → 1d → 2d → 1w → 2w → 1mo → 4mo). It does not adapt per
+  user or per item — that's a real differentiator vs FSRS-class schedulers.
+- **Duolingo Japanese reaches roughly N5**, sometimes touching N4 — independent reviews are consistent on this.
+- **Duolingo's stroke-order trace** (added 2023) is more polished than ours for the lessons it covers.
+  We cover more characters and offer a free-draw canvas, but their tracing UX is genuinely good.
+- **Anki is fully offline on every platform.** Sync via AnkiWeb is optional, not required to use the app.
+
+### Where competitors beat us today
+
+- **WaniKani's mnemonic stories** are still the gold standard for kanji recall. We give context and
+  example sentences but not Tofugu-style hand-written stories. On the roadmap.
+- **Free cross-device sync** is something all three competitors offer out of the box. Our equivalent
+  is part of the future Pro tier — until then, a single device is your source of truth.
 
 ---
 
