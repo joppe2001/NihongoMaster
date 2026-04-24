@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Nihongo Master — Pro Subscription Flow Mockup</title>
+<style>
+  :root {
+    --ink: #000;
+    --bg: #f5f1e8;
+    --card: #fff;
+    --accent: #ff5a5f;
+    --accent-2: #ffd166;
+    --accent-3: #06d6a0;
+    --accent-4: #8ecae6;
+    --muted: #8b8680;
+    --danger: #ef4444;
+    --ok: #10b981;
+    --shadow: 6px 6px 0 0 var(--ink);
+    --shadow-sm: 3px 3px 0 0 var(--ink);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--ink);
+    padding: 40px 20px 80px;
+  }
+  .page-header {
+    max-width: 1400px;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+  .page-header h1 {
+    font-size: 42px;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .page-header p { color: var(--muted); margin: 0; font-size: 14px; }
+  .flow-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 40px;
+  }
+  .screen {
+    background: var(--card);
+    border: 3px solid var(--ink);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    position: relative;
+    width: 340px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone-status {
+    background: var(--ink);
+    color: #fff;
+    padding: 8px 24px;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+  }
+  .screen-label {
+    position: absolute;
+    top: -16px;
+    left: 20px;
+    background: var(--accent-2);
+    border: 2px solid var(--ink);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    box-shadow: var(--shadow-sm);
+    z-index: 2;
+  }
+  .step-num {
+    position: absolute;
+    top: -18px;
+    right: 20px;
+    background: var(--accent);
+    color: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 16px;
+    box-shadow: var(--shadow-sm);
+    z-index: 2;
+  }
+  .screen-body {
+    padding: 20px;
+    flex: 1;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .h1 {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .h2 {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin: 0;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+  }
+  .row .jp { font-size: 13px; color: var(--muted); width: 40px; font-weight: 700; }
+  .row .lbl { font-weight: 900; font-size: 15px; text-transform: uppercase; letter-spacing: -0.01em; }
+  .row .sub { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: ui-monospace, monospace; }
+  .row .arrow { margin-left: auto; color: var(--muted); }
+  .row.pro {
+    background: linear-gradient(135deg, var(--accent-2), #ffb347);
+    border-color: var(--ink);
+  }
+  .row.pro .lbl::after {
+    content: "PRO";
+    margin-left: 8px;
+    background: var(--ink);
+    color: var(--accent-2);
+    padding: 2px 6px;
+    font-size: 10px;
+    border-radius: 4px;
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border: 3px solid var(--ink);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    background: var(--accent);
+    color: #fff;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    text-align: center;
+  }
+  .btn.secondary { background: var(--card); color: var(--ink); box-shadow: var(--shadow-sm); }
+  .btn.ok { background: var(--accent-3); color: var(--ink); }
+  .hero {
+    background: linear-gradient(135deg, var(--accent), #ff8566);
+    color: #fff;
+    padding: 24px;
+    border-radius: 14px;
+    border: 3px solid var(--ink);
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .hero h1 { font-size: 28px; margin: 0 0 8px; letter-spacing: -0.02em; text-transform: uppercase; }
+  .hero p { margin: 0; opacity: 0.92; font-size: 14px; }
+  .benefit {
+    display: flex;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 2px solid var(--ink);
+    background: var(--card);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    font-size: 13px;
+  }
+  .benefit .dot {
+    width: 20px;
+    height: 20px;
+    background: var(--accent-3);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    font-weight: 900;
+    font-size: 12px;
+  }
+  .price {
+    text-align: center;
+    padding: 16px;
+    border: 3px dashed var(--ink);
+    border-radius: 12px;
+    background: #fffbf0;
+  }
+  .price .amt { font-size: 36px; font-weight: 900; letter-spacing: -0.03em; }
+  .price .per { font-size: 12px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+  .legal {
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .legal a { color: var(--muted); text-decoration: underline; }
+  .banner {
+    background: var(--accent-4);
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow-sm);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .banner.warn { background: #ffe4a0; }
+  .banner.err { background: #fecaca; }
+  .cloud-card {
+    background: linear-gradient(135deg, var(--accent-4), #a8dadc);
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 18px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .cloud-card .icon {
+    width: 44px;
+    height: 44px;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+  }
+  .cloud-card .t { font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: 2px; }
+  .cloud-card .s { font-size: 11px; color: #1a3a4d; font-weight: 600; }
+  .native-sheet {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #f2f2f7;
+    border-top: 2px solid var(--ink);
+    border-radius: 20px 20px 0 0;
+    padding: 16px;
+    box-shadow: 0 -4px 0 0 rgba(0,0,0,0.08);
+  }
+  .native-sheet .dragger { width: 40px; height: 4px; background: #c7c7cc; border-radius: 2px; margin: 0 auto 12px; }
+  .native-sheet .title { font-size: 13px; font-weight: 700; text-align: center; margin-bottom: 8px; }
+  .native-sheet .sub { font-size: 11px; color: #636366; text-align: center; margin-bottom: 16px; }
+  .native-btn {
+    background: #007aff;
+    color: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .native-btn.cancel { background: #fff; color: #007aff; border: 1px solid #d1d1d6; }
+  .progress-bar {
+    height: 16px;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-bar > div {
+    height: 100%;
+    width: 64%;
+    background: var(--accent-3);
+    border-right: 2px solid var(--ink);
+  }
+  .input {
+    padding: 14px;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    background: var(--card);
+    font-size: 14px;
+    box-shadow: var(--shadow-sm);
+  }
+  .divider {
+    height: 1px;
+    background: var(--ink);
+    opacity: 0.2;
+    margin: 4px 0;
+  }
+  .flow-arrow {
+    font-size: 60px;
+    color: var(--accent);
+    text-align: center;
+    font-weight: 900;
+    line-height: 1;
+    align-self: center;
+  }
+  .check-item {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: #f0fdf4;
+    border: 2px solid var(--ok);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .legend {
+    max-width: 1400px;
+    margin: 0 auto 40px;
+    padding: 20px;
+    border: 3px solid var(--ink);
+    border-radius: 16px;
+    background: #fffbf0;
+    box-shadow: var(--shadow);
+  }
+  .legend h2 { margin: 0 0 12px; font-size: 16px; text-transform: uppercase; }
+  .legend ul { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.8; }
+  .entry-tag {
+    display: inline-block;
+    background: var(--accent-3);
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-right: 6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Pro Subscription Flow</h1>
+  <p>Nihongo Master — monthly cloud sync opt-in · mockup v1</p>
+</div>
+
+<div class="legend">
+  <h2>Flow overview</h2>
+  <p style="margin:0 0 10px;font-size:13px;">
+    <span class="entry-tag">Entry A</span>Settings → Pro (primary)
+    <span class="entry-tag">Entry B</span>Dashboard card (discovery)
+    <span class="entry-tag">Entry C</span>Account section (contextual)
+    <span class="entry-tag">Entry D</span>Fresh install / restore flow
+  </p>
+  <ul>
+    <li><b>Screen 1-2:</b> Entry points — where the user taps to start.</li>
+    <li><b>Screen 3:</b> Pro paywall with all App Store / Play Store required disclosures.</li>
+    <li><b>Screen 4:</b> Native Apple/Google IAP sheet (RevenueCat-driven).</li>
+    <li><b>Screen 5-6:</b> Account creation + first sync.</li>
+    <li><b>Screen 7:</b> Subscribed state in Settings.</li>
+    <li><b>Screen 8-9:</b> Edge cases — fresh install restore + lapsed subscription.</li>
+  </ul>
+</div>
+
+<div class="flow-grid">
+
+  <!-- SCREEN 1: Settings with Pro entry -->
+  <div class="screen">
+    <span class="screen-label">Entry A · Settings</span>
+    <span class="step-num">1</span>
+    <div class="phone-status"><span>9:41</span><span>•••</span></div>
+    <div class="screen-body">
+      <div>
+        <p class="h2">設定</p>
+        <h1 class="h1">Settings</h1>
+      </div>
+      <div class="row pro">
+        <span class="jp">プロ</span>
+        <div>
+          <div class="lbl">Upgrade</div>
+          <div class="sub" style="color:#5a4a1a;">Sync across devices + more</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="row">
+        <span class="jp">学習</span>
+        <div>
+          <div class="lbl">Learning</div>
+          <div class="sub">Pace, difficulty, goal</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="row">
+        <span class="jp">見た目</span>
+        <div>
+          <div class="lbl">Appearance</div>
+          <div class="sub">Theme, palette, fonts</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="row">
+        <span class="jp">データ</span>
+        <div>
+          <div class="lbl">Account</div>
+          <div class="sub">Level, export, reset</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="row">
+        <span class="jp">プライバシー</span>
+        <div>
+          <div class="lbl">Privacy</div>
+          <div class="sub">Local-first, no tracking</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Dashboard discovery card -->
+  <div class="screen">
+    <span class="screen-label">Entry B · Dashboard</span>
+    <span class="step-num">1</span>
+    <div class="phone-status"><span>9:41</span><span>•••</span></div>
+    <div class="screen-body">
+      <div>
+        <p class="h2">今日も頑張ろう</p>
+        <h1 class="h1">Good morning</h1>
+      </div>
+      <div style="background:var(--accent);color:#fff;padding:18px;border:3px solid var(--ink);border-radius:14px;box-shadow:var(--shadow);">
+        <div style="font-size:11px;font-weight:800;text-transform:uppercase;opacity:0.8;">Streak · 12 days</div>
+        <div style="font-size:30px;font-weight:900;margin:4px 0;">7 cards due</div>
+        <div style="background:#fff;color:var(--ink);padding:10px;border:2px solid var(--ink);border-radius:8px;font-weight:900;text-align:center;margin-top:8px;">Start review</div>
+      </div>
+      <div class="cloud-card">
+        <div class="icon">☁</div>
+        <div style="flex:1;">
+          <div class="t">Sync across devices</div>
+          <div class="s">Keep progress on phone + tablet</div>
+        </div>
+        <span style="font-size:22px;color:#1a3a4d;">›</span>
+      </div>
+      <div class="row">
+        <span class="jp">次</span>
+        <div>
+          <div class="lbl">Continue Journey</div>
+          <div class="sub">N5 · Lesson 12</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Paywall -->
+  <div class="screen">
+    <span class="screen-label">Pro Paywall</span>
+    <span class="step-num">2</span>
+    <div class="phone-status"><span>9:41</span><span>•••</span></div>
+    <div class="screen-body">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:12px;color:var(--muted);">✕ Close</span>
+      </div>
+      <div class="hero">
+        <div style="font-size:10px;font-weight:800;letter-spacing:0.16em;opacity:0.9;">日本語マスター PRO</div>
+        <h1>Sync across all your devices</h1>
+        <p>Never lose your streak. Pick up on phone, tablet, or desktop.</p>
+      </div>
+      <div class="benefit"><span class="dot">☁</span><div><b>Cloud sync</b> — progress, SRS, journey across devices</div></div>
+      <div class="benefit"><span class="dot">📊</span><div><b>Retention analytics</b> — skill trends, forecasts, histograms</div></div>
+      <div class="benefit"><span class="dot">🗾</span><div><b>Premium garden</b> — themes + 5 streak freezes</div></div>
+      <div class="benefit"><span class="dot">🎙</span><div><b>Managed OpenAI TTS</b> — no API key needed</div></div>
+      <div class="price">
+        <div class="amt">€4.99</div>
+        <div class="per">per month · auto-renews</div>
+      </div>
+      <button class="btn">Start subscription</button>
+      <button class="btn secondary" style="padding:12px;font-size:13px;">Restore purchases</button>
+      <p class="legal">
+        Auto-renews monthly at €4.99 until cancelled. Cancel anytime in <a href="#">App Store</a> / <a href="#">Google Play</a> settings.
+        <br/><a href="#">Terms of Service</a> · <a href="#">Privacy Policy</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: Native IAP sheet -->
+  <div class="screen">
+    <span class="screen-label">Native IAP · Apple/Google</span>
+    <span class="step-num">3</span>
+    <div class="phone-status"><span>9:41</span><span>•••</span></div>
+    <div class="screen-body" style="position:relative;opacity:0.6;pointer-events:none;">
+      <div class="hero"><h1>Pro</h1></div>
+      <div class="benefit">...</div>
+      <div class="benefit">...</div>
+    </div>
+    <div class="native-sheet">
+      <div class="dragger"></div>
+      <div class="title">Confirm Subscription</div>
+      <div class="sub">Nihongo Master Pro · €4.99/month</div>
+      <div style="background:#fff;padding:12px;border-radius:10px;margin-bottom:12px;font-size:12px;">
+        <div style="display:flex;justify-content:space-between;"><span>Subscription</span><b>Monthly</b></div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px;"><span>Price</span><b>€4.99</b></div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px;color:#636366;"><span>Next renewal</span><span>May 24, 2026</span></div>
+      </div>
+      <div class="native-btn">Subscribe · Face ID</div>
+      <div class="native-btn cancel">Cancel</div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: Account creation -->
+  <div class="screen">
+    <span class="screen-label">Account Setup</span>
+    <span class="step-num">4</span>
+    <div class="phone-status"><span>9:41</span><span>•••</span></div>
+    <div class="screen-body">
+      <div class="check-item">
+        <span>✓</span>
+        <span>Subscription active — let's link an account to start syncing</span>
+      </div>
+      <div>
+        <h1 class="h1">Create account</h1>
+        <p style="color:var(--muted);font-size:13px;margin:4px 0 0;">Needed to sync across devices. We only store your email.</p>
+      </div>
+      <button class="btn" style="background:var(--ink);color:#fff;">🍎 Sign in with Apple</button>
+      <button class="btn secondary">🔵 Sign in with Google</button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="flex:1;height:1px;background:var(--ink);opacity:0.2;"></div>
+        <span style="font-size:11px;color:var(--muted);font-weight:700;">OR EMAIL</span>
+        <div style="flex:1;height:1px;background:var(--ink);opacity:0.2;"></div>
+      </div>
+      <div class="input">email@example.com</div>
+      <div class="input">•••••••• (8+ chars)</div>
+      <button class="btn ok">Create account</button>
+      <p class="legal" style="margin-top:4px;">
+        By continuing you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- SCREEN 6: Initial sync -->
+  <div class="screen">
+    <span class="screen-label">First Sync</span>
+    <span class="step-num">5</span>
+    <div class="phone-status"><span>9:41</span><span>•••</span></div>
+    <div class="screen-body" style="justify-content:center;text-align:center;align-items:center;">
+      <div style="font-size:72px;">☁</div>
+      <h1 class="h1">Syncing your progress</h1>
+      <p style="color:var(--muted);font-size:13px;margin:0;">Uploading 1,247 SRS cards, 12 journey lessons, 8 days of activity…</p>
+      <div class="progress-bar" style="width:100%;"><div></div></div>
+      <p style="font-size:12px;font-weight:700;color:var(--muted);margin:0;">64% · about 4 seconds left</p>
+      <div class="check-item" style="margin-top:20px;">
+        <span>🔒</span><span>End-to-end encrypted — your data, your key</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 7: Subscribed state in settings -->
+  <div class="screen">
+    <span class="screen-label">Settings · Pro Active</span>
+    <span class="step-num">6</span>
+    <div class="phone-status"><span>9:41</span><span>•••</span></div>
+    <div class="screen-body">
+      <div>
+        <p class="h2">プロ</p>
+        <h1 class="h1">Your Pro subscription</h1>
+      </div>
+      <div style="background:var(--accent-3);border:3px solid var(--ink);border-radius:14px;box-shadow:var(--shadow);padding:18px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">Active</div>
+        <div style="font-size:22px;font-weight:900;margin:4px 0;">Nihongo Master Pro</div>
+        <div style="font-size:12px;font-weight:600;">Renews May 24, 2026 · €4.99/mo</div>
+      </div>
+      <div class="row">
+        <div>
+          <div class="lbl">Account</div>
+          <div class="sub">joppe@example.com</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="row">
+        <div>
+          <div class="lbl">Cloud sync</div>
+          <div class="sub">Last synced 2 min ago</div>
+        </div>
+        <span style="color:var(--ok);font-weight:900;">●</span>
+      </div>
+      <div class="row">
+        <div>
+          <div class="lbl">Manage subscription</div>
+          <div class="sub">Opens App Store / Play</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="row">
+        <div>
+          <div class="lbl">Restore purchases</div>
+          <div class="sub">Re-check this device</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="row" style="background:#fef2f2;border-color:var(--danger);">
+        <div>
+          <div class="lbl" style="color:var(--danger);">Delete account</div>
+          <div class="sub">Wipes cloud data permanently</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 8: Fresh install restore -->
+  <div class="screen">
+    <span class="screen-label">Entry D · Fresh install</span>
+    <span class="step-num">Alt</span>
+    <div class="phone-status"><span>9:41</span><span>•••</span></div>
+    <div class="screen-body">
+      <div>
+        <p class="h2">ようこそ</p>
+        <h1 class="h1" style="font-size:28px;">Welcome back?</h1>
+        <p style="color:var(--muted);font-size:13px;margin:6px 0 0;">If you already use Nihongo Master on another device, restore your progress here.</p>
+      </div>
+      <div class="cloud-card">
+        <div class="icon">☁</div>
+        <div style="flex:1;">
+          <div class="t">Restore from another device</div>
+          <div class="s">Requires Pro subscription</div>
+        </div>
+        <span style="font-size:22px;color:#1a3a4d;">›</span>
+      </div>
+      <div class="row">
+        <div>
+          <div class="lbl">Start fresh</div>
+          <div class="sub">New account, new journey</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div style="margin-top:auto;">
+        <div class="banner">
+          <b>Heads up</b> — free tier is local-only. You can always upgrade later from Settings.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 9: Lapsed state -->
+  <div class="screen">
+    <span class="screen-label">Edge case · Lapsed</span>
+    <span class="step-num">Alt</span>
+    <div class="phone-status"><span>9:41</span><span>•••</span></div>
+    <div class="screen-body">
+      <div>
+        <p class="h2">プロ</p>
+        <h1 class="h1">Your Pro subscription</h1>
+      </div>
+      <div class="banner warn">
+        <b>⏸ Sync paused</b><br/>
+        <span style="font-weight:500;font-size:12px;">Your subscription lapsed on Apr 18. Cloud data kept until Jun 17 (60 days).</span>
+      </div>
+      <button class="btn">Resume subscription</button>
+      <div class="row">
+        <div>
+          <div class="lbl">Download cloud data</div>
+          <div class="sub">Save a local copy before it expires</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="row">
+        <div>
+          <div class="lbl">Account</div>
+          <div class="sub">joppe@example.com</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="row" style="background:#fef2f2;border-color:var(--danger);">
+        <div>
+          <div class="lbl" style="color:var(--danger);">Delete account now</div>
+          <div class="sub">Skip the 60-day hold</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="banner err" style="margin-top:auto;">
+        Local progress on this device is untouched. Cloud-only data (cross-device state) will sync again if you resume.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="max-width:900px;margin:60px auto 0;padding:20px;border:3px solid var(--ink);border-radius:16px;background:#fffbf0;box-shadow:var(--shadow);">
+  <h2 style="margin-top:0;text-transform:uppercase;font-size:16px;">Store compliance baked into these screens</h2>
+  <ul style="font-size:13px;line-height:1.8;">
+    <li><b>Screen 3 (paywall):</b> price, period, auto-renew disclosure, Restore button, Terms + Privacy links — all required by Apple.</li>
+    <li><b>Screen 5 (account):</b> Sign in with Apple shown first (required if other social logins are offered on iOS).</li>
+    <li><b>Screen 7 (subscribed):</b> Manage Subscription link (Apple/Google), Delete Account button (both stores require in-app deletion).</li>
+    <li><b>Screen 9 (lapsed):</b> Download cloud data option honors GDPR/CCPA data-export right even after lapse.</li>
+    <li><b>Not paywalled:</b> account creation, deletion, data export — these stay free even after subscription ends.</li>
+  </ul>
+</div>
+
+</body>
+</html>
