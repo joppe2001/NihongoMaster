@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="NihongoMaster. Free, 100% offline Japanese learning app for desktop and mobile. JLPT N5 to N1, FSRS spaced repetition, adaptive practice that learns your weak skills, VOICEVOX AI voices. No account needed." />
+  <meta name="description" content="NihongoMaster — Free, 100% offline Japanese learning app for desktop. JLPT N5–N1, FSRS spaced repetition, VOICEVOX AI voices. No account needed." />
   <meta property="og:title" content="NihongoMaster — Desktop Japanese Learning" />
-  <meta property="og:description" content="Free offline Japanese learning app. Kana, Kanji, Vocabulary, Grammar, FSRS spaced repetition, adaptive practice, AI voices. No account. No subscription." />
+  <meta property="og:description" content="Free offline Japanese learning app. Kana · Kanji · Vocabulary · Grammar · FSRS SRS · AI Voices. No account. No subscription." />
   <meta property="og:image" content="https://raw.githubusercontent.com/joppe2001/NihongoMaster/main/docs/screenshots/hero-dashboard.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>NihongoMaster — Desktop Japanese Learning App</title>
@@ -70,10 +70,6 @@
       --gold:      #FFD23F;
       --gold-400:  #FFE070;
       --gold-dim:  rgba(255,210,63,0.14);
-
-      --violet:     #A78BFA;
-      --violet-400: #C4B5FD;
-      --violet-dim: rgba(167,139,250,0.16);
 
       --danger:    #FF6B6B;
       --danger-dim: rgba(255,107,107,0.12);
@@ -443,7 +439,6 @@
     .fc-sakura::before { background: linear-gradient(90deg, var(--sakura), transparent); }
     .fc-matcha::before { background: linear-gradient(90deg, var(--matcha), transparent); }
     .fc-gold::before   { background: linear-gradient(90deg, var(--gold), transparent); }
-    .fc-violet::before { background: linear-gradient(90deg, var(--violet), transparent); }
 
     .feat-icon {
       width: 46px; height: 46px; border-radius: var(--r-sm);
@@ -1209,19 +1204,6 @@
         </div>
       </div>
 
-      <div class="feat-card fc-violet">
-        <div class="feat-icon" style="background:var(--violet-dim)">🧠</div>
-        <span class="jp">適応学習</span>
-        <h3>Smart Practice</h3>
-        <p>Practice items are picked using Item Response Theory, the same psychometrics behind adaptive JLPT and TOEFL screening tools. The app tracks twelve sub-skills like reading kana, kanji meanings, particles, and verb forms, so you can see exactly what is sticking instead of just how many cards you have touched.</p>
-        <div class="feat-tags">
-          <span class="feat-tag">Adaptive routing</span>
-          <span class="feat-tag">12 sub-skills</span>
-          <span class="feat-tag">Knowledge tracing</span>
-          <span class="feat-tag">Why this pick</span>
-        </div>
-      </div>
-
       <div class="feat-card fc-matcha">
         <div class="feat-icon" style="background:var(--matcha-dim)">📚</div>
         <span class="jp">読む・書く</span>
@@ -1239,10 +1221,9 @@
         <div class="feat-icon" style="background:var(--gold-dim)">📊</div>
         <span class="jp">追跡する</span>
         <h3>Track</h3>
-        <p>FSRS spaced repetition, the same algorithm Anki adopted in 2024, implemented natively in Rust. Skill Mastery panel showing per skill confidence over time, activity heatmap, XP across 30 levels, 15 unlockable achievements, streak tracking, and daily goals.</p>
+        <p>FSRS spaced repetition — the same algorithm as Anki's latest scheduler — implemented natively in Rust. Activity heatmap, XP across 30 levels, 15 unlockable achievements, streak tracking, and daily goals.</p>
         <div class="feat-tags">
           <span class="feat-tag">FSRS SRS</span>
-          <span class="feat-tag">Skill Mastery</span>
           <span class="feat-tag">Activity Heatmap</span>
           <span class="feat-tag">Achievements</span>
           <span class="feat-tag">Streak</span>
@@ -1291,20 +1272,6 @@
             <td class="no">✗</td>
             <td class="part">Custom SRS</td>
             <td class="part">Plugin</td>
-          </tr>
-          <tr>
-            <td>Adaptive practice (IRT)</td>
-            <td class="cmp-us yes">✓</td>
-            <td class="part">Path-based</td>
-            <td class="no">✗</td>
-            <td class="no">✗</td>
-          </tr>
-          <tr>
-            <td>Per skill mastery tracking</td>
-            <td class="cmp-us yes">✓</td>
-            <td class="no">✗</td>
-            <td class="no">✗</td>
-            <td class="no">✗</td>
           </tr>
           <tr>
             <td>Kanji stroke-order animation</td>
