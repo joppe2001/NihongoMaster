@@ -1,5 +1,5 @@
 /**
- * Cloudflare Worker — NihongoMaster Anonymous Usage Counter
+ * Cloudflare Worker — NihonMaster Anonymous Usage Counter
  *
  * Deploy this as a Cloudflare Worker (free tier) to count daily active users.
  * Uses Cloudflare KV for storage.
