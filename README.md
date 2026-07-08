@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="public/app-icon.png" alt="NihongoMaster" width="120" height="120" />
+  <img src="public/app-icon.png" alt="NihonMaster" width="120" height="120" />
 </p>
 
-<h1 align="center">NihongoMaster</h1>
+<h1 align="center">NihonMaster</h1>
 
 <p align="center">
   <strong>The desktop Japanese learning app that works entirely offline.</strong><br/>
@@ -22,14 +22,14 @@
 <br/>
 
 <p align="center">
-  <img src="docs/screenshots/dashboard.png" alt="NihongoMaster Dashboard" width="800" />
+  <img src="docs/screenshots/dashboard.png" alt="NihonMaster Dashboard" width="800" />
 </p>
 
 ---
 
-## Why NihongoMaster?
+## Why NihonMaster?
 
-Most Japanese learning apps are cloud-based, subscription-locked, and can't function without an internet connection. NihongoMaster is different.
+Most Japanese learning apps are cloud-based, subscription-locked, and can't function without an internet connection. NihonMaster is different.
 
 - **100% offline after install** -- your data never leaves your machine
 - **Native Japanese voices** via VOICEVOX -- real AI speech synthesis running locally on your CPU, not a robotic browser voice
@@ -126,7 +126,7 @@ Most Japanese learning apps are cloud-based, subscription-locked, and can't func
 Verified against official docs and product pages, April 2026. Where competitors do something
 well we say so — this is meant to help you pick the right tool, not just sell ours.
 
-| Feature | NihongoMaster | Duolingo | WaniKani | Anki |
+| Feature | NihonMaster | Duolingo | WaniKani | Anki |
 |---|:---:|:---:|:---:|:---:|
 | Built specifically for Japanese | **Yes** | No | Yes | No |
 | Full JLPT N5 → N1 curriculum | **Yes** | No (~N5) | Partial (kanji + vocab only) | No |
@@ -171,7 +171,7 @@ well we say so — this is meant to help you pick the right tool, not just sell 
 
 ## VOICEVOX -- Native Japanese Voices
 
-NihongoMaster integrates [VOICEVOX](https://voicevox.hiroshiba.jp/), an open-source Japanese speech synthesis engine, directly into the app. This gives you **real Japanese voices** -- not the robotic browser Speech API.
+NihonMaster integrates [VOICEVOX](https://voicevox.hiroshiba.jp/), an open-source Japanese speech synthesis engine, directly into the app. This gives you **real Japanese voices** -- not the robotic browser Speech API.
 
 ### How it works
 
@@ -196,7 +196,7 @@ NihongoMaster integrates [VOICEVOX](https://voicevox.hiroshiba.jp/), an open-sou
 
 ## The SRS Engine
 
-NihongoMaster uses the **FSRS (Free Spaced Repetition Scheduler)** algorithm -- the same algorithm that powers Anki's latest scheduler. Our implementation is written in **Rust** and runs natively, not in a browser sandbox.
+NihonMaster uses the **FSRS (Free Spaced Repetition Scheduler)** algorithm -- the same algorithm that powers Anki's latest scheduler. Our implementation is written in **Rust** and runs natively, not in a browser sandbox.
 
 ### How FSRS works
 
@@ -227,7 +227,7 @@ Wrong answers **deduct progress** -- each mistake costs 3 effective points. This
 
 ## Themes
 
-NihongoMaster ships with **7 themes**, including 4 Japanese-inspired color palettes:
+NihonMaster ships with **7 themes**, including 4 Japanese-inspired color palettes:
 
 <table>
 <tr>
@@ -430,7 +430,7 @@ Notes:
 npm run tauri:build:dmg
 ```
 
-Output: `src-tauri/target/release/bundle/dmg/NihongoMaster_0.1.0_aarch64.dmg`
+Output: `src-tauri/target/release/bundle/dmg/NihonMaster_0.1.0_aarch64.dmg`
 
 ### macOS (.app)
 
@@ -446,7 +446,7 @@ npm run tauri:build:app
 npm run tauri:build:windows
 ```
 
-Output: `src-tauri/target/release/bundle/nsis/NihongoMaster_0.1.0_x64-setup.exe` and `.msi`
+Output: `src-tauri/target/release/bundle/nsis/NihonMaster_0.1.0_x64-setup.exe` and `.msi`
 
 ### Linux (.deb / .AppImage / .rpm)
 
@@ -488,7 +488,7 @@ This creates platform-appropriate installers (.dmg, .app, .exe, .deb, .rpm, .App
 ## Architecture
 
 ```
-NihongoMaster
+NihonMaster
 ├── src/                        # React 19 frontend
 │   ├── pages/                  # 12 page components (lazy-loaded)
 │   ├── components/             # 15 component directories
